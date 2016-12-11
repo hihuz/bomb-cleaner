@@ -1,0 +1,3 @@
+export const CELL_LEFT_CLICK = 'CELL_LEFT_CLICK';
+export const CELL_RIGHT_CLICK = 'CELL_RIGHT_CLICK';
+export const RESET_GAME = 'RESET_GAME';
