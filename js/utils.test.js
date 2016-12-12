@@ -1,4 +1,4 @@
-import getNeighbors, { splitPlan } from './utils';
+import { getNeighbors, splitPlan, countBombs } from './utils';
 import CellFactory from './CellFactory';
 
 test('getNeighbors should return an array of length 8', () => {
@@ -35,4 +35,40 @@ test('splitPlan should split a plan duh', () => {
                 "000"];
   const split = splitPlan(plan);
   expect(split).toEqual(["X","1","0","1","1","0","0","0","0"]);
+});
+
+test('countBombs should return 2 if there are 2 bombs, O RLY?', () => {
+  const neighbors1 = ["X","1","0","1","0","X","0","0"];
+  expect(countBombs(neighbors1)).toEqual(2);
+});
+
+test('countBombs should return 0 if there are 0 bombs, correct?', () => {
+  const neighbors2 = ["0","0","0","0","0","0","0","0"];
+  expect(countBombs(neighbors2)).toEqual(0);
+});
+
+test('countBombs should return 0 with an array of undefined', () => {
+  const neighbors3 = [undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined];
+  expect(countBombs(neighbors3)).toEqual(0);
+});
+
+test('countBombs should return 1 with a mixed array of undefined, 1 bomb and other values', () => {
+  const neighbors4 = [undefined,undefined,"X",undefined,"1",undefined,undefined,undefined];
+  expect(countBombs(neighbors4)).toEqual(1);
+});
+
+test('countBombs should return the number of bombs no matter the length of the input array', () => {
+  const neighbors5 = ["X","X","X"];
+  expect(countBombs(neighbors5)).toEqual(3);
+});
+
+test('countBombs should return 0 when fed undefined', () => {
+  expect(countBombs(undefined)).toEqual(0);
+});
+
+test('countBombs should return 0 when fed something other than an array', () => {
+  expect(countBombs(1)).toEqual(0);
+  expect(countBombs("grow a nub")).toEqual(0);
+  expect(countBombs(() => { return })).toEqual(0);
+  expect(countBombs({ hey: "ho", lets: "go" })).toEqual(0);
 });

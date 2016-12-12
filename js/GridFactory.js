@@ -1,12 +1,5 @@
 import CellFactory from './CellFactory';
-import getNeighbors, { splitPlan } from './utils';
-
-//takes an array of strings, length 8, should return the number of bombs inside aka "X"
-function countBombs(neighbors) {
-  return neighbors.reduce((acc, cur) => {
-    return cur === "X" ? acc += 1 : acc;
-  }, 0);
-}
+import { getNeighbors, splitPlan, countBombs } from './utils';
 
 function generateCells(plan) {
   const width = plan[0].length;
@@ -20,7 +13,6 @@ function generateCells(plan) {
 
   return cells;
 }
-
 
 //START AGAIN HERE
 function generatePlan(width, height, bombs) {
@@ -46,5 +38,5 @@ function GridFactory(width, height, bombs) {
   };
 }
 
-export { countBombs, generateCells, generatePlan }; //exported for tests
+export { generateCells, generatePlan }; //exported for tests
 export default GridFactory;

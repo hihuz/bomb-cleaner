@@ -26,5 +26,17 @@ function getNeighbors(cell, plan) {
     return acc.concat(cur.split(""));
   }, []);
 }
-export { splitPlan };
-export default getNeighbors;
+
+//takes an array of strings, length 8, should return the number of bombs inside aka "X"
+function countBombs(neighbors) {
+  if (neighbors) {
+    return neighbors.reduce((acc, cur) => {
+      return cur === "X" ? acc += 1 : acc;
+    }, 0);
+  }
+  else {
+    return 0;
+  }
+}
+
+export { splitPlan, countBombs, getNeighbors };
