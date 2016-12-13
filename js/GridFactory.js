@@ -7,7 +7,7 @@ function generateCells(plan) {
   const split = splitPlan(plan);
   const cells = split.map((planCell, i) => {
     const x = i % width;
-    const y = Math.floor(i/width);
+    const y = Math.floor(i / width);
     return CellFactory(x, y, planCell);
   });
 

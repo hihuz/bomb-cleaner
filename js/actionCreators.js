@@ -1,3 +1,4 @@
+import GridFactory from './GridFactory';
 import { CELL_LEFT_CLICK, CELL_RIGHT_CLICK, RESET_GAME } from './actionTypes';
 
 //not sure if I should identify it with an ID or with coordinates, coordinates looks better for now:
@@ -7,13 +8,14 @@ import { CELL_LEFT_CLICK, CELL_RIGHT_CLICK, RESET_GAME } from './actionTypes';
 //}
 //these come from the react component, it should hold only its position when it's hidden/closed/flagged
 export function dispatchLeftClick (cellPos) {
-  return { type: CELL_LEFT_CLICK, cellPos };
+  return { type: CELL_LEFT_CLICK, cellPos: cellPos };
 };
 
 export function dispatchRightClick (cellPos) {
-  return { type: CELL_RIGHT_CLICK, cellPos };
+  return { type: CELL_RIGHT_CLICK, cellPos: cellPos };
 };
 
-export function resetGame () {
-  return { type: RESET_GAME };
+export function resetGame (width, height, bombs) {
+  const newGrid = GridFactory(width, height, bombs);
+  return { type: RESET_GAME, grid: newGrid };
 };

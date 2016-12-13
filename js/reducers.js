@@ -3,65 +3,74 @@ import GridFactory from './GridFactory';
 
 //ONLY DEFINE A NEW BASIC GRID IN THE INITIAL STATE, NOT TIMER OR OPTIONS OR WHATNOT, THESE WILL BE DEFINED AFTER
 const DEFAULT_STATE = {
-  grid: GridFactory(9, 9, 10)
+  grid: GridFactory(9, 9, 10),
+  gameStatus: 'init'
 };
 
 function getCellIndex(x, y, width) {
   return x + width * y;
 }
 
-//TODO : check where I should put the logic for opening a bomb ? and for wining the game ?
-const applyLeftClick = (state, action) => {
-  const grid = Object.assign({}, state.grid);
-  const empty = grid.emptyCellsRemaining;
+//TODO : when game is lost, all bombs should be shown, all flagged bombs should be marked as wrong
+//       clicked bomb should be highlighted (red ?)
+const applyCellLeftClick = (state, action) => {
+  let grid = Object.assign({}, state.grid);
+  let gameStatus = state.gameStatus;
+  let empty = grid.emptyCellsRemaining;
   const index = getCellIndex(action.cellPos.x, action.cellPos.y, grid.width);
-  const cell = grid.cells[index];
-  if (cell.cellState !== 'hidden') {
+  let cell = grid.cells[index];
+
+  if (cell.cellState !== 'hidden' || gameStatus === 'lost' || gameStatus === 'won') {
     return state;
   }
-  else {
+  else if (cell.isBomb) {
+    gameStatus = 'lost';
     cell.cellState = 'opened';
-    grid.cells[index] = cell;
-    grid.emptyCellsRemaining = empty - 1;
-    return Object.assign({}, state, { grid: grid });
   }
+  else {
+    if (gameStatus === 'init') { gameStatus = 'running'; }
+    cell.cellState = 'opened';
+    grid.emptyCellsRemaining = empty - 1;
+    if (grid.emptyCellsRemaining === 0) { gameStatus = 'won'; }
+  }
+
+  grid.cells[index] = cell;
+  return Object.assign({}, state, { grid: grid, gameStatus: gameStatus });
 };
 
-const applyRightClick = (state, action) => {
-  const grid = Object.assign({}, state.grid);
+const applyCellRightClick = (state, action) => {
+  let grid = Object.assign({}, state.grid);
+  let gameStatus = state.gameStatus;
   const index = getCellIndex(action.cellPos.x, action.cellPos.y, grid.width);
-  const cell = grid.cells[index];
-  const flags = grid.flags;
+  let cell = grid.cells[index];
+  let flags = grid.flags;
+  if (cell.cellState === 'opened' || gameStatus === 'lost' || gameStatus === 'won') {
+    return state;
+  }
   if (cell.cellState === 'flagged') {
     cell.cellState = 'hidden';
     grid.cells[index] = cell;
     grid.flags = flags - 1;
     return Object.assign({}, state, { grid: grid });
   }
-  else if (cell.cellState === 'hidden') {
+  else {
     cell.cellState = 'flagged';
     grid.cells[index] = cell;
     grid.flags = flags + 1;
     return Object.assign({}, state, { grid: grid });
   }
-  else {
-    return state;
-  }
 };
 
 const resetGame = (state, action) => {
-  const grid = state.grid;
-  const newGrid = GridFactory(grid.width, grid.height, grid.bombs);
-
-  return Object.assign({}, state, { grid: grid });
+  return Object.assign({}, state, { grid: action.grid, gameStatus: 'init' });
 }
 
 const rootReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case CELL_LEFT_CLICK:
-      return applyLeftClick(state, action);
+      return applyCellLeftClick(state, action);
     case CELL_RIGHT_CLICK:
-      return applyRightClick(state, action);
+      return applyCellRightClick(state, action);
     case RESET_GAME:
       return resetGame(state, action);
     default:
