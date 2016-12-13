@@ -1,3 +1,13 @@
+/* there is something fishy going on here, i had a test fail once here and once again in a dependency,
+CHECK IT OUT
+GENERATE PLAN SEEMS TO BE THE ISSUE ????. ? .?. ???
+IT PASSES SOMETIMES, BUT SOMTIMES IT FAILS WITH recieved 11, expected 10
+
+sometimes reducers.test.js fails to run
+
+sometimes all pass... wtf ?
+!!!!!!!!!!!!!!
+*/
 import GridFactory, { generateCells, generatePlan } from './GridFactory';
 import CellFactory from './CellFactory';
 import { countBombs, splitPlan } from './utils';
@@ -20,9 +30,11 @@ test('generateCells should generate cells based off a given plan', () => {
 });
 
 test('generatePlan should generate a random plan based off params', () => {
-  const plan = generatePlan(10, 12, 5);
+  const plan = generatePlan(10, 12, 15);
   const split = splitPlan(plan);
-  expect(plan[0].length).toEqual(10);
+  plan.forEach(function(line) {
+    expect(line.length).toEqual(10);
+  });
   expect(plan.length).toEqual(12);
-  expect(countBombs(split)).toEqual(5);
+  expect(countBombs(split)).toEqual(15);
 });
