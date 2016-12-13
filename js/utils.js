@@ -24,7 +24,6 @@ function getNeighbors(cell, plan) {
  function splitPlan (plan) {
   return plan.reduce((acc, cur) => {
     return [...acc, ...(cur.split(""))];
-    // return acc.concat(cur.split(""));
   }, []);
 }
 
