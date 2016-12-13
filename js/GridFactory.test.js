@@ -1,5 +1,6 @@
 import GridFactory, { generateCells, generatePlan } from './GridFactory';
 import CellFactory from './CellFactory';
+import { countBombs, splitPlan } from './utils';
 
 test('generateCells should generate cells based off a given plan', () => {
   const plan = ["X10",
@@ -20,8 +21,8 @@ test('generateCells should generate cells based off a given plan', () => {
 
 test('generatePlan should generate a random plan based off params', () => {
   const plan = generatePlan(10, 12, 5);
-
+  const split = splitPlan(plan);
   expect(plan[0].length).toEqual(10);
   expect(plan.length).toEqual(12);
-  expect(countBombs(plan)).toEqual(5);
+  expect(countBombs(split)).toEqual(5);
 });

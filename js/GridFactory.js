@@ -14,9 +14,26 @@ function generateCells(plan) {
   return cells;
 }
 
-//START AGAIN HERE
 function generatePlan(width, height, bombs) {
-  //   IMPLEMENT THE GRID GENERATION HERE USING RANDOM PLACEMENT OF BOMBS WITH REMAINING BOMBS TO LOCATE AND A WHILE LOOP
+  const planSize = width * height;
+  let bombsPos = [];
+
+  while(bombsPos.length < bombs) {
+    let num = Math.floor(Math.random() * planSize + 1);
+    if (bombsPos.indexOf(num)===-1) { bombsPos.push(num); }
+  }
+  let planLine = " ".repeat(width);
+  let plan = new Array(height);
+  plan.fill(planLine);
+
+  bombsPos.forEach(function(pos) {
+    const x = pos % height;
+    const y = Math.floor(pos / height);
+
+    let line = plan[y];
+    line = line.slice(0, x) + "X" + line.slice(x+1);
+    plan[y] = line;
+  });
 
   return plan;
 }

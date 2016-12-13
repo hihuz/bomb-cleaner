@@ -11,16 +11,6 @@ export function dispatchLeftClick (cellPos) {
 };
 
 export function dispatchRightClick (cellPos) {
-  //THIS LOOKS LIKE A LOT OF DUPLICATION FROM DISPATCHLEFT ABOVE, MERGE THE 2 WITH A PARAM ?
-  //calculate the new object describing the cell state here
-  //so I will probably have to call getState from here to get the current cell
-  //should return a cell-looking object, that is :
-  // cell {
-  //   value: values should range from 0 to 8 (number of neighbors bombs)
-  //   isBomb: true/false
-  //   pos: { x:, y: }
-  //   cellState: hidden / opened / flagged << ONLY THIS WOULD BE UPDATED HERE SO RETURN ONLY THAT ??
-  // }
   return { type: CELL_RIGHT_CLICK, cellPos };
 };
 

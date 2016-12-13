@@ -10,33 +10,51 @@ function getCellIndex(x, y, width) {
   return x + width * y;
 }
 
+//TODO : check where I should put the logic for opening a bomb ? and for wining the game ?
 const applyLeftClick = (state, action) => {
-  //calculate the new object describing the cell state here
-  //so I will have to call getState from here to get the current cell state and also neighbors state
-  //should return a cell-looking object, that is :
-  // cell {
-  //   value: values should range from 0 to 8 (number of neighbors bombs)
-  //   isBomb: true/false
-  //   pos: { x:, y: }
-  //   cellState: hidden / opened / flagged << THIS WOULD BE UPDATED HERE
-  // }
-
-  // !!!!!!!!!!! SHOULD BE RECURSIVE AND CALL ITSELF ON 8 NEIGHBORS IF VALUE IS 0 !!!!!!!!!!!!!!!!!!!!!!
-  const grid = state.grid;
+  const grid = Object.assign({}, state.grid);
+  const empty = grid.emptyCellsRemaining;
   const index = getCellIndex(action.cellPos.x, action.cellPos.y, grid.width);
   const cell = grid.cells[index];
-  if (cell.cellState) !== 'hidden') {
+  if (cell.cellState !== 'hidden') {
     return state;
   }
   else {
-
+    cell.cellState = 'opened';
+    grid.cells[index] = cell;
+    grid.emptyCellsRemaining = empty - 1;
+    return Object.assign({}, state, { grid: grid });
   }
+};
 
+const applyRightClick = (state, action) => {
+  const grid = Object.assign({}, state.grid);
+  const index = getCellIndex(action.cellPos.x, action.cellPos.y, grid.width);
+  const cell = grid.cells[index];
+  const flags = grid.flags;
+  if (cell.cellState === 'flagged') {
+    cell.cellState = 'hidden';
+    grid.cells[index] = cell;
+    grid.flags = flags - 1;
+    return Object.assign({}, state, { grid: grid });
+  }
+  else if (cell.cellState === 'hidden') {
+    cell.cellState = 'flagged';
+    grid.cells[index] = cell;
+    grid.flags = flags + 1;
+    return Object.assign({}, state, { grid: grid });
+  }
+  else {
+    return state;
+  }
+};
 
+const resetGame = (state, action) => {
+  const grid = state.grid;
+  const newGrid = GridFactory(grid.width, grid.height, grid.bombs);
 
   return Object.assign({}, state, { grid: grid });
-};
-//DEFINE RIGHT CLICK AND RESET GAME REDUCERS BELOW
+}
 
 const rootReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {

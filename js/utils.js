@@ -23,13 +23,14 @@ function getNeighbors(cell, plan) {
 
  function splitPlan (plan) {
   return plan.reduce((acc, cur) => {
-    return acc.concat(cur.split(""));
+    return [...acc, ...(cur.split(""))];
+    // return acc.concat(cur.split(""));
   }, []);
 }
 
 //takes an array of strings, length 8, should return the number of bombs inside aka "X"
 function countBombs(neighbors) {
-  if (neighbors) {
+  if (Array.isArray(neighbors)) {
     return neighbors.reduce((acc, cur) => {
       return cur === "X" ? acc += 1 : acc;
     }, 0);
