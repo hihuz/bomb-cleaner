@@ -1,4 +1,4 @@
-import { RESET_GAME } from '../actions/actionTypes';
+import { RESET_GAME, WIN_GAME, LOSE_GAME, START_GAME } from '../actions/actionTypes';
 
 const DEFAULT_STATE = 'init';
 

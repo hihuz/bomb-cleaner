@@ -1,10 +1,14 @@
+/*eslint linebreak-style: ["error", "windows"]*/
 {
   "env": {
       "browser": true,
-      "node": true
+      "node": true,
+      "jest": true
   },
   "extends": "airbnb",
   "rules": {
-      "indent": [2, "tab"]
+      "linebreak-style": ["error", "windows"],
+      "comma-dangle": ["error", "ignore"],
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }

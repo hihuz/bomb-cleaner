@@ -1,8 +1,8 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry: './js/App.js',
+  entry: './js/index.js',
   devtool: 'eval',
   output: {
     path: path.join(__dirname, '/dist'),
@@ -51,4 +51,4 @@ module.exports = {
       }
     ]
   }
-}
+};

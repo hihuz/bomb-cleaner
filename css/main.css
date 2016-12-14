@@ -1,0 +1,13 @@
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+body {
+  font-size: 20px;
+  font-family: 'arial';
+  color: #333;
+}
+.app {
+  width: 800px;
+  display: flex;
+  margin: 0 auto;
+}
