@@ -1,4 +1,4 @@
-import gridReducer from './grid';
+import gridReducer from './gridReducer';
 
 function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2) {
   const grid = {
