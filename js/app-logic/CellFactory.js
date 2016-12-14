@@ -3,7 +3,7 @@
 */
 
 //value should be 0 - 8 or "X" for bomb
-function CellFactory(x, y, value) {
+function CreateCell(x, y, value) {
   const cell = {
     pos: {
       x: x,
@@ -18,4 +18,4 @@ function CellFactory(x, y, value) {
   return cell;
 }
 
-export default CellFactory;
+export default CreateCell;

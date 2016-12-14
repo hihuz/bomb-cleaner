@@ -1,4 +1,4 @@
-import CellFactory from './CellFactory';
+import CreateCell from './CellFactory';
 import { getNeighbors, splitPlan, countBombs } from './utils';
 
 function generateCells(plan) {
@@ -8,7 +8,7 @@ function generateCells(plan) {
   const cells = split.map((planCell, i) => {
     const x = i % width;
     const y = Math.floor(i / width);
-    return CellFactory(x, y, planCell);
+    return CreateCell(x, y, planCell);
   });
   return cells;
 }
@@ -16,7 +16,7 @@ function generateCells(plan) {
 function generateBombsPos(bombs, planSize) {
   let bombsPos = [];
   while(bombsPos.length < bombs) {
-    let num = Math.floor(Math.random() * planSize + 1);
+    let num = Math.floor(Math.random() * planSize);
     if (bombsPos.indexOf(num)===-1) { bombsPos.push(num); }
   }
   return bombsPos;
@@ -37,7 +37,7 @@ function generatePlan(width, height, bombs) {
   return plan;
 }
 
-function GridFactory(width, height, bombs) {
+function CreateGrid(width, height, bombs) {
   const empty = width * height - bombs;
   const plan = generatePlan(width, height, bombs);
   const cells = generateCells(plan);
@@ -55,4 +55,4 @@ function GridFactory(width, height, bombs) {
 }
 
 export { generateCells, generatePlan, generateBombsPos }; //exported for tests
-export default GridFactory;
+export default CreateGrid;
