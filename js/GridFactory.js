@@ -10,35 +10,30 @@ function generateCells(plan) {
     const y = Math.floor(i / width);
     return CellFactory(x, y, planCell);
   });
-
   return cells;
 }
 
-/**** THIS LOOKS BUGGED ****/
-/*** GENERATES 11 INSTEAD OF 10 SOME TIMES ?? WTF ??? ****/
-function generatePlan(width, height, bombs) {
-  const planSize = width * height;
+function generateBombsPos(bombs, planSize) {
   let bombsPos = [];
-
   while(bombsPos.length < bombs) {
     let num = Math.floor(Math.random() * planSize + 1);
     if (bombsPos.indexOf(num)===-1) { bombsPos.push(num); }
   }
+  return bombsPos;
+}
+
+function generatePlan(width, height, bombs) {
+  const bombsPos = generateBombsPos(bombs, width * height);
   let planLine = " ".repeat(width);
   let plan = new Array(height);
   plan.fill(planLine);
-  console.log(plan);
-  /* I DISPLACE THE POS HERE BELOW EACH TIME I INSERT A BOMB... NICE JOB..*/
-  /* CLOSURES FTW */
-  /* FIX THIS**/
   bombsPos.forEach(function(pos) {
-    const x = pos % height;
-    const y = Math.floor(pos / height);
+    const x = pos % width;
+    const y = Math.floor(pos / width);
     let line = plan[y];
     line = line.slice(0, x) + "X" + line.slice(x+1);
     plan[y] = line;
   });
-  console.log(plan);
   return plan;
 }
 
@@ -59,5 +54,5 @@ function GridFactory(width, height, bombs) {
   };
 }
 
-export { generateCells, generatePlan }; //exported for tests
+export { generateCells, generatePlan, generateBombsPos }; //exported for tests
 export default GridFactory;
