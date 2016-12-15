@@ -5,7 +5,7 @@ import Grid from './Grid';
 import '../../css/main.css';
 
 const App = () => (
-  <div classNme="app">
+  <div className="app">
     <Menu />
     <GameInfos />
     <Grid />

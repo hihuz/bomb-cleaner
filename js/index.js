@@ -6,7 +6,7 @@ import rootReducer from './reducers/root';
 import App from './components/App';
 
 const store = createStore(rootReducer, compose(
-  typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : (f) => f
+  typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
 ));
 
 render(

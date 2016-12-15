@@ -7,7 +7,17 @@ body {
   color: #333;
 }
 .app {
-  width: 800px;
-  display: flex;
   margin: 0 auto;
+  background: #ccc;
+}
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cell {
+  width: 20px;
+  height: 20px;
+  background: #420;
+  border: 1px solid #000;
+  color: #fff;
 }

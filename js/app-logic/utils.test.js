@@ -48,8 +48,10 @@ test('countBombs should return 0 if there are 0 bombs, correct?', () => {
 });
 
 test('countBombs should return 0 with an array of undefined', () => {
-  const neighbors3 = [undefined, undefined, undefined, undefined,
-                      undefined, undefined, undefined, undefined];
+  const neighbors3 = [
+    undefined, undefined, undefined, undefined,
+    undefined, undefined, undefined, undefined
+  ];
   expect(countBombs(neighbors3)).toEqual(0);
 });
 

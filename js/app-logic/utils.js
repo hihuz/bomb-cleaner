@@ -24,9 +24,7 @@ function getNeighbors(cell, plan) {
 // takes an array of strings, length 8, should return the number of bombs inside aka "X"
 function countBombs(neighbors) {
   if (Array.isArray(neighbors)) {
-    return neighbors.reduce((acc, cur) => {
-      return cur === 'X' ? acc = acc + 1 : acc;
-    }, 0);
+    return neighbors.reduce((acc, cur) => (cur === 'X' ? acc + 1 : acc), 0);
   }
   return 0;
 }
