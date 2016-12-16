@@ -62,5 +62,5 @@ function CreateGrid(width, height, bombs) {
   };
 }
 
-export { generateCells, generatePlan, generateBombsPos }; // exported for tests
+export { generateCells, generatePlan, generateBombsPos, fillPlanValues }; // exported for tests
 export default CreateGrid;

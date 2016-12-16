@@ -1,4 +1,4 @@
-import CreateGrid, { generateCells, generatePlan, generateBombsPos } from './GridFactory';
+import CreateGrid, { generateCells, generatePlan, generateBombsPos, fillPlanValues } from './GridFactory';
 import CreateCell from './CellFactory';
 import { countBombs, splitPlan } from './utils';
 
@@ -35,6 +35,21 @@ test('generateBombsPos should return an array of unique values between 0 and pla
   expect(new Set(bombsPos).size).toEqual(bombsPos.length);
 });
 
+test('fillPlanValues should fill a plan with numbers of bomb neighbors', () => {
+  const planBefore = [
+    " X  ",
+    "  X ",
+    "XX  ",
+    "  X ",
+  ];
+  const planAfter = [
+    "1X21",
+    "34X1",
+    "XX32",
+    "23X1",
+  ];
+  expect(fillPlanValues(planBefore)).toEqual(planAfter);
+})
 test('generatePlan should generate a random plan based off params', () => {
   const plan = generatePlan(10, 12, 60);
   const split = splitPlan(plan);

@@ -1,4 +1,5 @@
 import gridReducer from './gridReducer';
+import CreateGrid from '../app-logic/GridFactory';
 
 function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2) {
   const grid = {
@@ -82,27 +83,16 @@ test('TOGGLE_FLAG : flagged should be updated, increment the flag count', () => 
   expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
 });
 
-test('RESET_GAME : the reducer should make the passed grid the new state grid', () => {
-  const newGrid = {
-    width: 5,
-    height: 5,
-    bombs: 5,
-    flags: 0,
-    emptyCellsTotal: 20,
-    emptyCellsRemaining: 20,
-    plan: [' X   ',
-      '  X  ',
-      '   X ',
-      '  X  ',
-      ' X   '],
-    cells: []
-  };
-  const action = {
-    type: 'RESET_GAME',
-    grid: newGrid
-  };
-  const stateBefore = Object.freeze({});
-  const stateAfter = newGrid;
+test('RESET_GAME : should provide a new fresh grid to the state', () => {
+  const state = Object.freeze(CreateGrid(10, 12, 30));
+  const action = Object.freeze({
+    type: 'RESET_GAME'
+  });
+  const nextState = gridReducer(state, action);
 
-  expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
+  expect(nextState.bombs).toEqual(state.bombs);
+  expect(nextState.width).toEqual(state.width);
+  expect(nextState.height).toEqual(state.height);
+  expect(nextState.flags).toEqual(0);
+  expect(nextState.emptyCellsRemaining).toEqual(10 * 12 - 30);
 });
