@@ -1,51 +1,50 @@
-import { CELL_LEFT_CLICK, CELL_RIGHT_CLICK, RESET_GAME } from '../actions/actionTypes';
+import { OPEN_NUMBER_CELL, OPEN_EMPTY_CELL, OPEN_BOMB_CELL, TOGGLE_FLAG, RESET_GAME } from '../actions/actionTypes';
 import CreateGrid from '../app-logic/GridFactory';
 
 
-const DEFAULT_STATE = CreateGrid(9, 9, 10);
+const DEFAULT_STATE = CreateGrid(30, 16, 99);
 
-
-function getCellIndex(x, y, width) {
-  return x + (width * y);
-}
-
-const applyCellLeftClick = (state, action) => {
+const openNumberCell = (state, action) => {
   const grid = Object.assign({}, state);
-  const index = getCellIndex(action.cellPos.x, action.cellPos.y, grid.width);
+  const index = action.index;
   const cell = grid.cells[index];
 
-  cell.cellState = 'opened';
+  cell.opened = true;
   grid.emptyCellsRemaining -= 1;
 
   grid.cells[index] = cell;
   return Object.assign({}, grid);
 };
 
-const applyCellRightClick = (state, action) => {
+const toggleFlag = (state, action) => {
   const grid = Object.assign({}, state);
-  const index = getCellIndex(action.cellPos.x, action.cellPos.y, grid.width);
+  const index = action.index;
   const cell = grid.cells[index];
   const flags = grid.flags;
-  if (cell.cellState === 'flagged') {
-    cell.cellState = 'hidden';
+  if (cell.flagged) {
+    cell.flagged = false;
     grid.flags = flags - 1;
   } else {
-    cell.cellState = 'flagged';
+    cell.flagged = true;
     grid.flags = flags + 1;
   }
   grid.cells[index] = cell;
   return Object.assign({}, grid);
 };
 
-// here the grid is created in the action creator so that the reducer stays pure
-const resetGame = (state, action) => Object.assign({}, action.grid);
+const resetGame = (state, action) => {
+  const newGrid = CreateGrid(state.width, state.height, state.bombs);
+  return Object.assign({}, newGrid);
+}
 
 const gridReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case CELL_LEFT_CLICK:
-      return applyCellLeftClick(state, action);
-    case CELL_RIGHT_CLICK:
-      return applyCellRightClick(state, action);
+    case OPEN_NUMBER_CELL:
+    case OPEN_BOMB_CELL:
+    case OPEN_EMPTY_CELL: // FIX THIS TO OPEN ALL NEEDED CELLS RECURSIVELY, create another reducer for this ?
+      return openNumberCell(state, action);
+    case TOGGLE_FLAG:
+      return toggleFlag(state, action);
     case RESET_GAME:
       return resetGame(state, action);
     default:

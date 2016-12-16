@@ -2,9 +2,7 @@ function splitPlan(plan) {
   return plan.reduce((acc, cur) => [...acc, ...(cur.split(''))], []);
 }
 
-function getNeighbors(cell, plan) {
-  const x = cell.pos.x;
-  const y = cell.pos.y;
+function getNeighbors(x, y, plan) {
   const width = plan[0].length;
   const split = splitPlan(plan);
   const indexes = [

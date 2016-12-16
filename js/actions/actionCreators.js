@@ -1,15 +1,18 @@
 import CreateGrid from '../app-logic/GridFactory';
-import { CELL_LEFT_CLICK, CELL_RIGHT_CLICK, RESET_GAME } from './actionTypes';
+import { OPEN_EMPTY_CELL, OPEN_NUMBER_CELL, OPEN_BOMB_CELL, TOGGLE_FLAG, RESET_GAME } from './actionTypes';
 
-export function dispatchCellLeftClick(cellPos) {
-  return { type: CELL_LEFT_CLICK, cellPos };
+export function openNumberCell(index) {
+  return { type: OPEN_NUMBER_CELL, index };
 }
-
-export function dispatchCellRightClick(cellPos) {
-  return { type: CELL_RIGHT_CLICK, cellPos };
+export function openEmptyCell(index) {
+  return { type: OPEN_EMPTY_CELL, index };
 }
-
-export function resetGame(width, height, bombs) {
-  const newGrid = CreateGrid(width, height, bombs);
-  return { type: RESET_GAME, grid: newGrid };
+export function openBombCell(index) {
+  return { type: OPEN_BOMB_CELL, index };
+}
+export function toggleFlag(index) {
+  return { type: TOGGLE_FLAG, index };
+}
+export function resetGame() {
+  return { type: RESET_GAME };
 }

@@ -1,7 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const BombTracker = () => (
-  <div className="bomb-tracker" />
+const BombTracker = (props) => (
+  <div className="bomb-tracker">
+    {props.bombsRemaining}
+  </div>
 );
 
-export default BombTracker;
+const mapStateToProps = (state) => {
+  return { bombsRemaining: state.grid.bombs - state.grid.flags };
+};
+
+export default connect(mapStateToProps)(BombTracker);

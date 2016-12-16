@@ -8,16 +8,22 @@ body {
 }
 .app {
   margin: 0 auto;
-  background: #ccc;
+  text-align: center;
 }
 .grid {
   display: flex;
   flex-wrap: wrap;
+  margin: 10px auto;
+  cursor: default;
 }
 .cell {
-  width: 20px;
-  height: 20px;
-  background: #420;
-  border: 1px solid #000;
-  color: #fff;
+  width: 24px;
+  height: 24px;
+  background: #ccc;
+  border: 1px solid #aaa;
+  color: #000;
+  text-align: center;
+}
+.opened {
+  background: #eee;
 }

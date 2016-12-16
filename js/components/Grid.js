@@ -1,25 +1,46 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Cell from './Cell';
+import { connect } from 'react-redux';
+import { toggleFlag, openEmptyCell, openBombCell, openNumberCell } from '../actions/actionCreators';
 
-const Grid = (props) => {
-  function handleCellClick(e) {
-    //put the logic here for clicks
-    console.log(e);
+const Grid = ({ grid, status, dispatch }) => {
+  function handleLeftClick(index, value) {
+    switch (value) {
+      case "X":
+        return dispatch(openBombCell(index));
+      case "0":
+        return dispatch(openNumberCell(index)); // CHANGE THIS TO OPEN EMPTY CELL WHEN IMPLEMENTED
+      default:
+        return dispatch(openNumberCell(index));
+    }
+  }
+  function handleRightClick(index) {
+      dispatch(toggleFlag(index));
+  }
+  const style = {
+    width: grid.width * 24 + "px",
+    height: grid.height * 24 + "px"
   }
 
   return (
-    <div className="grid">
-      {props.cells.map((cell, index) => {
+    <div className="grid" style={style}>
+      {grid.cells.map((cell) => {
         return (
-          <Cell key={index} cellClick={handleCellClick} {...cell}  />
+          <Cell
+            handleLeftClick={ cell.opened ||
+                              cell.flagged ||
+                              status == 'lost' ||
+                              status == 'won' ? undefined : handleLeftClick }
+            handleRightClick={ cell.opened ||
+                               status == 'lost' ||
+                               status == 'won' ? undefined : handleRightClick }
+            key={cell.index}
+            {...cell}
+          />
         );
       })}
     </div>
   );
-
 }
 
-const mapStateToProps = (state) => state.grid;
-
-export default connect(mapStateToProps)(Grid);
+export default connect()(Grid);

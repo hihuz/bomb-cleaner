@@ -1,12 +1,10 @@
 import { getNeighbors, splitPlan, countBombs } from './utils';
-import CreateCell from './CellFactory';
 
 test('getNeighbors should return an array of length 8', () => {
   const plan = ['X10',
     '110',
     '000'];
-  const cell = CreateCell(1, 1, 1);
-  const neighbors = getNeighbors(cell, plan);
+  const neighbors = getNeighbors(1, 1, plan);
   expect(neighbors.length).toEqual(8);
 });
 
@@ -14,8 +12,7 @@ test('neighbors out of plan should be undefined', () => {
   const plan = ['X10',
     '110',
     '000'];
-  const cell = CreateCell(1, 0, 1);
-  const neighbors = getNeighbors(cell, plan);
+  const neighbors = getNeighbors(1, 0, plan);
   expect(neighbors).toEqual([undefined, undefined, undefined, 'X', '0', '1', '1', '0']);
 });
 
@@ -23,8 +20,7 @@ test('neighbors should match the given plan', () => {
   const plan = ['X10',
     '110',
     '000'];
-  const cell = CreateCell(1, 1, 1);
-  const neighbors = getNeighbors(cell, plan);
+  const neighbors = getNeighbors(1, 1, plan);
   expect(neighbors).toEqual(['X', '1', '0', '1', '0', '0', '0', '0']);
 });
 

@@ -6,18 +6,15 @@ function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2
     height: 1,
     bombs: isBomb ? 1 : 0,
     flags,
-    emptyCellsTotal: empty,
     emptyCellsRemaining: empty,
     plan: [' '],
     cells: [
       {
-        pos: {
-          x: 0,
-          y: 0
-        },
+        index: 0,
         isBomb,
-        value: isBomb ? 'X' : '0',
-        cellState
+        flagged: cellState == 'flagged',
+        opened: cellState == 'opened',
+        value: isBomb ? 'X' : '0'
       }
     ]
   };
@@ -25,76 +22,61 @@ function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2
   return grid;
 }
 
-test('CELL_LEFT_CLICK : left click on a hidden cell should update its state to opened and decrement emptyCellsRemaining', () => {
+test('OPEN_NUMBER_CELL : left click on a hidden cell should update its state to opened and decrement emptyCellsRemaining', () => {
   const stateBefore = Object.freeze(MakeTestGrid(0, 'hidden', false));
   const stateAfter = Object.assign({}, stateBefore, { emptyCellsRemaining: 1 },
     { cells: [{
-      pos: {
-        x: 0,
-        y: 0
-      },
+      index: 0,
       isBomb: false,
-      value: '0',
-      cellState: 'opened'
+      flagged: false,
+      opened: true,
+      value: '0'
     }]
     }
   );
   const action = Object.freeze({
-    type: 'CELL_LEFT_CLICK',
-    cellPos: {
-      x: 0,
-      y: 0
-    }
+    type: 'OPEN_NUMBER_CELL',
+    index: 0
   });
 
   expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
 });
 
-test('CELL_RIGHT_CLICK : a flagged cell should have a new state of hidden, decrement the flag count', () => {
+test('TOGGLE_FLAG : flagged should be updated, decrement the flag count', () => {
   const stateBefore = Object.freeze(MakeTestGrid(1, 'flagged', false));
   const stateAfter = Object.assign({}, stateBefore, { flags: 0 },
     { cells: [{
-      pos: {
-        x: 0,
-        y: 0
-      },
+      index: 0,
       isBomb: false,
-      value: '0',
-      cellState: 'hidden'
+      flagged: false,
+      opened: false,
+      value: '0'
     }]
     }
   );
   const action = Object.freeze({
-    type: 'CELL_RIGHT_CLICK',
-    cellPos: {
-      x: 0,
-      y: 0
-    }
+    type: 'TOGGLE_FLAG',
+    index: 0
   });
 
   expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
 });
 
-test('CELL_RIGHT_CLICK : a hidden cell should have a new state of flagged, increment the flag count', () => {
+test('TOGGLE_FLAG : flagged should be updated, increment the flag count', () => {
   const stateBefore = Object.freeze(MakeTestGrid(0, 'hidden', false));
   const stateAfter = Object.assign({}, stateBefore, { flags: 1 },
     { cells: [{
-      pos: {
-        x: 0,
-        y: 0
-      },
+      index: 0,
       isBomb: false,
-      value: '0',
-      cellState: 'flagged'
+      flagged: true,
+      opened: false,
+      value: '0'
     }]
     }
   );
   const action = Object.freeze({
-    type: 'CELL_RIGHT_CLICK',
-    cellPos: {
-      x: 0,
-      y: 0
-    }
+    type: 'TOGGLE_FLAG',
+    index: 0
   });
 
   expect(gridReducer(stateBefore, action)).toEqual(stateAfter);

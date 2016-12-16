@@ -1,11 +1,18 @@
 import React from 'react';
 
-const Cell = (props) => {
-
-
+const Cell = ({ handleLeftClick, handleRightClick, index, opened, flagged, value }) => {
+  function leftClick(e) {
+    e.preventDefault();
+    if (handleLeftClick) { handleLeftClick(index, value); }
+  }
+  function rightClick(e) {
+    e.preventDefault();
+    if (handleRightClick) { handleRightClick(index); }
+  }
   return (
-    <div className="cell" onClick={props.cellClick}>
-      {props.value}
+    <div className={`cell${opened? ' opened' : ''}`} onClick={leftClick} onContextMenu={rightClick}>
+      {opened ? value : ' '}
+      {flagged ? 'f' : ' '}
     </div>
   );
 }

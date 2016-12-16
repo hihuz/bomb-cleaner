@@ -1,13 +1,12 @@
 import CreateCell from './CellFactory';
-import { splitPlan } from './utils';
+import { splitPlan, countBombs, getNeighbors } from './utils';
 
 function generateCells(plan) {
   const width = plan[0].length;
   const split = splitPlan(plan);
   const cells = split.map((planCell, i) => {
-    const x = i % width;
-    const y = Math.floor(i / width);
-    return CreateCell(x, y, planCell);
+    const value = planCell === "0" ? " " : planCell;
+    return CreateCell(i, value);
   });
   return cells;
 }
@@ -19,6 +18,17 @@ function generateBombsPos(bombs, planSize) {
     if (bombsPos.indexOf(num) === -1) { bombsPos.push(num); }
   }
   return bombsPos;
+}
+
+
+/// ADD TESTS FOR THIS !:::!!!!!! it works tho but still
+function fillPlanValues(plan) {
+  let filledPlan = plan.map((line, y) => {
+    return line.split('').map((cell, x) => {
+      return cell == 'X' ? cell : countBombs(getNeighbors(x, y, plan));
+    }).join('');
+  });
+  return filledPlan;
 }
 
 function generatePlan(width, height, bombs) {
@@ -33,7 +43,7 @@ function generatePlan(width, height, bombs) {
     line = `${line.slice(0, x)}X${line.slice(x + 1)}`;
     plan[y] = line;
   });
-  return plan;
+  return fillPlanValues(plan);
 }
 
 function CreateGrid(width, height, bombs) {
@@ -46,7 +56,6 @@ function CreateGrid(width, height, bombs) {
     height,
     bombs,
     flags: 0,
-    emptyCellsTotal: empty,
     emptyCellsRemaining: empty,
     plan,
     cells

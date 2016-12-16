@@ -1,16 +1,13 @@
-// value should be 0 - 8 or "X" for bomb
-function CreateCell(x, y, value) {
+// value should be 1 - 8 or "X" for bomb or " " for empty
+function CreateCell(index, value) {
   const cell = {
-    pos: {
-      x,
-      y
-    },
+    index,
     isBomb: false,
-    value,
-    cellState: 'hidden'
+    flagged: false,
+    opened: false,
+    value
   };
   if (value === 'X') { cell.isBomb = true; }
-
   return cell;
 }
 

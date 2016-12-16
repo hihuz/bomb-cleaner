@@ -1,11 +1,11 @@
 import CreateCell from './CellFactory';
 
 test('CreateCell should create a cell with specified arguments', () => {
-  const cell = CreateCell(1, 1, '1');
-  expect(cell).toEqual({ pos: { x: 1, y: 1 }, isBomb: false, value: '1', cellState: 'hidden' });
+  const cell = CreateCell(2, '1');
+  expect(cell).toEqual({ index: 2, isBomb: false, flagged: false, opened: false, value: '1' });
 });
 
 test('value X should set the cell as a bomb', () => {
-  const cell = CreateCell(2, 6, 'X');
-  expect(cell).toEqual({ pos: { x: 2, y: 6 }, isBomb: true, value: 'X', cellState: 'hidden' });
+  const cell = CreateCell(9, 'X');
+  expect(cell).toEqual({ index: 9, isBomb: true, flagged: false, opened: false, value: 'X' });
 });

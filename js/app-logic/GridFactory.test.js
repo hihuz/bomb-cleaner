@@ -3,21 +3,25 @@ import CreateCell from './CellFactory';
 import { countBombs, splitPlan } from './utils';
 
 test('generateCells should generate cells based off a given plan', () => {
-  const plan = ['X11X',
+  const plan = [
+    'X11X',
     '1111',
-    '0000'];
-  const cells = [CreateCell(0, 0, 'X'),
-    CreateCell(1, 0, '1'),
-    CreateCell(2, 0, '1'),
-    CreateCell(3, 0, 'X'),
-    CreateCell(0, 1, '1'),
-    CreateCell(1, 1, '1'),
-    CreateCell(2, 1, '1'),
-    CreateCell(3, 1, '1'),
-    CreateCell(0, 2, '0'),
-    CreateCell(1, 2, '0'),
-    CreateCell(2, 2, '0'),
-    CreateCell(3, 2, '0')];
+    '    '
+  ];
+  const cells = [
+    CreateCell(0, 'X'),
+    CreateCell(1, '1'),
+    CreateCell(2, '1'),
+    CreateCell(3, 'X'),
+    CreateCell(4, '1'),
+    CreateCell(5, '1'),
+    CreateCell(6, '1'),
+    CreateCell(7, '1'),
+    CreateCell(8, ' '),
+    CreateCell(9, ' '),
+    CreateCell(10, ' '),
+    CreateCell(11, ' ')
+  ];
 
   expect(generateCells(plan)).toEqual(cells);
 });
@@ -57,7 +61,6 @@ test('CreateGrid should.. well.. create a grid', () => {
   expect(grid.height).toEqual(12);
   expect(grid.bombs).toEqual(50);
   expect(grid.flags).toEqual(0);
-  expect(grid.emptyCellsTotal).toEqual(46);
   expect(grid.emptyCellsRemaining).toEqual(46);
   expect(grid.cells.length).toEqual(8 * 12);
 });

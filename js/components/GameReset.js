@@ -1,9 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { resetGame } from '../actions/actionCreators';
 
-const GameReset = () => (
-  <div className="game-reset">
-    <button className="reset-button">reset!</button>
-  </div>
-);
+const GameReset = ({ dispatch }) => {
+  function reset () {
+    return dispatch(resetGame());
+  }
 
-export default GameReset;
+  return (
+    <div className="game-reset">
+      <button className="reset-button" onClick={reset}>reset!</button>
+    </div>
+  );
+};
+
+export default connect()(GameReset);
