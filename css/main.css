@@ -19,11 +19,14 @@ body {
 .cell {
   width: 24px;
   height: 24px;
-  background: #ccc;
+  background-color: #ccc;
   border: 1px solid #aaa;
   color: #000;
   text-align: center;
 }
 .opened {
-  background: #eee;
+  background-color: #eee;
+}
+.bomb {
+  background-color: red;
 }

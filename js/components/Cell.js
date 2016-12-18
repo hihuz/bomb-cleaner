@@ -10,7 +10,11 @@ const Cell = ({ handleLeftClick, handleRightClick, index, opened, flagged, value
     if (handleRightClick) { handleRightClick(index); }
   }
   return (
-    <div className={`cell${opened? ' opened' : ''}`} onClick={leftClick} onContextMenu={rightClick}>
+    <div
+      className={`cell${opened? ' opened':''}${value === "X" && opened ? ' bomb':''}`}
+      onClick={leftClick}
+      onContextMenu={rightClick}
+    >
       {opened ? value : ' '}
       {flagged ? 'f' : ' '}
     </div>

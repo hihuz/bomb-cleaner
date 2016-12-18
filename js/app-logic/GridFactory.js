@@ -1,6 +1,7 @@
 import CreateCell from './CellFactory';
 import { splitPlan, countBombs, getNeighbors } from './utils';
 
+
 function generateCells(plan) {
   const width = plan[0].length;
   const split = splitPlan(plan);
@@ -11,17 +12,25 @@ function generateCells(plan) {
   return cells;
 }
 
-function generateBombsPos(bombs, planSize) {
+/* GET RID OF THE ABOVE AND MAKE THIS ONE WORK
+function generateCells(width, height, bombs) {
+  const gridSize = width * height;
+  const bombsPos = generateBombsPos(bombs, gridSize);
+  const cells = new Array(gridSize).map((cell, i) => {
+    return bombsPos.indexOf(i) == - 1 ? CreateCell(i, " ") : CreateCell(i, "X");
+  });
+  return cells;
+}
+*/
+function generateBombsPos(bombs, gridSize) {
   const bombsPos = [];
   while (bombsPos.length < bombs) {
-    const num = Math.floor(Math.random() * planSize);
+    const num = Math.floor(Math.random() * gridSize);
     if (bombsPos.indexOf(num) === -1) { bombsPos.push(num); }
   }
   return bombsPos;
 }
 
-
-/// ADD TESTS FOR THIS !:::!!!!!! it works tho but still
 function fillPlanValues(plan) {
   let filledPlan = plan.map((line, y) => {
     return line.split('').map((cell, x) => {

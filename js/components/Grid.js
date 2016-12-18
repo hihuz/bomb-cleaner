@@ -17,13 +17,13 @@ const Grid = ({ grid, status, dispatch }) => {
   function handleRightClick(index) {
       dispatch(toggleFlag(index));
   }
-  const style = {
+  const styles = {
     width: grid.width * 24 + "px",
     height: grid.height * 24 + "px"
   }
 
   return (
-    <div className="grid" style={style}>
+    <div className="grid" style={styles}>
       {grid.cells.map((cell) => {
         return (
           <Cell

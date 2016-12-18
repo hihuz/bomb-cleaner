@@ -24,14 +24,39 @@ test('neighbors should match the given plan', () => {
   expect(neighbors).toEqual(['X', '1', '0', '1', '0', '0', '0', '0']);
 });
 
+test('neighbors should match the given plan 2', () => {
+  const plan = [
+    'X1X2X3',
+    '4X56X7',
+    '89XaXX',
+    'bXcXde',
+    'XXfgXh'
+  ];
+  const neighbors = getNeighbors(0, 1, plan);
+  expect(neighbors).toEqual([undefined, 'X', '1', undefined, 'X', undefined, '8', '9']);
+});
 
 test('splitPlan should split a plan duh', () => {
-  const plan = ['X10',
+  const plan = [
+    'X10',
     '110',
-    '000'];
+    '000'
+    ];
   const split = splitPlan(plan);
   expect(split).toEqual(['X', '1', '0', '1', '1', '0', '0', '0', '0']);
 });
+
+test('splitPlan should split a plan duh 2', () => {
+  const plan = [
+    '01234',
+    '56789',
+    'abcde',
+    'fghij'
+    ];
+  const split = splitPlan(plan);
+  expect(split).toEqual(['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j']);
+});
+
 
 test('countBombs should return 2 if there are 2 bombs, O RLY?', () => {
   const neighbors1 = ['X', '1', '0', '1', '0', 'X', '0', '0'];

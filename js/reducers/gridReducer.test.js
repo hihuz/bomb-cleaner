@@ -43,6 +43,14 @@ test('OPEN_NUMBER_CELL : left click on a hidden cell should update its state to 
   expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
 });
 
+test('OPEN_BOMB_CELL : write the test for this', () => {
+  expect(1).toEqual(0);
+});
+
+test('OPEN_EMPTY_CELL : write the test for this', () => {
+  expect(1).toEqual(0);
+});
+
 test('TOGGLE_FLAG : flagged should be updated, decrement the flag count', () => {
   const stateBefore = Object.freeze(MakeTestGrid(1, 'flagged', false));
   const stateAfter = Object.assign({}, stateBefore, { flags: 0 },
