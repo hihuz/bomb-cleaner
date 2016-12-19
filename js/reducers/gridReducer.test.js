@@ -94,7 +94,8 @@ test('TOGGLE_FLAG : flagged should be updated, increment the flag count', () => 
 test('RESET_GAME : should provide a new fresh grid to the state', () => {
   const state = Object.freeze(CreateGrid(10, 12, 30));
   const action = Object.freeze({
-    type: 'RESET_GAME'
+    type: 'RESET_GAME',
+    grid: CreateGrid(10, 12, 30)
   });
   const nextState = gridReducer(state, action);
 

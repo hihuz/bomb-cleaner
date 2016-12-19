@@ -51,7 +51,7 @@ const toggleFlag = (state, action) => {
 };
 
 const resetGame = (state, action) => {
-  return Object.assign({}, action.newGrid);
+  return Object.assign({}, action.grid);
 }
 
 const gridReducer = (state = DEFAULT_STATE, action) => {

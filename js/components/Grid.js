@@ -8,7 +8,7 @@ const Grid = ({ grid, status, dispatch }) => {
     switch (value) {
       case "X":
         return dispatch(openBombCell(index));
-      case "0":
+      case " ":
         return dispatch(openNumberCell(index)); // CHANGE THIS TO OPEN EMPTY CELL WHEN IMPLEMENTED
       default:
         return dispatch(openNumberCell(index));

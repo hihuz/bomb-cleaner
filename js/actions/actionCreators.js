@@ -14,6 +14,6 @@ export function toggleFlag(index) {
   return { type: TOGGLE_FLAG, index };
 }
 export function resetGame() {
-  const newGrid = CreateGrid(state.width, state.height, state.bombs);
-  return { type: RESET_GAME; newGrid };
+  const grid = CreateGrid(state.width, state.height, state.bombs);
+  return { type: RESET_GAME; grid };
 }

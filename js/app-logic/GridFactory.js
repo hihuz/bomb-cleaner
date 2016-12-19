@@ -1,7 +1,7 @@
 import CreateCell from './CellFactory';
-import { splitPlan, countBombs, getNeighbors } from './utils';
+import { countBombs, getNeighbors } from './utils';
 
-
+/*
 function generateCells(plan) {
   const width = plan[0].length;
   const split = splitPlan(plan);
@@ -11,17 +11,19 @@ function generateCells(plan) {
   });
   return cells;
 }
+*/
 
-/* GET RID OF THE ABOVE AND MAKE THIS ONE WORK
 function generateCells(width, height, bombs) {
   const gridSize = width * height;
   const bombsPos = generateBombsPos(bombs, gridSize);
-  const cells = new Array(gridSize).map((cell, i) => {
-    return bombsPos.indexOf(i) == - 1 ? CreateCell(i, " ") : CreateCell(i, "X");
+  const cells = new Array(gridSize)
+  .fill(undefined)
+  .map((cell, i) => {
+    return bombsPos.indexOf(i) === -1 ? CreateCell(i, " ") : CreateCell(i, "X");
   });
-  return cells;
+  return fillCellsValues(cells, width, height);
 }
-*/
+
 function generateBombsPos(bombs, gridSize) {
   const bombsPos = [];
   while (bombsPos.length < bombs) {
@@ -30,7 +32,7 @@ function generateBombsPos(bombs, gridSize) {
   }
   return bombsPos;
 }
-
+/*
 function fillPlanValues(plan) {
   let filledPlan = plan.map((line, y) => {
     return line.split('').map((cell, x) => {
@@ -39,7 +41,18 @@ function fillPlanValues(plan) {
   });
   return filledPlan;
 }
-
+*/
+function fillCellsValues(cells, width) {
+  let filledCells = cells.map((cell, i) => {
+    const count = countBombs(getNeighbors(i, cells, width));
+    if (cell.value === 'X' || count === 0) { return cell; }
+    return Object.assign({}, cell, {
+      value: count
+    });
+  });
+  return filledCells;
+}
+/*
 function generatePlan(width, height, bombs) {
   const bombsPos = generateBombsPos(bombs, width * height);
   const planLine = ' '.repeat(width);
@@ -54,11 +67,10 @@ function generatePlan(width, height, bombs) {
   });
   return fillPlanValues(plan);
 }
-
+*/
 function CreateGrid(width, height, bombs) {
   const empty = (width * height) - bombs;
-  const plan = generatePlan(width, height, bombs);
-  const cells = generateCells(plan);
+  const cells = generateCells(width, height, bombs);
 
   return {
     width,
@@ -66,10 +78,10 @@ function CreateGrid(width, height, bombs) {
     bombs,
     flags: 0,
     emptyCellsRemaining: empty,
-    plan,
+    /*plan,*/
     cells
   };
 }
 
-export { generateCells, generatePlan, generateBombsPos, fillPlanValues }; // exported for tests
+export { generateCells, generateBombsPos, fillCellsValues }; // exported for tests
 export default CreateGrid;
