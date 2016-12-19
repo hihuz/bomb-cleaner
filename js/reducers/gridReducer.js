@@ -1,22 +1,26 @@
-import { OPEN_NUMBER_CELL, OPEN_EMPTY_CELL, OPEN_BOMB_CELL, TOGGLE_FLAG, RESET_GAME } from '../actions/actionTypes';
+import { OPEN_CELL, OPEN_BOMB, TOGGLE_FLAG, RESET_GAME } from '../actions/actionTypes';
 import CreateGrid from '../app-logic/GridFactory';
-
+import { getIndexesToOpen } from '../app-logic/utils';
 
 const DEFAULT_STATE = CreateGrid(30, 16, 99);
 
-const openNumberCell = (state, action) => {
+const openCell = (state, action) => {
   const grid = Object.assign({}, state);
-  const index = action.index;
-  const cell = grid.cells[index];
 
-  cell.opened = true;
-  grid.emptyCellsRemaining -= 1;
+  const indexes = getIndexesToOpen(action.index, grid.cells, grid.width);
+  let updatedCells = grid.cells.map((cell) => {
+    let updatedCell = Object.assign({}, cell, {
+      opened: indexes.indexOf(cell.index) !== -1 || cell.opened
+    });
+    return  updatedCell;
+  });
+  grid.cells = updatedCells;
+  grid.emptyCellsRemaining -= indexes.length;
 
-  grid.cells[index] = cell;
   return Object.assign({}, grid);
 };
 
-const openBombCell = (state, action) => {
+const openBomb = (state, action) => {
   const grid = Object.assign({}, state);
   const updatedCells = grid.cells.map((cell) => {
     let updatedCell = Object.assign({}, cell, {
@@ -25,12 +29,6 @@ const openBombCell = (state, action) => {
     return updatedCell;
   });
   grid.cells = updatedCells;
-  return Object.assign({}, grid);
-}
-
-const openEmptyCell = (state, action) => {
-  const grid = Object.assign({}, state);
-
   return Object.assign({}, grid);
 }
 
@@ -56,11 +54,10 @@ const resetGame = (state, action) => {
 
 const gridReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case OPEN_NUMBER_CELL:
-    case OPEN_EMPTY_CELL: // FIX THIS TO OPEN ALL NEEDED CELLS RECURSIVELY, create another reducer for this ?
-      return openNumberCell(state, action);
-    case OPEN_BOMB_CELL:
-      return openBombCell(state, action);
+    case OPEN_CELL:
+      return openCell(state, action);
+    case OPEN_BOMB:
+      return openBomb(state, action);
     case TOGGLE_FLAG:
       return toggleFlag(state, action);
     case RESET_GAME:

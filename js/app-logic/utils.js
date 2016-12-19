@@ -30,4 +30,25 @@ function countBombs(neighbors) {
   return 0;
 }
 
-export { countBombs, getNeighbors };
+function getIndexesToOpen(index, cells, width) {
+  let indexes = [];
+
+  function lookAtCell(index) {
+    if (indexes.indexOf(index) === -1) { indexes.push(index); }
+    if (cells[index].value !== ' ') {
+      return;
+    }
+    else {
+      const neighbors = getNeighbors(index, cells, width);
+      return neighbors
+        .filter((neighbor) => neighbor !== undefined)
+        .filter((neighbor) => indexes.indexOf(neighbor.index) === -1)
+        .map((neighbor) => lookAtCell(neighbor.index, cells, width));
+    }
+  }
+
+  lookAtCell(index);
+  return indexes;
+}
+
+export { countBombs, getNeighbors, getIndexesToOpen };

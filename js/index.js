@@ -21,8 +21,9 @@ render(
 // TODO  //
 ///////////
 // -> implement the recursion to find all cells to open for a click on an empty cell
-// -> get rid of all "plans" only use cells for simplicity
+// -> remove the need for empty cell vs number cell, should be the same logic
 // -> check if the logic needs to go in the action creators instead of the reducers (for devtools compatibility!)
+// -> if so, reduce component knowledge of state to a minimum ?
 // -> learn about and implement "selectors" w/ reselect
 
 

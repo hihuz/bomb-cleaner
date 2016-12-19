@@ -1,4 +1,6 @@
-import { getNeighbors, countBombs } from './utils';
+import { getNeighbors, countBombs, getIndexesToOpen } from './utils';
+import CreateCell from './CellFactory';
+import { fillCellsValues } from './GridFactory';
 
 test('getNeighbors should return an array of length 8', () => {
   const width = 8;
@@ -20,7 +22,7 @@ test('neighbors out of plan should be undefined', () => {
   expect(neighbors).toEqual([undefined, undefined, undefined, 0, 2, 8, 9, 10]);
 });
 
-/*
+/* the plan used for the 3 tests below looks like this :
 [
 '00','01','02','03','04','05','06','07','08',
 '09','10','11','12','13','14','15','16','17',
@@ -108,4 +110,27 @@ test('countBombs should return 0 when fed something other than an array of objec
   expect(countBombs('grow a nub')).toEqual(0);
   expect(countBombs(() => { })).toEqual(0);
   expect(countBombs({ hey: 'ho', lets: 'go' })).toEqual(0);
+});
+
+
+test('getIndexesToOpen should return an array of indexes which can be safely open starting from a specific index', () => {
+  const plan = [
+    'X',' ',' ',' ',' ',' ','X',' ',' ',
+    ' ','X',' ',' ',' ','X',' ',' ',' ',
+    ' ',' ','X',' ','X',' ',' ',' ',' ',
+    ' ',' ',' ','X',' ',' ',' ',' ',' ',
+    ' ',' ','X',' ','X','X',' ',' ',' ',
+    ' ','X',' ',' ',' ',' ','X',' ',' ',
+    'X',' ',' ',' ',' ',' ',' ','X',' ',
+    ' ','X',' ',' ',' ',' ',' ',' ','X',
+    ' ',' ','X',' ',' ',' ',' ','X',' ',
+    ' ',' ',' ','X',' ',' ','X',' ',' ',
+    ' ',' ',' ',' ','X','X',' ',' ',' '
+  ].map((cell, i) => CreateCell(i, cell));
+  const  cells = fillCellsValues(plan, 9);
+  expect(getIndexesToOpen(1, cells, 9)).toEqual([1]);
+  expect(getIndexesToOpen(3, cells, 9).sort((a, b) => a - b)).toEqual([2, 3, 4, 11, 12, 13]);
+  expect(getIndexesToOpen(58, cells, 9).sort((a, b) => a - b)).toEqual([
+    47, 48, 49, 50, 56, 57, 58, 59, 60, 65, 66, 67, 68, 69, 75, 76, 77, 78
+  ]);
 });

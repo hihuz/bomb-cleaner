@@ -8,14 +8,13 @@ function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2
     bombs: isBomb ? 1 : 0,
     flags,
     emptyCellsRemaining: empty,
-    plan: [' '],
     cells: [
       {
         index: 0,
         isBomb,
         flagged: cellState == 'flagged',
         opened: cellState == 'opened',
-        value: isBomb ? 'X' : '0'
+        value: isBomb ? 'X' : ' '
       }
     ]
   };
@@ -23,7 +22,7 @@ function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2
   return grid;
 }
 
-test('OPEN_NUMBER_CELL : left click on a hidden cell should update its state to opened and decrement emptyCellsRemaining', () => {
+test('OPEN_CELL : left click on a hidden cell should update its state to opened and decrement emptyCellsRemaining', () => {
   const stateBefore = Object.freeze(MakeTestGrid(0, 'hidden', false));
   const stateAfter = Object.assign({}, stateBefore, { emptyCellsRemaining: 1 },
     { cells: [{
@@ -31,23 +30,23 @@ test('OPEN_NUMBER_CELL : left click on a hidden cell should update its state to 
       isBomb: false,
       flagged: false,
       opened: true,
-      value: '0'
+      value: ' '
     }]
     }
   );
   const action = Object.freeze({
-    type: 'OPEN_NUMBER_CELL',
+    type: 'OPEN_CELL',
     index: 0
   });
 
   expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
 });
 
-test('OPEN_BOMB_CELL : write the test for this', () => {
-  expect(1).toEqual(0);
-});
+test('OPEN_CELL: left click should propagate to neighbors if empty', () => {
+  expect(0).toEqual(1);
+})
 
-test('OPEN_EMPTY_CELL : write the test for this', () => {
+test('OPEN_BOMB : write the test for this', () => {
   expect(1).toEqual(0);
 });
 
@@ -59,7 +58,7 @@ test('TOGGLE_FLAG : flagged should be updated, decrement the flag count', () => 
       isBomb: false,
       flagged: false,
       opened: false,
-      value: '0'
+      value: ' '
     }]
     }
   );
@@ -79,7 +78,7 @@ test('TOGGLE_FLAG : flagged should be updated, increment the flag count', () => 
       isBomb: false,
       flagged: true,
       opened: false,
-      value: '0'
+      value: ' '
     }]
     }
   );
