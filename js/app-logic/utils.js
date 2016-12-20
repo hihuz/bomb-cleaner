@@ -2,6 +2,7 @@ function getCellIndex(x, y, width) {
   return x + width * y;
 }
 
+//takes an index, a cells array, a width, returns all cell neighbors
 function getNeighbors(index, cells, width) {
   const height = Math.floor(cells.length / width);
   const x = index % width;
@@ -16,7 +17,6 @@ function getNeighbors(index, cells, width) {
     y + 1 < height ? getCellIndex(x, y+1, width) : undefined,
     y + 1 < height && x + 1 < width ? getCellIndex(x+1, y+1, width) : undefined
   ];
-
   return indexes.map(i => cells[i]);
 }
 
@@ -30,6 +30,7 @@ function countBombs(neighbors) {
   return 0;
 }
 
+//takes an index, a cells array, a width, returns an array of indexes that should be opened when the param index is clicked
 function getIndexesToOpen(index, cells, width) {
   let indexes = [];
 

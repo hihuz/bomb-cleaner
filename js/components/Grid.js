@@ -1,17 +1,15 @@
 import React from 'react';
 import Cell from './Cell';
 import { connect } from 'react-redux';
-import { toggleFlag, openEmptyCell, openBombCell, openNumberCell } from '../actions/actionCreators';
+import { toggleFlag, openBomb, openCell } from '../actions/actionCreators';
 
 const Grid = ({ grid, status, dispatch }) => {
   function handleLeftClick(index, value) {
     switch (value) {
       case "X":
         return dispatch(openBombCell(index));
-      case " ":
-        return dispatch(openNumberCell(index)); // CHANGE THIS TO OPEN EMPTY CELL WHEN IMPLEMENTED
       default:
-        return dispatch(openNumberCell(index));
+        return dispatch(openCell(index));
     }
   }
   function handleRightClick(index) {

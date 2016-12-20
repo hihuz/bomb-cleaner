@@ -93,7 +93,52 @@ test('OPEN_CELL: left click should propagate to neighbors if empty', () => {
 })
 
 test('OPEN_BOMB : write the test for this', () => {
-  expect(1).toEqual(0);
+  const stateBefore = Object.freeze({
+    width: 4,
+    height: 4,
+    bombs: 2,
+    flags: 0,
+    emptyCellsRemaining: 13,
+    cells: [
+      CreateCell(0, 'X'),
+      CreateCell(1, 3),
+      CreateCell(2, 1),
+      CreateCell(3, ' '),
+      CreateCell(4, 'X'),
+      CreateCell(5, 'X'),
+      CreateCell(6, 1),
+      CreateCell(7, ' '),
+      CreateCell(8, 2),
+      CreateCell(9, 2),
+      CreateCell(10, 1),
+      CreateCell(11, ' '),
+      CreateCell(12, ' '),
+      CreateCell(13, ' '),
+      CreateCell(14, ' '),
+      CreateCell(15, ' ')
+    ]
+  });
+  const cellsAfter = stateBefore.cells.map((cell) => {
+    let updatedCell;
+    if (cell.value === 'X') {
+      updatedCell = Object.assign({}, cell, { opened: true });
+    }
+    else { updatedCell = Object.assign({}, cell); }
+    return updatedCell;
+  });
+  const stateAfter = Object.assign(
+    {},
+    stateBefore,
+    { emptyCellsRemaining: 13 },
+    { cells: cellsAfter }
+  );
+
+  const action = Object.freeze({
+    type: 'OPEN_BOMB',
+    index: 5
+  });
+
+  expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
 });
 
 test('TOGGLE_FLAG : flagged should be updated, decrement the flag count', () => {
