@@ -6,7 +6,6 @@ const DEFAULT_STATE = CreateGrid(30, 16, 99);
 
 const openCell = (state, action) => {
   const grid = Object.assign({}, state);
-
   const indexes = getIndexesToOpen(action.index, grid.cells, grid.width);
   let updatedCells = grid.cells.map((cell) => {
     let updatedCell = Object.assign({}, cell, {

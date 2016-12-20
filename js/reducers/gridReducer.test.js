@@ -1,5 +1,6 @@
 import gridReducer from './gridReducer';
 import CreateGrid from '../app-logic/GridFactory';
+import CreateCell from '../app-logic/CellFactory';
 
 function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2) {
   const grid = {
@@ -43,7 +44,52 @@ test('OPEN_CELL : left click on a hidden cell should update its state to opened 
 });
 
 test('OPEN_CELL: left click should propagate to neighbors if empty', () => {
-  expect(0).toEqual(1);
+  const stateBefore = Object.freeze({
+    width: 4,
+    height: 4,
+    bombs: 2,
+    flags: 0,
+    emptyCellsRemaining: 13,
+    cells: [
+      CreateCell(0, 'X'),
+      CreateCell(1, 3),
+      CreateCell(2, 1),
+      CreateCell(3, ' '),
+      CreateCell(4, 'X'),
+      CreateCell(5, 'X'),
+      CreateCell(6, 1),
+      CreateCell(7, ' '),
+      CreateCell(8, 2),
+      CreateCell(9, 2),
+      CreateCell(10, 1),
+      CreateCell(11, ' '),
+      CreateCell(12, ' '),
+      CreateCell(13, ' '),
+      CreateCell(14, ' '),
+      CreateCell(15, ' ')
+    ]
+  });
+  const cellsAfter = stateBefore.cells.map((cell) => {
+    let updatedCell;
+    if (cell.value === ' ' || cell.value === 2 || cell.value === 1) {
+      updatedCell = Object.assign({}, cell, { opened: true });
+    }
+    else { updatedCell = Object.assign({}, cell); }
+    return updatedCell;
+  });
+  const stateAfter = Object.assign(
+    {},
+    stateBefore,
+    { emptyCellsRemaining: 1 },
+    { cells: cellsAfter }
+  );
+
+  const action = Object.freeze({
+    type: 'OPEN_CELL',
+    index: 3
+  });
+
+  expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
 })
 
 test('OPEN_BOMB : write the test for this', () => {

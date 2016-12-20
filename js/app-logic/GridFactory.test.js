@@ -61,44 +61,7 @@ test('fillCellsValues should fill an array of cells with values equal to bomb ne
   ];
   expect(fillCellsValues(cells, width)).toEqual(expected);
 });
-/*
-test('fillPlanValues should fill a plan with numbers of bomb neighbors', () => {
-  const planBefore = [
-    " X  ",
-    "  X ",
-    "XX  ",
-    "  X ",
-  ];
-  const planAfter = [
-    "1X21",
-    "34X1",
-    "XX32",
-    "23X1",
-  ];
-  expect(fillPlanValues(planBefore)).toEqual(planAfter);
-});
-*/
-/*
-test('generatePlan should generate a random plan based off params', () => {
-  const plan = generatePlan(10, 12, 60);
-  const split = splitPlan(plan);
-  plan.forEach((line) => {
-    expect(line.length).toEqual(10);
-  });
-  expect(split.length).toEqual(10 * 12);
-  expect(plan.length).toEqual(12);
-  expect(countBombs(split)).toEqual(60);
-});
 
-test('another test for generatePlan on small plans', () => {
-  const plan = generatePlan(1, 1, 1);
-  const split = splitPlan(plan);
-  expect(plan.length).toEqual(1);
-  expect(plan[0].length).toEqual(1);
-  expect(countBombs(split)).toEqual(1);
-  expect(plan).toEqual(['X']);
-});
-*/
 test('CreateGrid should.. well.. create a grid', () => {
   const grid = CreateGrid(8, 12, 50);
   expect(grid.width).toEqual(8);
