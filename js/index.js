@@ -21,6 +21,7 @@ render(
 // TODO  //
 ///////////
 // -> change logic so that the grid is filled after the first click
+// -> fix value of cell to not have X and flag at the same time :c
 // -> check if the logic needs to go in the action creators instead of the reducers (for devtools compatibility!)
 // -> in any case try to get rid of the random grid generation in the reducers
 // -> if so, reduce component knowledge of state to a minimum ?
