@@ -7,7 +7,7 @@ const Grid = ({ grid, status, dispatch }) => {
   function handleLeftClick(index, value) {
     switch (value) {
       case "X":
-        return dispatch(openBombCell(index));
+        return dispatch(openBomb(index));
       default:
         return dispatch(openCell(index));
     }

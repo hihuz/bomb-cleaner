@@ -48,7 +48,8 @@ const toggleFlag = (state, action) => {
 };
 
 const resetGame = (state, action) => {
-  return Object.assign({}, action.grid);
+  const grid = CreateGrid(state.width, state.height, state.bombs);
+  return Object.assign({}, grid);
 }
 
 const gridReducer = (state = DEFAULT_STATE, action) => {

@@ -20,10 +20,12 @@ render(
 ///////////
 // TODO  //
 ///////////
+// -> change logic so that the grid is filled after the first click
 // -> check if the logic needs to go in the action creators instead of the reducers (for devtools compatibility!)
+// -> in any case try to get rid of the random grid generation in the reducers
 // -> if so, reduce component knowledge of state to a minimum ?
 // -> learn about and implement "selectors" w/ reselect
-
+// -> take care of UI, design and any remaining bugs / annoying stuff ( <<<< first click takes a lot of time :( )
 
 //question to ask :
 // - in this particular mine sweeper example, where should most of the logic live ?

@@ -8,7 +8,7 @@ import '../../css/main.css';
 const App = (props) => (
   <div className="app">
     <Menu />
-    <GameInfos grid={props.grid} status={props.gameStatus} />
+    <GameInfos />
     <Grid grid={props.grid} status={props.gameStatus} />
   </div>
 );
