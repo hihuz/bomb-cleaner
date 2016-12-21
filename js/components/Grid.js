@@ -1,15 +1,16 @@
 import React from 'react';
 import Cell from './Cell';
 import { connect } from 'react-redux';
-import { toggleFlag, openBomb, openCell } from '../actions/actionCreators';
+import { toggleFlag, openBomb, openCell, initGame } from '../actions/actionCreators';
 
 const Grid = ({ grid, status, dispatch }) => {
   function handleLeftClick(index, value) {
-    switch (value) {
-      case "X":
-        return dispatch(openBomb(index));
-      default:
-        return dispatch(openCell(index));
+    if (status == 'init') { dispatch(initGame(index, grid)); }
+    else if (value == "X") {
+      dispatch(openBomb(index));
+    }
+    else {
+      dispatch(openCell(index));
     }
   }
   function handleRightClick(index) {
@@ -39,6 +40,6 @@ const Grid = ({ grid, status, dispatch }) => {
       })}
     </div>
   );
-}
+};
 
 export default connect()(Grid);

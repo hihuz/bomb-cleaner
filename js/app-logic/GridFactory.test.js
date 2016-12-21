@@ -20,7 +20,7 @@ test('generateCells should generate an array of cells based off params', () => {
   expect(actualCells.length).toEqual(actual.length);
 });
 
-test('generateBombsPos should return an array of unique values between 0 and planSize', () => {
+test('generateBombsPos should return an array of unique values between 0 and gridSize', () => {
   const gridSize = 120;
   const bombs = 15;
   const bombsPos = generateBombsPos(bombs, gridSize);

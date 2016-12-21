@@ -1,9 +1,10 @@
 import CreateCell from './CellFactory';
 import { countBombs, getNeighbors } from './utils';
 
-function generateCells(width, height, bombs) {
+//generates an array of cells with all properties defined
+function generateCells(width, height, bombs, index) {
   const gridSize = width * height;
-  const bombsPos = generateBombsPos(bombs, gridSize);
+  const bombsPos = generateBombsPos(bombs, gridSize, index);
   const cells = new Array(gridSize)
   .fill(undefined)
   .map((cell, i) => {
@@ -12,15 +13,17 @@ function generateCells(width, height, bombs) {
   return fillCellsValues(cells, width, height);
 }
 
-function generateBombsPos(bombs, gridSize) {
+//generates an array of indexes to place bombs, excluding the index of the initial click
+function generateBombsPos(bombs, gridSize, index) {
   const bombsPos = [];
   while (bombsPos.length < bombs) {
     const num = Math.floor(Math.random() * gridSize);
-    if (bombsPos.indexOf(num) === -1) { bombsPos.push(num); }
+    if (bombsPos.indexOf(num) === -1 && num !== index) { bombsPos.push(num); }
   }
   return bombsPos;
 }
 
+//fills values of an "empty" array of cells
 function fillCellsValues(cells, width) {
   let filledCells = cells.map((cell, i) => {
     const count = countBombs(getNeighbors(i, cells, width));
@@ -32,9 +35,17 @@ function fillCellsValues(cells, width) {
   return filledCells;
 }
 
+//called on first click so that the initial click is never a bomb
+function fillGrid(index, grid) {
+  const cells = generateCells(grid.width, grid.height, grid.bombs, index);
+  return Object.assign({}, grid, { cells });
+}
+
 function CreateGrid(width, height, bombs) {
   const empty = (width * height) - bombs;
-  const cells = generateCells(width, height, bombs);
+  const cells = new Array(width * height)
+  .fill(undefined)
+  .map((cell, i) => ({ index: i }));
 
   return {
     width,
@@ -46,5 +57,5 @@ function CreateGrid(width, height, bombs) {
   };
 }
 
-export { generateCells, generateBombsPos, fillCellsValues }; // exported for tests
+export { generateCells, generateBombsPos, fillCellsValues, fillGrid }; // exported for tests
 export default CreateGrid;

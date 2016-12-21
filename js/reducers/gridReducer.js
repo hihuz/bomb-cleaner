@@ -1,8 +1,8 @@
-import { OPEN_CELL, OPEN_BOMB, TOGGLE_FLAG, RESET_GAME } from '../actions/actionTypes';
+import { OPEN_CELL, OPEN_BOMB, TOGGLE_FLAG, RESET_GAME, INIT_GAME, SET_MODE } from '../actions/actionTypes';
 import CreateGrid from '../app-logic/GridFactory';
 import { getIndexesToOpen } from '../app-logic/utils';
 
-const DEFAULT_STATE = CreateGrid(30, 16, 99);
+const DEFAULT_STATE = CreateGrid(9, 9, 10);
 
 const openCell = (state, action) => {
   const grid = Object.assign({}, state);
@@ -47,9 +47,20 @@ const toggleFlag = (state, action) => {
   return Object.assign({}, grid);
 };
 
+const setMode = (state, action) => {
+  let grid;
+  if (action.mode == "easy") { grid = CreateGrid(9, 9, 10); }
+  if (action.mode == "medium") { grid = CreateGrid(16, 16, 40); }
+  if (action.mode == "hard") { grid = CreateGrid(30, 16, 99); }
+  return grid;
+}
+
 const resetGame = (state, action) => {
-  const grid = CreateGrid(state.width, state.height, state.bombs);
-  return Object.assign({}, grid);
+  return CreateGrid(state.width, state.height, state.bombs);
+}
+
+const initGame = (state, action) => {
+  return openCell(action.grid, action);
 }
 
 const gridReducer = (state = DEFAULT_STATE, action) => {
@@ -60,8 +71,12 @@ const gridReducer = (state = DEFAULT_STATE, action) => {
       return openBomb(state, action);
     case TOGGLE_FLAG:
       return toggleFlag(state, action);
+    case SET_MODE:
+      return setMode(state, action);
     case RESET_GAME:
       return resetGame(state, action);
+    case INIT_GAME:
+      return initGame(state, action);
     default:
       return state;
   }

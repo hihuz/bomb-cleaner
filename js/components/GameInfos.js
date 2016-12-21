@@ -1,10 +1,22 @@
 import React from 'react';
-import { resetGame } from '../actions/actionCreators';
-import { connect } from 'react-redux';
+//import { resetGame } from '../actions/actionCreators';
+//import { connect } from 'react-redux';
 import BombTracker from './BombTracker';
 import GameReset from './GameReset';
 import GameTimer from './GameTimer';
 
+const GameInfos = ({ bombsRemaining, time, handleReset }) => {
+  return (
+    <div className="game-infos">
+      <BombTracker bombsRemaining={bombsRemaining} />
+      <GameReset reset={handleReset} />
+      <GameTimer time={time} />
+    </div>
+  );
+}
+
+export default GameInfos;
+/*
 class GameInfos extends React.Component {
   constructor(props) {
     super(props);
@@ -47,3 +59,4 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(GameInfos);
+*/
