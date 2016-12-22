@@ -35,8 +35,11 @@ function getIndexesToOpen(index, cells, width) {
   let indexes = [];
 
   function lookAtCell(index) {
-    if (indexes.indexOf(index) === -1) { indexes.push(index); }
-    if (cells[index].value !== ' ') {
+    if (
+      indexes.indexOf(index) === -1 &&
+      !cells[index].opened
+    ) { indexes.push(index); }
+    if (cells[index].value !== ' ' || cells[index].opened) {
       return;
     }
     else {

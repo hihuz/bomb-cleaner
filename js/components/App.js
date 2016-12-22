@@ -42,7 +42,7 @@ class App extends React.Component {
   }
   updateTime() {
     let time = this.state.time;
-    if (this.props.gameStatus==='running' && time <= 999) {
+    if (this.props.gameStatus==='running' && time < 999) {
       this.setState({ time: time + 1 });
     }
   }

@@ -2,12 +2,27 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
+import thorttle from 'lodash/throttle';
+import { loadState, saveState } from './app-logic/localStorage';
 import rootReducer from './reducers/root';
 import App from './components/App';
 
-const store = createStore(rootReducer, compose(
+const store = createStore(
+  rootReducer,
+  loadState(),
   typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
-));
+);
+
+// FIX : THE GRID REDUCER DOES NOT KNOW ABOUT THE GAME MODE. SHOULD I MAKE THAT A PROP OF THE GRID ?
+// YES THIS SEEMS LIKE A GOOD IDEA RIGHT NOW, ALSO SWITCHING LOGIC TO THE ACTION CREATORS SEEMS GOOD.
+// LEARN ABOUT SELECTORS THO.
+store.subscribe(throttle(() => {
+  const state = store.getState();
+  saveState({
+    mode: state.mode,
+    highScores: state.highScores
+  });
+}), 1000);
 
 render(
   <Provider store={store}>
@@ -20,8 +35,9 @@ render(
 ///////////
 // TODO  //
 ///////////
+// -> write a few tests for the latest changes & the components
 // -> fix value of cell to not have X and flag at the same time :c
-// -> add "win" condition
+// -> add "win" condition >> this will require rewriting logic in the action creators I think :c
 // -> take care of UI, design and any remaining bugs / annoying stuff ( <<<< first click takes a lot of time :( )
 // -> check if the logic needs to go in the action creators instead of the reducers (for devtools compatibility!)
 // -> if so, reduce component knowledge of state to a minimum ?
@@ -47,8 +63,10 @@ UI :
 //                                                                >> this is not encouraged I believe (see so post from dan), but I may understand it wrong, getState is fine, but passing state to the reducer from getstate is not fine
 //                                                           2) pass the grid as an action param from the Grid component
 //                            this could be the best practice but there is 0 async in this app soo...
-//      * the reducers : I have read that reducers are best kept dumb simple : take data from the action and Object.assign
+//      * the reducers : I have read that reducers are best kept dumb simple : take data from the action and Object.assign it
 //                       But I think in this  case it may make more sense to have the logic here ? not sure
+//      * I have run into this situation where I realize my "grid" reducer is gonna need to have access to the game status (worked around that) but also the game "mode" to define the size of the grid
+//        So.. is it best to have this big ass "grid" reducer, could also call it "game" reducer at this point.. is there any prefered approach ?
 
 // also ask about local state for the timer ? and how to implement it in redux
 
