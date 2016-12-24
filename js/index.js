@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
-import thorttle from 'lodash/throttle';
+import throttle from 'lodash/throttle';
 import { loadState, saveState } from './app-logic/localStorage';
 import rootReducer from './reducers/root';
 import App from './components/App';
@@ -13,14 +13,16 @@ const store = createStore(
   typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
 );
 
-// FIX : THE GRID REDUCER DOES NOT KNOW ABOUT THE GAME MODE. SHOULD I MAKE THAT A PROP OF THE GRID ?
-// YES THIS SEEMS LIKE A GOOD IDEA RIGHT NOW, ALSO SWITCHING LOGIC TO THE ACTION CREATORS SEEMS GOOD.
-// LEARN ABOUT SELECTORS THO.
 store.subscribe(throttle(() => {
   const state = store.getState();
   saveState({
     mode: state.mode,
-    highScores: state.highScores
+    highScores: state.highScores,
+    grid: {
+      width: state.grid.width,
+      height: state.grid.height,
+      bombs: state.grid.bombs
+    }
   });
 }), 1000);
 
@@ -36,25 +38,9 @@ render(
 // TODO  //
 ///////////
 // -> write a few tests for the latest changes & the components
-// -> fix value of cell to not have X and flag at the same time :c
-// -> add "win" condition >> this will require rewriting logic in the action creators I think :c
 // -> take care of UI, design and any remaining bugs / annoying stuff ( <<<< first click takes a lot of time :( )
-// -> check if the logic needs to go in the action creators instead of the reducers (for devtools compatibility!)
-// -> if so, reduce component knowledge of state to a minimum ?
+// -> maybe reduce component knowledge of state to a minimum ?
 // -> learn about and implement "selectors" w/ reselect
-
-/*
-UI :
-- menu with 3 options : "mode" (dropdown with easy/medium/hard/custom), "high-scores", "about"
-  - mode : simple drop down except for "custom" which should open a dialog window with the settings
-  - high-scores : simple dialog showing high scores for all difficulty with possibility to reset, will use local storage
-  - about : dialog with couple of infos about the game and author
-
-- "game-infos" bar with 3 components : bombs cnt, timer, reset >> functionnal but needs styling
-
-- "grid" component : a grid containing a number of cells representing the game board >> functionnal but needs styling
-  - "cell" components : a bunch of cells >> functionnal but needs styling
-*/
 
 //question to ask :
 // - in this particular mine sweeper example, where should most of the logic live ?

@@ -1,10 +1,18 @@
+import CreateGrid from '../app-logic/GridFactory';
+
 export const loadState = () => {
   try {
-    const serializedState = localStorage.getItem('state');
+  const serializedState = localStorage.getItem('state');
     if (serializedState === null) {
       return undefined;
     }
-    return JSON.parse(serializedState);
+    let parsedState = JSON.parse(serializedState);
+    parsedState.grid = CreateGrid(
+      parsedState.grid.width,
+      parsedState.grid.height,
+      parsedState.grid.bombs
+    );
+    return parsedState;
   } catch (err) {
     return undefined;
   }

@@ -1,28 +1,10 @@
 import React from 'react';
 
-const Menu = ({ setEasyMode, setMediumMode, setHardMode, mode }) => (
+const Menu = ({ openModeDialog, openHSDialog, openAboutDialog }) => (
   <div className="menu">
-    <button
-      className="mode-button"
-      onClick={setEasyMode}
-      disabled={mode==='easy'}
-    >
-      Easy
-    </button>
-    <button
-      className="mode-button"
-      onClick={setMediumMode}
-      disabled={mode==='medium'}
-    >
-      Medium
-    </button>
-    <button
-      className="mode-button"
-      onClick={setHardMode}
-      disabled={mode==='hard'}
-    >
-      Hard
-    </button>
+    <button className="mode-button" onClick={openModeDialog}>Mode</button>
+    <button className="hs-button" onClick={openHSDialog}>High Scores</button>
+    <button className="about-button" onClick={openAboutDialog}>About</button>
   </div>
 );
 

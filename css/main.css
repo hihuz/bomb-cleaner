@@ -1,3 +1,41 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('css/fonts/icomoon.eot?tb5jdu');
+  src:  url('css/fonts/icomoon.eot?tb5jdu#iefix') format('embedded-opentype'),
+    url('css/fonts/icomoon.ttf?tb5jdu') format('truetype'),
+    url('css/fonts/icomoon.woff?tb5jdu') format('woff'),
+    url('css/fonts/icomoon.svg?tb5jdu#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-close:before {
+  content: "\f00d";
+}
+.icon-flag:before {
+  content: "\f024";
+  color: #8c4b1f;
+  font-size: 16px;
+  position: relative;
+  top: -2px;
+}
+.icon-bomb:before {
+  content: "\f1e2";
+  font-size: 16px;
+  position: relative;
+  top: -2px;
+}
+
 *, *::after, *::before {
   box-sizing: border-box;
 }
@@ -6,9 +44,35 @@ body {
   font-family: 'arial';
   color: #333;
 }
+button {
+  font-size: 20px;
+  color: #333;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #101868;
+}
 .app {
+  user-select: none;
   margin: 0 auto;
-  text-align: center;
+}
+.menu, .game-infos {
+  width: 300px;
+  margin: 5px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.mode-menu {
+  cursor: pointer;
+  position: relative;
+}
+.bomb-tracker, .game-reset, .game-timer {
+  margin: 0 10px;
 }
 .grid {
   display: flex;
@@ -19,14 +83,63 @@ body {
 .cell {
   width: 24px;
   height: 24px;
-  background-color: #ccc;
-  border: 1px solid #aaa;
-  color: #000;
+  background-color: #bbb;
+  border: 2px outset #aaa;
+  color: #333;
   text-align: center;
+  font-weight: bold;
 }
-.opened {
+.cell:hover {
+  background-color: #ccc;
+}
+.cell.opened {
   background-color: #eee;
+    border: 1px solid #aaa;
 }
-.bomb {
-  background-color: red;
+.cell.opened.bomb {
+  background-color: #ec6334;
+}
+.dialog {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  width: 320px;
+  font-size: 16px;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dialog.opened {
+  visibility: visible;
+  opacity: 1;
+}
+.hs-dialog p, .about-dialog p {
+  margin: 0;
+}
+.dialog-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.mode-dialog-button {
+  display: block;
+  margin: 5px auto;
+}
+.mode-dialog div {
+  margin: 5px 0;
+}
+.mode-input {
+  width: 30px;
+}
+.mode-validate {
+  margin: 10px auto 5px;
+  width: 60px;
+}
+.centered-text {
+  text-align: center;
 }
