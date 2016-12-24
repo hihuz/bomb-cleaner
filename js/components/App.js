@@ -93,6 +93,7 @@ class App extends React.Component {
         />
         <HSDialog
           opened={this.state.hsDialogOpened}
+          highScores={this.props.highScores}
           closeHSDialog={this.closeHSDialog.bind(this)}
         />
         <AboutDialog

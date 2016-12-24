@@ -56,6 +56,10 @@ a {
   text-decoration: none;
   color: #101868;
 }
+h2 {
+  font-size: 20px;
+  border-bottom: 2px solid #333;
+}
 .app {
   user-select: none;
   margin: 0 auto;
@@ -118,9 +122,6 @@ a {
   visibility: visible;
   opacity: 1;
 }
-.hs-dialog p, .about-dialog p {
-  margin: 0;
-}
 .dialog-close {
   position: absolute;
   right: 10px;
@@ -139,6 +140,22 @@ a {
 .mode-validate {
   margin: 10px auto 5px;
   width: 60px;
+}
+.hs-dialog {
+  text-align: center;
+  padding: 20px 0;
+}
+.hs-row {
+  display: inline-block;
+  width: 80px;
+  margin: 0 8px;
+  min-height: 200px;
+}
+.hs-name {
+
+}
+.hs-time {
+
 }
 .centered-text {
   text-align: center;
