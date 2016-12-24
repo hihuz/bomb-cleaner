@@ -80,7 +80,9 @@ class ModeDialog extends React.Component {
   render() {
     return (
       <div className={`dialog centered-text${this.props.opened?' opened':''}`}>
-        <button className='dialog-close' onClick={this.handleCloseClick.bind(this)}>x</button>
+        <button className='dialog-close' onClick={this.handleCloseClick.bind(this)}>
+          <i className='icon-close'></i>
+        </button>
           <button className='mode-dialog-button' disabled={this.state.mode === 'easy'} onClick={this.setLocalEasyMode.bind(this)}>Easy</button>
           <button className='mode-dialog-button' disabled={this.state.mode === 'medium'} onClick={this.setLocalMediumMode.bind(this)}>Medium</button>
           <button className='mode-dialog-button' disabled={this.state.mode === 'hard'} onClick={this.setLocalHardMode.bind(this)}>Hard</button>

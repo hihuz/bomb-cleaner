@@ -2,7 +2,9 @@ import React from 'react';
 
 const AboutDialog = ({ closeAboutDialog, opened }) => (
   <div className={`dialog${opened?' opened':''}`}>
-    <button className='dialog-close' onClick={closeAboutDialog}>x</button>
+    <button className='dialog-close' onClick={closeAboutDialog}>
+      <i className='icon-close'></i>
+    </button>
     <p>
       This is a MineSweeper game implemented with React and Redux.
       <br />
