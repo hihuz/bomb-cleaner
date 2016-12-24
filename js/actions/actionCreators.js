@@ -64,3 +64,7 @@ export function setMode(mode, width, height, bombs) {
 
   return { type: SET_MODE, mode, grid };
 }
+
+export function addHighScore(mode, name, time, date) {
+
+}

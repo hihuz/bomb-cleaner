@@ -37,7 +37,7 @@ render(
 ///////////
 // TODO  //
 ///////////
-// -> write a few tests for the latest changes & the components
+// -> write tests for the latest changes & the components
 // -> take care of UI, design and any remaining bugs / annoying stuff ( <<<< first click takes a lot of time :( )
 // -> maybe reduce component knowledge of state to a minimum ?
 // -> learn about and implement "selectors" w/ reselect
