@@ -25,4 +25,5 @@ const AboutDialog = ({ closeAboutDialog, opened }) => (
     </p>
   </div>
 );
+
 export default AboutDialog;

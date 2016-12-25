@@ -65,6 +65,21 @@ export function setMode(mode, width, height, bombs) {
   return { type: SET_MODE, mode, grid };
 }
 
-export function addHighScore(mode, name, time, date) {
-
+export function addHighScore(mode, name, time, highScores) {
+  let index;
+  const curHS = highScores[mode];
+  curHS.forEach((hs, i) => {
+    if (hs.time > time && !index) { index = i; }
+  });
+  const updatedHS = Object.assign({}, highScores, {
+    [mode]: [
+      ...curHS.slice(0, index),
+      {
+        name: name,
+        time: time,
+        date: new Date().toJSON().slice(0,10)
+      },
+      ...curHS.slice(index, curHS.length)
+    ]
+  });
 }

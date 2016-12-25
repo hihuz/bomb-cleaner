@@ -1,16 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import AddHSForm from './AddHSForm';
 
-const CongratsDialog = ({ opened, closeCongratsDialog }) => (
+function isHighScore(mode, time, highScores) {
+  return highScores[mode].filter((hs) => {
+    return hs.time < time;
+  }).length === 0;
+}
+
+const CongratsDialog = ({ opened, closeCongratsDialog, time, mode, highScores }) => (
   <div className={`dialog${opened?' opened':''}`}>
     <button className='dialog-close' onClick={closeCongratsDialog}>
       <i className='icon-close'></i>
     </button>
     <p>
-      Congratulations !!!
+      Congratulations !
     </p>
+    {isHighScore(mode, time, highScores) ? <AddHSForm mode={mode} time={time} highScores={highScores} /> : ''}
   </div>
 );
 
-
-export default connect()(CongratsDialog);
+export default CongratsDialog;
