@@ -1,3 +1,4 @@
+import { ADD_HS } from '../actions/actionTypes';
 
 const DEFAULT_STATE = {
   easy: [],
@@ -6,7 +7,12 @@ const DEFAULT_STATE = {
 };
 
 const highScoresReducer = (state = DEFAULT_STATE, action) => {
-  return state;
+  switch (action.type) {
+    case ADD_HS:
+      return action.highScores;
+    default:
+      return state;
+  }
 }
 
 export default highScoresReducer;

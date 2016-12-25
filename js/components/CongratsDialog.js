@@ -2,9 +2,11 @@ import React from 'react';
 import AddHSForm from './AddHSForm';
 
 function isHighScore(mode, time, highScores) {
-  return highScores[mode].filter((hs) => {
-    return hs.time < time;
-  }).length === 0;
+  const worseTimes = highScores[mode].filter((hs) => {
+    return time <= hs.time;
+  }).length;
+  console.log(highScores[mode].length, worseTimes)
+  return highScores[mode].length === 0 || worseTimes > 0;
 }
 
 const CongratsDialog = ({ opened, closeCongratsDialog, time, mode, highScores }) => (
@@ -15,7 +17,12 @@ const CongratsDialog = ({ opened, closeCongratsDialog, time, mode, highScores })
     <p>
       Congratulations !
     </p>
-    {isHighScore(mode, time, highScores) ? <AddHSForm mode={mode} time={time} highScores={highScores} /> : ''}
+    {isHighScore(mode, time, highScores) ? <AddHSForm
+      mode={mode}
+      time={time}
+      highScores={highScores}
+      closeCongratsDialog={closeCongratsDialog}
+    /> : ''}
   </div>
 );
 

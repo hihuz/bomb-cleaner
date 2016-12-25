@@ -14,8 +14,10 @@ class AddHSForm extends React.Component {
   }
   handleAddHSClick(e) {
     this.props.dispatch(
-      addHighScore(this.props.mode, this.props.time, this.state.name, this.props.highScores)
+      addHighScore(this.props.mode, this.state.name, this.props.time, this.props.highScores)
     );
+    // this is not being triggered :( rest seems more or less fine tho
+    this.props.closeCongratsDialog(e);
   }
   render() {
     return (
@@ -23,7 +25,7 @@ class AddHSForm extends React.Component {
         You made a high score for <em>{this.props.mode}</em> mode !
         <br />
         Enter your name below :
-        <input type='text' />
+        <input type='text' onChange={this.updateName.bind(this)}/>
         <button className='' onClick={this.handleAddHSClick.bind(this)}>OK</button>
       </div>
     );

@@ -1,11 +1,11 @@
 import React from 'react';
 
-function displayHS(hs) {
+function displayHS(hs, i) {
   return (
-    <li className='hs'>
+    <li className='hs' key={i}>
       <div className='hs-name'>{hs.name}</div>
       <div className='hs-date'>{hs.date}</div>
-      <div className='hs-time'>{hs.time}</div>
+      <div className='hs-time'>{hs.time}s</div>
     </li>
   );
 }

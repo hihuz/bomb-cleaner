@@ -1,6 +1,6 @@
 import CreateGrid, { fillGrid } from '../app-logic/GridFactory';
 import { getIndexesToOpen } from '../app-logic/utils';
-import { OPEN_CELL, OPEN_BOMB, TOGGLE_FLAG, RESET_GAME, SET_MODE } from './actionTypes';
+import { OPEN_CELL, OPEN_BOMB, TOGGLE_FLAG, RESET_GAME, SET_MODE, ADD_HS } from './actionTypes';
 
 export function openCell(index, grid) {
   const newGrid = Object.assign({}, grid);
@@ -57,7 +57,7 @@ export function resetGame(grid) {
 
 export function setMode(mode, width, height, bombs) {
   let grid;
-  if (mode == "easy") { grid = CreateGrid(9, 9, 10); }
+  if (mode == "easy") { grid = CreateGrid(20, 20, 10); }
   if (mode == "medium") { grid = CreateGrid(16, 16, 40); }
   if (mode == "hard") { grid = CreateGrid(30, 16, 99); }
   if (mode == "custom") { grid = CreateGrid(width, height, bombs); }
@@ -68,6 +68,7 @@ export function setMode(mode, width, height, bombs) {
 export function addHighScore(mode, name, time, highScores) {
   let index;
   const curHS = highScores[mode];
+  const sliceEnd = Math.min(curHS.length - 1, 4);
   curHS.forEach((hs, i) => {
     if (hs.time > time && !index) { index = i; }
   });
@@ -79,7 +80,9 @@ export function addHighScore(mode, name, time, highScores) {
         time: time,
         date: new Date().toJSON().slice(0,10)
       },
-      ...curHS.slice(index, curHS.length)
+      ...curHS.slice(index, sliceEnd)
     ]
   });
+
+  return { type: ADD_HS, highScores: updatedHS };
 }
