@@ -17,6 +17,7 @@ class AddHSForm extends React.Component {
       addHighScore(this.props.mode, this.state.name, this.props.time, this.props.highScores)
     );
     // this is not being triggered :( rest seems more or less fine tho
+    console.log(this.props.closeCongratsDialog);
     this.props.closeCongratsDialog(e);
   }
   render() {

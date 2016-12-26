@@ -5,8 +5,7 @@ function isHighScore(mode, time, highScores) {
   const worseTimes = highScores[mode].filter((hs) => {
     return time <= hs.time;
   }).length;
-  console.log(highScores[mode].length, worseTimes)
-  return highScores[mode].length === 0 || worseTimes > 0;
+  return highScores[mode].length < 5 || worseTimes > 0;
 }
 
 const CongratsDialog = ({ opened, closeCongratsDialog, time, mode, highScores }) => (

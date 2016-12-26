@@ -57,7 +57,7 @@ export function resetGame(grid) {
 
 export function setMode(mode, width, height, bombs) {
   let grid;
-  if (mode == "easy") { grid = CreateGrid(20, 20, 10); }
+  if (mode == "easy") { grid = CreateGrid(9, 9, 10); }
   if (mode == "medium") { grid = CreateGrid(16, 16, 40); }
   if (mode == "hard") { grid = CreateGrid(30, 16, 99); }
   if (mode == "custom") { grid = CreateGrid(width, height, bombs); }
@@ -78,7 +78,7 @@ export function addHighScore(mode, name, time, highScores) {
       {
         name: name,
         time: time,
-        date: new Date().toJSON().slice(0,10)
+        date: new Date().toJSON().slice(0, 10)
       },
       ...curHS.slice(index, sliceEnd)
     ]
