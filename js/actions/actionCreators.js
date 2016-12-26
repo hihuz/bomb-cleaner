@@ -65,14 +65,15 @@ export function setMode(mode, width, height, bombs) {
   return { type: SET_MODE, mode, grid };
 }
 
-//this is somewhat bugged, fix this shit
+//this is a bit ugly, try to refactor later
 export function addHighScore(mode, name, time, date, highScores) {
   let index;
   const curHS = highScores[mode];
-  const sliceEnd = Math.min(curHS.length - 1, 4);
+  const sliceEnd = Math.min(curHS.length, 4);
   curHS.forEach((hs, i) => {
-    if (hs.time > time && !index) { index = i; }
+    if (hs.time > time && index === undefined) { index = i; }
   });
+  if (index === undefined) { index = sliceEnd; }
   const updatedHS = Object.assign({}, highScores, {
     [mode]: [
       ...curHS.slice(0, index),

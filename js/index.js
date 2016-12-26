@@ -37,7 +37,7 @@ render(
 ///////////
 // TODO  //
 ///////////
-// -> write tests for the latest changes & the components
+// -> write tests for the the components
 // -> take care of UI, design and any remaining bugs / annoying stuff ( <<<< first click takes a lot of time :( )
 // -> add accessibility where possible (escape to close dialogs..) & outside click for close for some dialogs as well (add "overlay" elem)
 // -> maybe reduce component knowledge of state to a minimum ?

@@ -1,7 +1,6 @@
 import CreateGrid, { fillGrid } from '../app-logic/GridFactory';
 import CreateCell from '../app-logic/CellFactory';
-import { getIndexesToOpen } from '../app-logic/utils';
-import { openCell, openBomb, toggleFlag, initGame, resetGame, setMode, addHighScore } from './actionCreators'
+import { openCell, openBomb, toggleFlag, resetGame, setMode, addHighScore } from './actionCreators'
 import { OPEN_CELL, OPEN_BOMB, TOGGLE_FLAG, RESET_GAME, SET_MODE, ADD_HS } from './actionTypes';
 
 function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2) {
@@ -221,7 +220,7 @@ test('setMode (custom): should return an SET_MODE action with a fresh grid of sp
 });
 
 test('resetGame: should return an RESET_GAME action with a fresh grid of same props', () => {
-  const gridBefore = Object.freeze(CreateGrid(10, 12, 30));
+  const gridBefore = Object.freeze(fillGrid(0, CreateGrid(10, 12, 30)));
   const action = resetGame(gridBefore);
 
   expect(action.grid.bombs).toEqual(gridBefore.bombs);
@@ -240,7 +239,7 @@ test('addHighScore (empty): should return an ADD_HS action with an updated highs
   expect(addHighScore('easy', 'Mel', 12, '2016-12-20', HSBefore)).toEqual(action);
 });
 
-test('addHighScore (add last): should return an ADD_HS action with an updated highscores object', () => {
+test('addHighScore (add last, not full): should return an ADD_HS action with an updated highscores object', () => {
   const HSBefore = { easy: ['boo'], medium: ['bah'], hard: [
     MakeHS('Bob', 46, '2016-10-11'),
     MakeHS('John', 52, '2016-08-12'),
@@ -257,6 +256,28 @@ test('addHighScore (add last): should return an ADD_HS action with an updated hi
   const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
 
   expect(addHighScore('hard', 'Typhon', 77, '2016-02-16', HSBefore)).toEqual(action);
+});
+
+test('addHighScore (add last, already full): should return an ADD_HS action with an updated highscores object', () => {
+  const HSBefore = { easy: ['boo'], medium: ['bah'], hard: [
+    MakeHS('Bob', 46, '2016-10-11'),
+    MakeHS('John', 52, '2016-08-12'),
+    MakeHS('Sara', 76, '2016-07-13'),
+    MakeHS('Bert', 92, '2016-04-15'),
+    MakeHS('Dan', 106, '2016-03-16')
+  ] };
+  const HSAfter = Object.assign({}, HSBefore, {
+    hard: [
+      MakeHS('Bob', 46, '2016-10-11'),
+      MakeHS('John', 52, '2016-08-12'),
+      MakeHS('Sara', 76, '2016-07-13'),
+      MakeHS('Bert', 92, '2016-04-15'),
+      MakeHS('sb', 98, '2016-12-08'),
+    ]
+  })
+  const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
+
+  expect(addHighScore('hard', 'sb', 98, '2016-12-08', HSBefore)).toEqual(action);
 });
 
 test('addHighScore (add inside, not full): should return an ADD_HS action with an updated highscores object', () => {
@@ -276,4 +297,70 @@ test('addHighScore (add inside, not full): should return an ADD_HS action with a
   const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
 
   expect(addHighScore('hard', 'Typhon', 75, '2016-02-16', HSBefore)).toEqual(action);
+});
+
+test('addHighScore (add inside, already full): should return an ADD_HS action with an updated highscores object', () => {
+  const HSBefore = { easy: ['boo'], medium: ['bah'], hard: [
+    MakeHS('Bob', 46, '2016-10-11'),
+    MakeHS('John', 52, '2016-08-12'),
+    MakeHS('Sara', 76, '2016-07-13'),
+    MakeHS('Bert', 92, '2016-04-15'),
+    MakeHS('Dan', 106, '2016-03-16')
+  ] };
+  const HSAfter = Object.assign({}, HSBefore, {
+    hard: [
+      MakeHS('Bob', 46, '2016-10-11'),
+      MakeHS('John', 52, '2016-08-12'),
+      MakeHS('Sara', 76, '2016-07-13'),
+      MakeHS('sb', 86, '2016-12-08'),
+      MakeHS('Bert', 92, '2016-04-15')
+    ]
+  })
+  const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
+
+  expect(addHighScore('hard', 'sb', 86, '2016-12-08', HSBefore)).toEqual(action);
+});
+
+test('addHighScore (add first, not full): should return an ADD_HS action with an updated highscores object', () => {
+  const HSBefore = { easy: ['boo'], medium: ['bah'], hard: [
+    MakeHS('Bob', 46, '2016-10-11'),
+    MakeHS('John', 52, '2016-08-12'),
+    MakeHS('Sara', 76, '2016-07-13'),
+    MakeHS('Bert', 92, '2016-04-15')
+  ] };
+  const HSAfter = Object.assign({}, HSBefore, {
+    hard: [
+      MakeHS('sb', 32, '2016-12-08'),
+      MakeHS('Bob', 46, '2016-10-11'),
+      MakeHS('John', 52, '2016-08-12'),
+      MakeHS('Sara', 76, '2016-07-13'),
+      MakeHS('Bert', 92, '2016-04-15')
+    ]
+  })
+  const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
+
+  expect(addHighScore('hard', 'sb', 32, '2016-12-08', HSBefore)).toEqual(action);
+});
+
+
+test('addHighScore (add first, already full): should return an ADD_HS action with an updated highscores object', () => {
+  const HSBefore = { easy: ['boo'], medium: ['bah'], hard: [
+    MakeHS('Bob', 46, '2016-10-11'),
+    MakeHS('John', 52, '2016-08-12'),
+    MakeHS('Sara', 76, '2016-07-13'),
+    MakeHS('Bert', 92, '2016-04-15'),
+    MakeHS('Dan', 106, '2016-03-16')
+  ] };
+  const HSAfter = Object.assign({}, HSBefore, {
+    hard: [
+      MakeHS('sb', 32, '2016-12-08'),
+      MakeHS('Bob', 46, '2016-10-11'),
+      MakeHS('John', 52, '2016-08-12'),
+      MakeHS('Sara', 76, '2016-07-13'),
+      MakeHS('Bert', 92, '2016-04-15')
+    ]
+  })
+  const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
+
+  expect(addHighScore('hard', 'sb', 32, '2016-12-08', HSBefore)).toEqual(action);
 });

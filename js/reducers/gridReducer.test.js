@@ -1,58 +1,40 @@
 import gridReducer from './gridReducer';
-import CreateGrid from '../app-logic/GridFactory';
+import CreateGrid, { fillGrid } from '../app-logic/GridFactory';
 import CreateCell from '../app-logic/CellFactory';
-import { openCell, openBomb, toggleFlag, initGame, resetGame, setMode, addHighScore } from '../actions/actionCreators'
-
-function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2) {
-  const grid = {
-    width: 1,
-    height: 1,
-    bombs: isBomb ? 1 : 0,
-    flags,
-    emptyCellsRemaining: empty,
-    cells: [
-      {
-        index: 0,
-        isBomb,
-        flagged: cellState == 'flagged',
-        opened: cellState == 'opened',
-        value: isBomb ? 'X' : ' '
-      }
-    ]
-  };
-
-  return grid;
-}
+import { openCell, openBomb, toggleFlag, resetGame, setMode } from '../actions/actionCreators'
 
 test('OPEN_CELL: should return the grid passed in the action', () => {
-  const stateBefore = Object.freeze(MakeTestGrid(0, 'hidden', false));
+  const stateBefore = Object.freeze(fillGrid(0, CreateGrid(10, 10, 25)));
   const action = openCell(0, stateBefore);
   expect(gridReducer(stateBefore, action)).toEqual(action.grid);
 });
 
 test('OPEN_BOMB: should return the grid passed in the action', () => {
-  const stateBefore = Object.freeze(MakeTestGrid(0, 'hidden', true));
-  const action = openBomb(0, stateBefore);
+  const stateBefore = Object.freeze(fillGrid(10, CreateGrid(9, 9, 80)));
+  const action = openBomb(5, stateBefore);
   expect(gridReducer(stateBefore, action)).toEqual(action.grid);
 });
 
 test('TOGGLE_FLAG: should return the grid passed in the action', () => {
-  const stateBefore = Object.freeze(MakeTestGrid(0, 'hidden', true));
+  const stateBefore = Object.freeze(fillGrid(0, CreateGrid(10, 10, 25)));
   const action = toggleFlag(0, stateBefore);
   expect(gridReducer(stateBefore, action)).toEqual(action.grid);
 });
 
-test('RESET_GAME : should provide a new fresh grid to the state', () => {
-  const state = Object.freeze(CreateGrid(10, 12, 30));
-  const action = Object.freeze({
-    type: 'RESET_GAME',
-    grid: CreateGrid(10, 12, 30)
-  });
-  const nextState = gridReducer(state, action);
+test('RESET_GAME : should return the grid passed in the action', () => {
+  const stateBefore = Object.freeze(fillGrid(0, CreateGrid(10, 10, 25)));
+  const action = resetGame(stateBefore);
+  expect(gridReducer(stateBefore, action)).toEqual(action.grid);
+});
 
-  expect(nextState.bombs).toEqual(state.bombs);
-  expect(nextState.width).toEqual(state.width);
-  expect(nextState.height).toEqual(state.height);
-  expect(nextState.flags).toEqual(0);
-  expect(nextState.emptyCellsRemaining).toEqual(10 * 12 - 30);
+test('SET_MODE : should return the grid passed in the action', () => {
+  const stateBefore = Object.freeze(fillGrid(0, CreateGrid(10, 10, 25)));
+  const action = setMode('hard');
+  expect(gridReducer(stateBefore, action)).toEqual(action.grid);
+});
+
+test('unknown action should return the state as is', () => {
+  const stateBefore = Object.freeze(fillGrid(0, CreateGrid(10, 10, 25)));
+  const action = Object.freeze({ type: 'MOO', grid: 'test' });
+  expect(gridReducer(stateBefore, action)).toEqual(stateBefore);
 });
