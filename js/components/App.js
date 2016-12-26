@@ -4,10 +4,7 @@ import { resetGame } from '../actions/actionCreators';
 import Menu from './Menu';
 import GameInfos from './GameInfos';
 import Grid from './Grid';
-import ModeDialog from './ModeDialog';
-import HSDialog from './HSDialog';
-import AboutDialog from './AboutDialog';
-import CongratsDialog from './CongratsDialog';
+import Overlay from './Overlay';
 import '../../css/main.css';
 
 class App extends React.Component {
@@ -93,25 +90,18 @@ class App extends React.Component {
           grid={this.props.grid}
           status={this.props.gameStatus}
         />
-        <ModeDialog
-          opened={this.state.modeDialogOpened}
+        <Overlay
+          modeDialogOpened={this.state.modeDialogOpened}
           closeModeDialog={this.closeModeDialog}
-        />
-        <HSDialog
-          opened={this.state.hsDialogOpened}
-          highScores={this.props.highScores}
+          hsDialogOpened={this.state.hsDialogOpened}
           closeHSDialog={this.closeHSDialog}
-        />
-        <AboutDialog
-          opened={this.state.aboutDialogOpened}
+          aboutDialogOpened={this.state.aboutDialogOpened}
           closeAboutDialog={this.closeAboutDialog}
-        />
-        <CongratsDialog
+          congratsDialogOpened={this.state.congratsDialogOpened}
+          closeCongratsDialog={this.closeCongratsDialog}
+          highScores={this.props.highScores}
           time={this.state.time}
           mode={this.props.mode}
-          highScores={this.props.highScores}
-          opened={this.state.congratsDialogOpened}
-          closeCongratsDialog={this.closeCongratsDialog}
         />
       </div>
     );
