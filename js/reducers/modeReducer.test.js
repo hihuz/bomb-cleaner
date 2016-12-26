@@ -26,4 +26,4 @@ test('unknown action should return the state as is', () => {
   expect(modeReducer('medium', action)).toEqual('medium');
   expect(modeReducer('hard', action)).toEqual('hard');
   expect(modeReducer('custom', action)).toEqual('custom');
-})
+});

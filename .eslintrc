@@ -9,6 +9,7 @@
   "rules": {
       "linebreak-style": ["error", "windows"],
       "comma-dangle": ["error", "ignore"],
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/prop-types": 0
   }
 }

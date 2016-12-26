@@ -11,4 +11,4 @@ test('unknown action should return the state as is', () => {
   const hsBefore = { easy: ['foo', 'bar'], medium: ['baz'], hard: [] };
   const action = { type: 'BOO', highScores: {} };
   expect(highScoresReducer(hsBefore, action)).toEqual(hsBefore);
-})
+});

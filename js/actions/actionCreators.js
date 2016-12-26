@@ -5,11 +5,11 @@ import { OPEN_CELL, OPEN_BOMB, TOGGLE_FLAG, RESET_GAME, SET_MODE, ADD_HS } from 
 export function openCell(index, grid) {
   const newGrid = Object.assign({}, grid);
   const indexes = getIndexesToOpen(index, newGrid.cells, newGrid.width);
-  let updatedCells = newGrid.cells.map((cell) => {
-    let updatedCell = Object.assign({}, cell, {
+  const updatedCells = newGrid.cells.map((cell) => {
+    const updatedCell = Object.assign({}, cell, {
       opened: indexes.indexOf(cell.index) !== -1 || cell.opened
     });
-    return  updatedCell;
+    return updatedCell;
   });
   newGrid.cells = updatedCells;
   newGrid.emptyCellsRemaining -= indexes.length;
@@ -20,7 +20,7 @@ export function openCell(index, grid) {
 export function openBomb(index, grid) {
   const newGrid = Object.assign({}, grid);
   const updatedCells = newGrid.cells.map((cell) => {
-    let updatedCell = Object.assign({}, cell, {
+    const updatedCell = Object.assign({}, cell, {
       opened: cell.isBomb || cell.opened
     });
     return updatedCell;
@@ -31,7 +31,7 @@ export function openBomb(index, grid) {
 }
 
 export function toggleFlag(index, grid) {
-  let newGrid = Object.assign({}, grid);
+  const newGrid = Object.assign({}, grid);
   const cell = newGrid.cells[index];
   const flags = newGrid.flags;
   if (cell.flagged) {
@@ -57,15 +57,15 @@ export function resetGame(grid) {
 
 export function setMode(mode, width, height, bombs) {
   let grid;
-  if (mode == "easy") { grid = CreateGrid(9, 9, 10); }
-  if (mode == "medium") { grid = CreateGrid(16, 16, 40); }
-  if (mode == "hard") { grid = CreateGrid(30, 16, 99); }
-  if (mode == "custom") { grid = CreateGrid(width, height, bombs); }
+  if (mode === 'easy') { grid = CreateGrid(9, 9, 10); }
+  if (mode === 'medium') { grid = CreateGrid(16, 16, 40); }
+  if (mode === 'hard') { grid = CreateGrid(30, 16, 99); }
+  if (mode === 'custom') { grid = CreateGrid(width, height, bombs); }
 
   return { type: SET_MODE, mode, grid };
 }
 
-//this is a bit ugly, try to refactor later
+// this is a bit ugly, try to refactor later
 export function addHighScore(mode, name, time, date, highScores) {
   let index;
   const curHS = highScores[mode];
@@ -78,9 +78,9 @@ export function addHighScore(mode, name, time, date, highScores) {
     [mode]: [
       ...curHS.slice(0, index),
       {
-        name: name,
-        time: time,
-        date: date
+        name,
+        time,
+        date
       },
       ...curHS.slice(index, sliceEnd)
     ]

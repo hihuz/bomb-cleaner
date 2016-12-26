@@ -70,13 +70,13 @@ test('neighbors should match the given plan 3', () => {
 
 test('countBombs should return 2 if there are 2 bombs, O RLY?', () => {
   const neighbors = ['X', '1', '0', '1', '0', 'X', '0', '0']
-  .map((item) => ({ value: item }) );
+  .map(item => ({ value: item }));
   expect(countBombs(neighbors)).toEqual(2);
 });
 
 test('countBombs should return 0 if there are 0 bombs, correct?', () => {
   const neighbors = ['0', '0', '0', '0', '0', '0', '0', '0']
-  .map((item) => ({ value: item }) );
+  .map(item => ({ value: item }));
   expect(countBombs(neighbors)).toEqual(0);
 });
 
@@ -85,19 +85,19 @@ test('countBombs should return 0 with an array of undefined', () => {
     undefined, undefined, undefined, undefined,
     undefined, undefined, undefined, undefined
   ]
-  .map((item) => ({ value: item }) );
+  .map(item => ({ value: item }));
   expect(countBombs(neighbors)).toEqual(0);
 });
 
 test('countBombs should return 1 with a mixed array of undefined, 1 bomb and other values', () => {
   const neighbors = [undefined, undefined, 'X', undefined, '1', undefined, undefined, undefined]
-  .map((item) => ({ value: item }) );
+  .map(item => ({ value: item }));
   expect(countBombs(neighbors)).toEqual(1);
 });
 
 test('countBombs should return the number of bombs no matter the length of the input array', () => {
   const neighbors = ['X', 'X', 'X']
-  .map((item) => ({ value: item }) );
+  .map(item => ({ value: item }));
   expect(countBombs(neighbors)).toEqual(3);
 });
 
@@ -115,19 +115,19 @@ test('countBombs should return 0 when fed something other than an array of objec
 
 test('getIndexesToOpen should return an array of indexes which can be safely open starting from a specific index', () => {
   const plan = [
-    'X',' ',' ',' ',' ',' ','X',' ',' ',
-    ' ','X',' ',' ',' ','X',' ',' ',' ',
-    ' ',' ','X',' ','X',' ',' ',' ',' ',
-    ' ',' ',' ','X',' ',' ',' ',' ',' ',
-    ' ',' ','X',' ','X','X',' ',' ',' ',
-    ' ','X',' ',' ',' ',' ','X',' ',' ',
-    'X',' ',' ',' ',' ',' ',' ','X',' ',
-    ' ','X',' ',' ',' ',' ',' ',' ','X',
-    ' ',' ','X',' ',' ',' ',' ','X',' ',
-    ' ',' ',' ','X',' ',' ','X',' ',' ',
-    ' ',' ',' ',' ','X','X',' ',' ',' '
+    'X', ' ', ' ', ' ', ' ', ' ', 'X', ' ', ' ',
+    ' ', 'X', ' ', ' ', ' ', 'X', ' ', ' ', ' ',
+    ' ', ' ', 'X', ' ', 'X', ' ', ' ', ' ', ' ',
+    ' ', ' ', ' ', 'X', ' ', ' ', ' ', ' ', ' ',
+    ' ', ' ', 'X', ' ', 'X', 'X', ' ', ' ', ' ',
+    ' ', 'X', ' ', ' ', ' ', ' ', 'X', ' ', ' ',
+    'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ',
+    ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X',
+    ' ', ' ', 'X', ' ', ' ', ' ', ' ', 'X', ' ',
+    ' ', ' ', ' ', 'X', ' ', ' ', 'X', ' ', ' ',
+    ' ', ' ', ' ', ' ', 'X', 'X', ' ', ' ', ' '
   ].map((cell, i) => CreateCell(i, cell));
-  const  cells = fillCellsValues(plan, 9);
+  const cells = fillCellsValues(plan, 9);
   expect(getIndexesToOpen(1, cells, 9)).toEqual([1]);
   expect(getIndexesToOpen(3, cells, 9).sort((a, b) => a - b)).toEqual([2, 3, 4, 11, 12, 13]);
   expect(getIndexesToOpen(58, cells, 9).sort((a, b) => a - b)).toEqual([

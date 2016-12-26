@@ -13,6 +13,6 @@ const highScoresReducer = (state = DEFAULT_STATE, action) => {
     default:
       return state;
   }
-}
+};
 
 export default highScoresReducer;

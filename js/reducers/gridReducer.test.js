@@ -1,7 +1,6 @@
 import gridReducer from './gridReducer';
 import CreateGrid, { fillGrid } from '../app-logic/GridFactory';
-import CreateCell from '../app-logic/CellFactory';
-import { openCell, openBomb, toggleFlag, resetGame, setMode } from '../actions/actionCreators'
+import { openCell, openBomb, toggleFlag, resetGame, setMode } from '../actions/actionCreators';
 
 test('OPEN_CELL: should return the grid passed in the action', () => {
   const stateBefore = Object.freeze(fillGrid(0, CreateGrid(10, 10, 25)));

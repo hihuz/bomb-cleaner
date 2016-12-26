@@ -1,6 +1,5 @@
 import CreateGrid, { generateCells, generateBombsPos, fillCellsValues } from './GridFactory';
 import CreateCell from './CellFactory';
-import { countBombs } from './utils';
 
 test('generateCells should generate an array of cells based off params', () => {
   const width = 8;
@@ -8,12 +7,9 @@ test('generateCells should generate an array of cells based off params', () => {
   const bombs = 38;
 
   const actual = generateCells(width, height, bombs);
-  const actualBombs = actual.filter((cell) => {
-    return cell.value === 'X';
-  });
-  const actualCells = actual.filter((cell) => {
-    return cell.value && !cell.flagged && !cell.opened && !isNaN(cell.index);
-  });
+  const actualBombs = actual.filter(cell => cell.value === 'X');
+  const actualCells = actual
+  .filter(cell => cell.value && !cell.flagged && !cell.opened && !isNaN(cell.index));
 
   expect(actual.length).toEqual(width * height);
   expect(actualBombs.length).toEqual(bombs);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GameTimer = (props) => (
+const GameTimer = props => (
   <div className="game-timer">
     {props.time}
   </div>

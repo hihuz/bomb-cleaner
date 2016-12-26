@@ -1,9 +1,9 @@
 import React from 'react';
 
 const AboutDialog = ({ closeAboutDialog, opened }) => (
-  <div className={`dialog${opened?' opened':''}`}>
-    <button className='dialog-close' onClick={closeAboutDialog}>
-      <i className='icon-close'></i>
+  <div className={`dialog${opened ? ' opened' : ''}`}>
+    <button className="dialog-close" onClick={closeAboutDialog}>
+      <i className="icon-close" />
     </button>
     <p>
       This is a MineSweeper game implemented with React and Redux.
@@ -13,15 +13,15 @@ const AboutDialog = ({ closeAboutDialog, opened }) => (
     </p>
     <ul>
       <li>Left Click to open a tile</li>
-      <li>Right Click to "flag" a tile</li>
-      <li>You'll lose if you open a mine</li>
-      <li>You'll win if you open all mine-free tiles</li>
+      <li>Right Click to &quot;flag&quot; a tile</li>
+      <li>You&apos;ll lose if you open a mine</li>
+      <li>You&apos;ll win if you open all mine-free tiles</li>
     </ul>
-    <p className='centered-text'>
+    <p className="centered-text">
       Good luck !
       <br />
       <br />
-      <a target="_blank" href="https://twitter.com/hihuz">@hihuz</a>
+      <a target="_blank" href="https://twitter.com/hihuz" rel="noopener noreferrer">@hihuz</a>
     </p>
   </div>
 );

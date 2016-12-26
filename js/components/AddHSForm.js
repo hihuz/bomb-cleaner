@@ -7,14 +7,14 @@ class AddHSForm extends React.Component {
     super(props);
     this.state = {
       name: ''
-    }
+    };
     this.updateName = this.updateName.bind(this);
     this.handleAddHSClick = this.handleAddHSClick.bind(this);
   }
   updateName(e) {
-    this.setState({ name : e.target.value });
+    this.setState({ name: e.target.value });
   }
-  handleAddHSClick(e) {
+  handleAddHSClick() {
     const date = new Date().toJSON().slice(0, 10);
     this.props.dispatch(addHighScore(
       this.props.mode,
@@ -27,12 +27,12 @@ class AddHSForm extends React.Component {
   }
   render() {
     return (
-      <div className='hs-form'>
+      <div className="hs-form">
         You made a high score for <em>{this.props.mode}</em> mode !
         <br />
         Enter your name below :
-        <input type='text' onChange={this.updateName}/>
-        <button className='' onClick={this.handleAddHSClick}>OK</button>
+        <input type="text" onChange={this.updateName} />
+        <button className="" onClick={this.handleAddHSClick}>OK</button>
       </div>
     );
   }

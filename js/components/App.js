@@ -30,39 +30,11 @@ class App extends React.Component {
     this.closeCongratsDialog = this.closeCongratsDialog.bind(this);
   }
 
-  handleResetClick(e) {
-    this.setState({ time: 0 });
-    this.props.dispatch(resetGame(this.props.grid));
-  }
-  openModeDialog(e) {
-    this.setState({ modeDialogOpened: true });
-  }
-  closeModeDialog(e) {
-    this.setState({ modeDialogOpened: false });
-  }
-  openHSDialog(e) {
-    this.setState({ hsDialogOpened: true });
-  }
-  closeHSDialog(e) {
-    this.setState({ hsDialogOpened: false });
-  }
-  openAboutDialog(e) {
-    this.setState({ aboutDialogOpened: true });
-  }
-  closeAboutDialog(e) {
-    this.setState({ aboutDialogOpened: false });
-  }
-  closeCongratsDialog(e) {
-    this.setState({ congratsDialogOpened: false });
-  }
   componentDidMount() {
     this.timerID = setInterval(
       () => this.updateTime(),
       1000
     );
-  }
-  componentWillUnmount() {
-    clearInterval(this.timerID);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.gameStatus === 'won' &&
@@ -70,9 +42,37 @@ class App extends React.Component {
       this.setState({ congratsDialogOpened: true });
     }
   }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+  openModeDialog() {
+    this.setState({ modeDialogOpened: true });
+  }
+  closeModeDialog() {
+    this.setState({ modeDialogOpened: false });
+  }
+  openHSDialog() {
+    this.setState({ hsDialogOpened: true });
+  }
+  closeHSDialog() {
+    this.setState({ hsDialogOpened: false });
+  }
+  openAboutDialog() {
+    this.setState({ aboutDialogOpened: true });
+  }
+  closeAboutDialog() {
+    this.setState({ aboutDialogOpened: false });
+  }
+  closeCongratsDialog() {
+    this.setState({ congratsDialogOpened: false });
+  }
+  handleResetClick() {
+    this.setState({ time: 0 });
+    this.props.dispatch(resetGame(this.props.grid));
+  }
   updateTime() {
-    let time = this.state.time;
-    if (this.props.gameStatus==='running' && time < 999) {
+    const time = this.state.time;
+    if (this.props.gameStatus === 'running' && time < 999) {
       this.setState({ time: time + 1 });
     }
   }
@@ -118,14 +118,12 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    bombsRemaining: state.grid.bombs - state.grid.flags,
-    gameStatus: state.gameStatus,
-    grid: state.grid,
-    mode: state.mode,
-    highScores: state.highScores
-  };
-};
+const mapStateToProps = state => ({
+  bombsRemaining: state.grid.bombs - state.grid.flags,
+  gameStatus: state.gameStatus,
+  grid: state.grid,
+  mode: state.mode,
+  highScores: state.highScores
+});
 
 export default connect(mapStateToProps)(App);

@@ -56,7 +56,8 @@ a {
   color: #101868;
 }
 h2 {
-  font-size: 20px;
+  font-size: 18px;
+  margin: 8px 0;
   border-bottom: 2px solid #333;
 }
 .app {
@@ -142,19 +143,32 @@ h2 {
 }
 .hs-dialog {
   text-align: center;
-  padding: 20px 0;
+  padding: 28px 0 16px;
+}
+.hs-dialog ol {
+  padding: 0;
+  text-align: left;
+  padding-left: 10px;
 }
 .hs-row {
   display: inline-block;
-  width: 80px;
-  margin: 0 8px;
+  width: 86px;
+  margin: 0 6px;
   min-height: 200px;
+  vertical-align: top;
+}
+.hs {
+  font-size: 12px;
+  margin: 5px 0;
 }
 .hs-name {
-
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.hs-time {
-
+.hs-time, .hs-date {
+  font-style: italic;
 }
 .centered-text {
   text-align: center;

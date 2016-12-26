@@ -7,10 +7,10 @@ class ModeDialog extends React.Component {
     super(props);
     this.state = {
       mode: this.props.mode,
-      width: "9",
-      height: "9",
-      bombs: "10"
-    }
+      width: '9',
+      height: '9',
+      bombs: '10'
+    };
     this.handleCloseClick = this.handleCloseClick.bind(this);
     this.setLocalEasyMode = this.setLocalEasyMode.bind(this);
     this.setLocalMediumMode = this.setLocalMediumMode.bind(this);
@@ -24,60 +24,16 @@ class ModeDialog extends React.Component {
     this.setLocalBombs = this.setLocalBombs.bind(this);
     this.pushNewMode = this.pushNewMode.bind(this);
   }
-  pushNewMode(e) {
-    this.props.dispatch(setMode(
-      this.state.mode,
-      this.state.width,
-      this.state.height,
-      this.state.bombs
-    ));
-    this.props.closeModeDialog();
-  }
-  handleCloseClick(e) {
-    this.setState({ mode: this.props.mode });
-    this.props.closeModeDialog();
-  }
-  verifyWidthValue(e) {
-    const value = Number(e.target.value);
-    if (isNaN(value) || value < 9) {
-      this.setState({ width: '9' });
-    }
-    else if (value > 24) {
-      this.setState({ width: '24' });
-    }
-  }
-  verifyHeightValue(e) {
-    const value = Number(e.target.value);
-    if (isNaN(value) || value < 9) {
-      this.setState({ height: '9' });
-    }
-    else if (value > 30) {
-      this.setState({ height: '30' });
-    }
-  }
-  verifyBombsValue(e) {
-    const value = Number(e.target.value);
-    const size = this.state.width * this.state.height;
-    if (isNaN(value) || value < 10) {
-      this.setState({ bombs: '10' });
-    }
-    else if (value > 668) {
-      this.setState({ bombs: '668' });
-    }
-    else if (value >= size) {
-      this.setState({ bombs: size - 1 })
-    }
-  }
-  setLocalEasyMode(e) {
+  setLocalEasyMode() {
     this.setState({ mode: 'easy' });
   }
-  setLocalMediumMode(e) {
+  setLocalMediumMode() {
     this.setState({ mode: 'medium' });
   }
-  setLocalHardMode(e) {
+  setLocalHardMode() {
     this.setState({ mode: 'hard' });
   }
-  setLocalCustomMode(e) {
+  setLocalCustomMode() {
     this.setState({ mode: 'custom' });
   }
   setLocalWidth(e) {
@@ -89,61 +45,101 @@ class ModeDialog extends React.Component {
   setLocalBombs(e) {
     this.setState({ bombs: e.target.value });
   }
+  verifyWidthValue(e) {
+    const value = Number(e.target.value);
+    if (isNaN(value) || value < 9) {
+      this.setState({ width: '9' });
+    } else if (value > 24) {
+      this.setState({ width: '24' });
+    }
+  }
+  verifyHeightValue(e) {
+    const value = Number(e.target.value);
+    if (isNaN(value) || value < 9) {
+      this.setState({ height: '9' });
+    } else if (value > 30) {
+      this.setState({ height: '30' });
+    }
+  }
+  verifyBombsValue(e) {
+    const value = Number(e.target.value);
+    const size = this.state.width * this.state.height;
+    if (isNaN(value) || value < 10) {
+      this.setState({ bombs: '10' });
+    } else if (value > 668) {
+      this.setState({ bombs: '668' });
+    } else if (value >= size) {
+      this.setState({ bombs: size - 1 });
+    }
+  }
+  handleCloseClick() {
+    this.setState({ mode: this.props.mode });
+    this.props.closeModeDialog();
+  }
+  pushNewMode() {
+    this.props.dispatch(setMode(
+      this.state.mode,
+      this.state.width,
+      this.state.height,
+      this.state.bombs
+    ));
+    this.props.closeModeDialog();
+  }
   render() {
     return (
-      <div className={`dialog centered-text${this.props.opened?' opened':''}`}>
-        <button className='dialog-close' onClick={this.handleCloseClick}>
-          <i className='icon-close'></i>
+      <div className={`dialog centered-text${this.props.opened ? ' opened' : ''}`}>
+        <button className="dialog-close" onClick={this.handleCloseClick}>
+          <i className="icon-close" />
         </button>
-          <button className='mode-dialog-button' disabled={this.state.mode === 'easy'} onClick={this.setLocalEasyMode}>Easy</button>
-          <button className='mode-dialog-button' disabled={this.state.mode === 'medium'} onClick={this.setLocalMediumMode}>Medium</button>
-          <button className='mode-dialog-button' disabled={this.state.mode === 'hard'} onClick={this.setLocalHardMode}>Hard</button>
-          <button className='mode-dialog-button' disabled={this.state.mode === 'custom'} onClick={this.setLocalCustomMode}>Custom:</button>
-          <div>
-            <label>Width (9-24): </label>
-            <input
-              className='mode-input centered-text'
-              maxLength='2'
-              disabled={this.state.mode !== 'custom'}
-              value={this.state.width}
-              type='text'
-              id='width-input'
-              onBlur={this.verifyWidthValue}
-              onChange={this.setLocalWidth}
-            />
-          </div>
-          <div>
-            <label>Height (9-30): </label>
-            <input
-              className='mode-input centered-text'
-              maxLength='2'
-              disabled={this.state.mode !== 'custom'}
-              value={this.state.height}
-              type='text'
-              id='height-input'
-              onBlur={this.verifyHeightValue}
-              onChange={this.setLocalHeight}
-            />
-          </div>
-          <div>
-            <label>Mines (10-668): </label>
-            <input
-              className='mode-input centered-text'
-              maxLength='3'
-              disabled={this.state.mode !== 'custom'}
-              value={this.state.bombs}
-              type='text'
-              id='bombs-input'
-              onBlur={this.verifyBombsValue}
-              onChange={this.setLocalBombs}
-            />
-          </div>
-          <button className='mode-validate' onClick={this.pushNewMode.bind(this)}>OK</button>
+        <button className="mode-dialog-button" disabled={this.state.mode === 'easy'} onClick={this.setLocalEasyMode}>Easy</button>
+        <button className="mode-dialog-button" disabled={this.state.mode === 'medium'} onClick={this.setLocalMediumMode}>Medium</button>
+        <button className="mode-dialog-button" disabled={this.state.mode === 'hard'} onClick={this.setLocalHardMode}>Hard</button>
+        <button className="mode-dialog-button" disabled={this.state.mode === 'custom'} onClick={this.setLocalCustomMode}>Custom:</button>
+        <div>
+          <label htmlFor="width-input">Width (9-24): </label>
+          <input
+            className="mode-input centered-text"
+            maxLength="2"
+            disabled={this.state.mode !== 'custom'}
+            value={this.state.width}
+            type="text"
+            id="width-input"
+            onBlur={this.verifyWidthValue}
+            onChange={this.setLocalWidth}
+          />
+        </div>
+        <div>
+          <label htmlFor="height-input">Height (9-30): </label>
+          <input
+            className="mode-input centered-text"
+            maxLength="2"
+            disabled={this.state.mode !== 'custom'}
+            value={this.state.height}
+            type="text"
+            id="height-input"
+            onBlur={this.verifyHeightValue}
+            onChange={this.setLocalHeight}
+          />
+        </div>
+        <div>
+          <label htmlFor="bombs-input">Mines (10-668): </label>
+          <input
+            className="mode-input centered-text"
+            maxLength="3"
+            disabled={this.state.mode !== 'custom'}
+            value={this.state.bombs}
+            type="text"
+            id="bombs-input"
+            onBlur={this.verifyBombsValue}
+            onChange={this.setLocalBombs}
+          />
+        </div>
+        <button className="mode-validate" onClick={this.pushNewMode}>OK</button>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({ mode: state.mode });
+const mapStateToProps = state => ({ mode: state.mode });
 
 export default connect(mapStateToProps)(ModeDialog);

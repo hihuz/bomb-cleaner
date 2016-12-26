@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BombTracker = (props) => (
+const BombTracker = props => (
   <div className="bomb-tracker">
     {props.bombsRemaining}
   </div>
