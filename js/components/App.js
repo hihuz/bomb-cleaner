@@ -20,14 +20,19 @@ class App extends React.Component {
       modeDialogOpened: false,
       congratsDialogOpened: false
     };
+    this.openModeDialog = this.openModeDialog.bind(this);
+    this.closeModeDialog = this.closeModeDialog.bind(this);
+    this.openAboutDialog = this.openAboutDialog.bind(this);
+    this.closeAboutDialog = this.closeAboutDialog.bind(this);
+    this.openHSDialog = this.openHSDialog.bind(this);
+    this.closeHSDialog = this.closeHSDialog.bind(this);
+    this.handleResetClick = this.handleResetClick.bind(this);
+    this.closeCongratsDialog = this.closeCongratsDialog.bind(this);
   }
 
   handleResetClick(e) {
     this.setState({ time: 0 });
     this.props.dispatch(resetGame(this.props.grid));
-  }
-  handleHSReset(e) {
-    this.props.dispatch(resetHighScores());
   }
   openModeDialog(e) {
     this.setState({ modeDialogOpened: true });
@@ -60,7 +65,8 @@ class App extends React.Component {
     clearInterval(this.timerID);
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.gameStatus === 'won') {
+    if (nextProps.gameStatus === 'won' &&
+        nextProps.gameStatus !== this.props.gameStatus) {
       this.setState({ congratsDialogOpened: true });
     }
   }
@@ -74,14 +80,14 @@ class App extends React.Component {
     return (
       <div className="app">
         <Menu
-          openModeDialog={this.openModeDialog.bind(this)}
-          openAboutDialog={this.openAboutDialog.bind(this)}
-          openHSDialog={this.openHSDialog.bind(this)}
+          openModeDialog={this.openModeDialog}
+          openAboutDialog={this.openAboutDialog}
+          openHSDialog={this.openHSDialog}
         />
         <GameInfos
           bombsRemaining={this.props.bombsRemaining}
           time={this.state.time}
-          handleReset={this.handleResetClick.bind(this)}
+          handleReset={this.handleResetClick}
         />
         <Grid
           grid={this.props.grid}
@@ -89,23 +95,23 @@ class App extends React.Component {
         />
         <ModeDialog
           opened={this.state.modeDialogOpened}
-          closeModeDialog={this.closeModeDialog.bind(this)}
+          closeModeDialog={this.closeModeDialog}
         />
         <HSDialog
           opened={this.state.hsDialogOpened}
           highScores={this.props.highScores}
-          closeHSDialog={this.closeHSDialog.bind(this)}
+          closeHSDialog={this.closeHSDialog}
         />
         <AboutDialog
           opened={this.state.aboutDialogOpened}
-          closeAboutDialog={this.closeAboutDialog.bind(this)}
+          closeAboutDialog={this.closeAboutDialog}
         />
         <CongratsDialog
           time={this.state.time}
           mode={this.props.mode}
           highScores={this.props.highScores}
           opened={this.state.congratsDialogOpened}
-          closeCongratsDialog={this.closeCongratsDialog.bind(this)}
+          closeCongratsDialog={this.closeCongratsDialog}
         />
       </div>
     );

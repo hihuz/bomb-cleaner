@@ -11,6 +11,18 @@ class ModeDialog extends React.Component {
       height: "9",
       bombs: "10"
     }
+    this.handleCloseClick = this.handleCloseClick.bind(this);
+    this.setLocalEasyMode = this.setLocalEasyMode.bind(this);
+    this.setLocalMediumMode = this.setLocalMediumMode.bind(this);
+    this.setLocalHardMode = this.setLocalHardMode.bind(this);
+    this.setLocalCustomMode = this.setLocalCustomMode.bind(this);
+    this.verifyWidthValue = this.verifyWidthValue.bind(this);
+    this.setLocalWidth = this.setLocalWidth.bind(this);
+    this.verifyHeightValue = this.verifyHeightValue.bind(this);
+    this.setLocalHeight = this.setLocalHeight.bind(this);
+    this.verifyBombsValue = this.verifyBombsValue.bind(this);
+    this.setLocalBombs = this.setLocalBombs.bind(this);
+    this.pushNewMode = this.pushNewMode.bind(this);
   }
   pushNewMode(e) {
     this.props.dispatch(setMode(
@@ -23,7 +35,7 @@ class ModeDialog extends React.Component {
   }
   handleCloseClick(e) {
     this.setState({ mode: this.props.mode });
-    this.props.closeModeDialog(e);
+    this.props.closeModeDialog();
   }
   verifyWidthValue(e) {
     const value = Number(e.target.value);
@@ -80,13 +92,13 @@ class ModeDialog extends React.Component {
   render() {
     return (
       <div className={`dialog centered-text${this.props.opened?' opened':''}`}>
-        <button className='dialog-close' onClick={this.handleCloseClick.bind(this)}>
+        <button className='dialog-close' onClick={this.handleCloseClick}>
           <i className='icon-close'></i>
         </button>
-          <button className='mode-dialog-button' disabled={this.state.mode === 'easy'} onClick={this.setLocalEasyMode.bind(this)}>Easy</button>
-          <button className='mode-dialog-button' disabled={this.state.mode === 'medium'} onClick={this.setLocalMediumMode.bind(this)}>Medium</button>
-          <button className='mode-dialog-button' disabled={this.state.mode === 'hard'} onClick={this.setLocalHardMode.bind(this)}>Hard</button>
-          <button className='mode-dialog-button' disabled={this.state.mode === 'custom'} onClick={this.setLocalCustomMode.bind(this)}>Custom:</button>
+          <button className='mode-dialog-button' disabled={this.state.mode === 'easy'} onClick={this.setLocalEasyMode}>Easy</button>
+          <button className='mode-dialog-button' disabled={this.state.mode === 'medium'} onClick={this.setLocalMediumMode}>Medium</button>
+          <button className='mode-dialog-button' disabled={this.state.mode === 'hard'} onClick={this.setLocalHardMode}>Hard</button>
+          <button className='mode-dialog-button' disabled={this.state.mode === 'custom'} onClick={this.setLocalCustomMode}>Custom:</button>
           <div>
             <label>Width (9-24): </label>
             <input
@@ -96,8 +108,8 @@ class ModeDialog extends React.Component {
               value={this.state.width}
               type='text'
               id='width-input'
-              onBlur={this.verifyWidthValue.bind(this)}
-              onChange={this.setLocalWidth.bind(this)}
+              onBlur={this.verifyWidthValue}
+              onChange={this.setLocalWidth}
             />
           </div>
           <div>
@@ -109,8 +121,8 @@ class ModeDialog extends React.Component {
               value={this.state.height}
               type='text'
               id='height-input'
-              onBlur={this.verifyHeightValue.bind(this)}
-              onChange={this.setLocalHeight.bind(this)}
+              onBlur={this.verifyHeightValue}
+              onChange={this.setLocalHeight}
             />
           </div>
           <div>
@@ -122,8 +134,8 @@ class ModeDialog extends React.Component {
               value={this.state.bombs}
               type='text'
               id='bombs-input'
-              onBlur={this.verifyBombsValue.bind(this)}
-              onChange={this.setLocalBombs.bind(this)}
+              onBlur={this.verifyBombsValue}
+              onChange={this.setLocalBombs}
             />
           </div>
           <button className='mode-validate' onClick={this.pushNewMode.bind(this)}>OK</button>

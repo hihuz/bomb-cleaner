@@ -65,7 +65,8 @@ export function setMode(mode, width, height, bombs) {
   return { type: SET_MODE, mode, grid };
 }
 
-export function addHighScore(mode, name, time, highScores) {
+//this is somewhat bugged, fix this shit
+export function addHighScore(mode, name, time, date, highScores) {
   let index;
   const curHS = highScores[mode];
   const sliceEnd = Math.min(curHS.length - 1, 4);
@@ -78,7 +79,7 @@ export function addHighScore(mode, name, time, highScores) {
       {
         name: name,
         time: time,
-        date: new Date().toJSON().slice(0, 10)
+        date: date
       },
       ...curHS.slice(index, sliceEnd)
     ]

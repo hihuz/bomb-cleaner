@@ -1,6 +1,7 @@
 import gridReducer from './gridReducer';
 import CreateGrid from '../app-logic/GridFactory';
 import CreateCell from '../app-logic/CellFactory';
+import { openCell, openBomb, toggleFlag, initGame, resetGame, setMode, addHighScore } from '../actions/actionCreators'
 
 function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2) {
   const grid = {
@@ -23,162 +24,22 @@ function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2
   return grid;
 }
 
-test('OPEN_CELL : left click on a hidden cell should update its state to opened and decrement emptyCellsRemaining', () => {
+test('OPEN_CELL: should return the grid passed in the action', () => {
   const stateBefore = Object.freeze(MakeTestGrid(0, 'hidden', false));
-  const stateAfter = Object.assign({}, stateBefore, { emptyCellsRemaining: 1 },
-    { cells: [{
-      index: 0,
-      isBomb: false,
-      flagged: false,
-      opened: true,
-      value: ' '
-    }]
-    }
-  );
-  const action = Object.freeze({
-    type: 'OPEN_CELL',
-    index: 0
-  });
-
-  expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
+  const action = openCell(0, stateBefore);
+  expect(gridReducer(stateBefore, action)).toEqual(action.grid);
 });
 
-test('OPEN_CELL: left click should propagate to neighbors if empty', () => {
-  const stateBefore = Object.freeze({
-    width: 4,
-    height: 4,
-    bombs: 2,
-    flags: 0,
-    emptyCellsRemaining: 13,
-    cells: [
-      CreateCell(0, 'X'),
-      CreateCell(1, 3),
-      CreateCell(2, 1),
-      CreateCell(3, ' '),
-      CreateCell(4, 'X'),
-      CreateCell(5, 'X'),
-      CreateCell(6, 1),
-      CreateCell(7, ' '),
-      CreateCell(8, 2),
-      CreateCell(9, 2),
-      CreateCell(10, 1),
-      CreateCell(11, ' '),
-      CreateCell(12, ' '),
-      CreateCell(13, ' '),
-      CreateCell(14, ' '),
-      CreateCell(15, ' ')
-    ]
-  });
-  const cellsAfter = stateBefore.cells.map((cell) => {
-    let updatedCell;
-    if (cell.value === ' ' || cell.value === 2 || cell.value === 1) {
-      updatedCell = Object.assign({}, cell, { opened: true });
-    }
-    else { updatedCell = Object.assign({}, cell); }
-    return updatedCell;
-  });
-  const stateAfter = Object.assign(
-    {},
-    stateBefore,
-    { emptyCellsRemaining: 1 },
-    { cells: cellsAfter }
-  );
-
-  const action = Object.freeze({
-    type: 'OPEN_CELL',
-    index: 3
-  });
-
-  expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
-})
-
-test('OPEN_BOMB : write the test for this', () => {
-  const stateBefore = Object.freeze({
-    width: 4,
-    height: 4,
-    bombs: 2,
-    flags: 0,
-    emptyCellsRemaining: 13,
-    cells: [
-      CreateCell(0, 'X'),
-      CreateCell(1, 3),
-      CreateCell(2, 1),
-      CreateCell(3, ' '),
-      CreateCell(4, 'X'),
-      CreateCell(5, 'X'),
-      CreateCell(6, 1),
-      CreateCell(7, ' '),
-      CreateCell(8, 2),
-      CreateCell(9, 2),
-      CreateCell(10, 1),
-      CreateCell(11, ' '),
-      CreateCell(12, ' '),
-      CreateCell(13, ' '),
-      CreateCell(14, ' '),
-      CreateCell(15, ' ')
-    ]
-  });
-  const cellsAfter = stateBefore.cells.map((cell) => {
-    let updatedCell;
-    if (cell.value === 'X') {
-      updatedCell = Object.assign({}, cell, { opened: true });
-    }
-    else { updatedCell = Object.assign({}, cell); }
-    return updatedCell;
-  });
-  const stateAfter = Object.assign(
-    {},
-    stateBefore,
-    { emptyCellsRemaining: 13 },
-    { cells: cellsAfter }
-  );
-
-  const action = Object.freeze({
-    type: 'OPEN_BOMB',
-    index: 5
-  });
-
-  expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
+test('OPEN_BOMB: should return the grid passed in the action', () => {
+  const stateBefore = Object.freeze(MakeTestGrid(0, 'hidden', true));
+  const action = openBomb(0, stateBefore);
+  expect(gridReducer(stateBefore, action)).toEqual(action.grid);
 });
 
-test('TOGGLE_FLAG : flagged should be updated, decrement the flag count', () => {
-  const stateBefore = Object.freeze(MakeTestGrid(1, 'flagged', false));
-  const stateAfter = Object.assign({}, stateBefore, { flags: 0 },
-    { cells: [{
-      index: 0,
-      isBomb: false,
-      flagged: false,
-      opened: false,
-      value: ' '
-    }]
-    }
-  );
-  const action = Object.freeze({
-    type: 'TOGGLE_FLAG',
-    index: 0
-  });
-
-  expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
-});
-
-test('TOGGLE_FLAG : flagged should be updated, increment the flag count', () => {
-  const stateBefore = Object.freeze(MakeTestGrid(0, 'hidden', false));
-  const stateAfter = Object.assign({}, stateBefore, { flags: 1 },
-    { cells: [{
-      index: 0,
-      isBomb: false,
-      flagged: true,
-      opened: false,
-      value: ' '
-    }]
-    }
-  );
-  const action = Object.freeze({
-    type: 'TOGGLE_FLAG',
-    index: 0
-  });
-
-  expect(gridReducer(stateBefore, action)).toEqual(stateAfter);
+test('TOGGLE_FLAG: should return the grid passed in the action', () => {
+  const stateBefore = Object.freeze(MakeTestGrid(0, 'hidden', true));
+  const action = toggleFlag(0, stateBefore);
+  expect(gridReducer(stateBefore, action)).toEqual(action.grid);
 });
 
 test('RESET_GAME : should provide a new fresh grid to the state', () => {
