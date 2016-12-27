@@ -12,7 +12,6 @@ const Overlay = ({
   mode
 }) => {
   function handleKeyPress(e) {
-    console.log(e);
     if (e.keyCode === 27) {
       closeDialog();
     }
@@ -28,13 +27,13 @@ const Overlay = ({
       onClick={handleOverlayClick}
       onKeyDown={handleKeyPress}
     >
-      <div className={`${dialogOpened ? dialogOpened + '-dialog ' : ''}dialog`}>
-        {dialogOpened === 'mode' ? <ModeDialog closeDialog={closeDialog}/> : ''}
+      <div className={`${dialogOpened ? `${dialogOpened}-dialog ` : ''}dialog`}>
+        {dialogOpened === 'mode' ? <ModeDialog closeDialog={closeDialog} /> : ''}
         {dialogOpened === 'hs' ? <HSDialog
           closeDialog={closeDialog}
           highScores={highScores}
         /> : ''}
-        {dialogOpened === 'about' ? <AboutDialog closeDialog={closeDialog}/> : ''}
+        {dialogOpened === 'about' ? <AboutDialog closeDialog={closeDialog} /> : ''}
         {dialogOpened === 'congrats' ? <CongratsDialog
           closeDialog={closeDialog}
           time={time}
@@ -43,7 +42,7 @@ const Overlay = ({
         /> : ''}
       </div>
     </div>
-  )
+  );
 };
 
 export default Overlay;
