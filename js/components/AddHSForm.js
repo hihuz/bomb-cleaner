@@ -29,10 +29,10 @@ class AddHSForm extends React.Component {
     return (
       <div className="hs-form">
         You made a high score for <em>{this.props.mode}</em> mode !
-        <br />
+        <br /><br />
         Enter your name below :
         <input type="text" onChange={this.updateName} />
-        <button className="" onClick={this.handleAddHSClick}>OK</button>
+        <button className="hs-validate" onClick={this.handleAddHSClick}>OK</button>
       </div>
     );
   }

@@ -1,8 +1,10 @@
 import React from 'react';
 
 const GameReset = props => (
-  <div className="game-reset">
-    <button className="reset-button" onClick={props.reset}>reset!</button>
+  <div className="game-infos-item">
+    <button className="reset-button" onClick={props.reset}>
+      <i className="icon-refresh"></i>
+    </button>
   </div>
 );
 

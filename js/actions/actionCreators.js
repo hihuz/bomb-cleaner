@@ -57,7 +57,7 @@ export function resetGame(grid) {
 
 export function setMode(mode, width, height, bombs) {
   let grid;
-  if (mode === 'easy') { grid = CreateGrid(9, 9, 10); }
+  if (mode === 'easy') { grid = CreateGrid(30, 24, 10); }
   if (mode === 'medium') { grid = CreateGrid(16, 16, 40); }
   if (mode === 'hard') { grid = CreateGrid(30, 16, 99); }
   if (mode === 'custom') { grid = CreateGrid(width, height, bombs); }

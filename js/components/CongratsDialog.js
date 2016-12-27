@@ -11,7 +11,7 @@ const CongratsDialog = ({ closeDialog, time, mode, highScores }) => (
     <button className="dialog-close" onClick={closeDialog}>
       <i className="icon-close" />
     </button>
-    <p>
+    <p className="congrats-para">
       Congratulations !
     </p>
     {isHighScore(mode, time, highScores) ? <AddHSForm

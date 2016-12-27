@@ -21,20 +21,24 @@
 .icon-close:before {
   content: "\f00d";
 }
+.icon-refresh:before {
+  content: "\f021";
+}
+.icon-clock-o:before {
+  content: "\f017";
+}
 .icon-flag:before {
   content: "\f024";
-  color: #8c4b1f;
-  font-size: 16px;
-  position: relative;
-  top: -2px;
+  color: #d94f5c;
 }
 .icon-bomb:before {
   content: "\f1e2";
+}
+.cell-icon:before {
   font-size: 16px;
   position: relative;
   top: -2px;
 }
-
 *, *::after, *::before {
   box-sizing: border-box;
 }
@@ -57,15 +61,22 @@ button {
 a {
   font-weight: bold;
   text-decoration: none;
-  color: #101868;
+  color: #502327;
+  transition: color 0.3s;
+}
+a:hover {
+  color: #d94f5c;
+}
+input[type="text"] {
+  font-size: 16px;
 }
 h2 {
   font-size: 18px;
   margin: 8px 0;
-  border-bottom: 2px solid #333;
+  border-bottom: 4px solid #333;
 }
 #app {
-  height: 100%;
+  min-height: 100%;
 }
 .app {
   user-select: none;
@@ -80,12 +91,68 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
 }
-.mode-menu {
-  cursor: pointer;
+.menu-button {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0.4em 0.6em;
+  padding: 0.5em 0;
   position: relative;
+  transition: color 0.3s;
+  color: #502327;
 }
-.bomb-tracker, .game-reset, .game-timer {
-  margin: 0 10px;
+.menu-button::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #d94f5c;
+  transform: scale3d(0, 1, 1);
+  transition: transform 0.1s;
+}
+.menu-button:hover {
+  color: #d94f5c;
+}
+.menu-button:hover::before {
+  transform: scale3d(1, 1, 1);
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.game-infos-item {
+  margin: 0 8px;
+  color: #502327;
+}
+.bomb-tracker, .game-timer, .reset-button {
+  padding: 16px;
+  position: relative;
+  border: 4px #502327 solid;
+}
+.bomb-tracker, .game-timer {
+  width: 90px;
+  text-align: right;
+}
+.bomb-tracker i, .game-timer i {
+  position: absolute;
+  left: 12px;
+}
+.reset-button {
+  -webkit-backface-visibility: hidden;
+  color: #502327;
+  font-size: 24px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.reset-button i {
+  display: block;
+  transition: transform 0.3s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reset-button:hover {
+  color: #d94f5c;
+  border-color: #d94f5c;
+}
+.reset-button:hover i {
+  transform: rotate(180deg);
 }
 .grid {
   display: flex;
@@ -110,14 +177,14 @@ h2 {
     border: 1px solid #aaa;
 }
 .cell.opened.bomb {
-  background-color: #ec6334;
+  background-color: #d94f5c;
 }
 .overlay {
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  position: absolute;
+  position: fixed;
   background: rgba(0, 0, 0, 0.4);
   opacity: 0;
   visibility: hidden;
@@ -131,7 +198,7 @@ h2 {
   position: absolute;
   width: 320px;
   font-size: 16px;
-  top: 20px;
+  top: 40px;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -140,16 +207,46 @@ h2 {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 .dialog-close {
+  color: #502327;
   position: absolute;
   right: 10px;
   top: 10px;
+  transition: color 0.3s;
+}
+.dialog-close:hover {
+  color: #d94f5c;
 }
 .mode-dialog {
   text-align: center;
 }
 .mode-dialog-button {
-  display: block;
-  margin: 5px auto;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0.25em 0.5em;
+  padding: 0.5em 0;
+  position: relative;
+  transition: color 0.3s;
+  color: #aaa;
+}
+.mode-dialog-button::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #d94f5c;
+  transform: scale3d(0, 1, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mode-dialog-button:hover {
+  color: #6b595b;
+}
+.mode-dialog-button:disabled {
+  color: #d94f5c;
+}
+.mode-dialog-button:disabled::before {
+  transform: scale3d(1, 1, 1);
 }
 .mode-dialog div {
   margin: 5px 0;
@@ -158,9 +255,18 @@ h2 {
   text-align: center;
   width: 30px;
 }
-.mode-validate {
-  margin: 10px auto 5px;
-  width: 60px;
+.mode-validate, .hs-validate {
+  display: block;
+  margin: 20px auto 5px;
+  padding: 8px 24px;
+  background-color: #502327;
+  color: #fff;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+.mode-validate:hover, .hs-validate:hover {
+  background-color: #d94f5c;
+  border-color: #d94f5c;
 }
 .hs-dialog {
   text-align: center;
@@ -191,6 +297,13 @@ h2 {
 .hs-time, .hs-date {
   font-style: italic;
 }
+.hs-form {
+  text-align: center;
+}
 .about-footer {
   text-align: center;
+}
+.congrats-para {
+  text-align: center;
+  font-size: 20px;
 }

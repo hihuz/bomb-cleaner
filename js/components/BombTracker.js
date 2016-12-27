@@ -1,8 +1,11 @@
 import React from 'react';
 
 const BombTracker = props => (
-  <div className="bomb-tracker">
-    {props.bombsRemaining}
+  <div className="game-infos-item">
+    <div className="bomb-tracker">
+      <i className="icon-bomb"></i>
+      {props.bombsRemaining}
+    </div>
   </div>
 );
 

@@ -83,7 +83,7 @@ class ModeDialog extends React.Component {
       this.state.height,
       this.state.bombs
     ));
-    this.props.closeModeDialog();
+    this.props.closeDialog();
   }
   render() {
     return (

@@ -16,7 +16,12 @@ const Overlay = ({
       {dialogOpened === 'mode' ? <ModeDialog closeDialog={closeDialog}/> : ''}
       {dialogOpened === 'hs' ? <HSDialog closeDialog={closeDialog} highScores={highScores}/> : ''}
       {dialogOpened === 'about' ? <AboutDialog closeDialog={closeDialog}/> : ''}
-      {dialogOpened === 'congrats' ? <CongratsDialog closeDialog={closeDialog} time={time} mode={mode} highScores={highScores}/> : ''}
+      {dialogOpened === 'congrats' ? <CongratsDialog
+        closeDialog={closeDialog}
+        time={time}
+        mode={mode}
+        highScores={highScores}
+      /> : ''}
     </div>
   </div>
 );
