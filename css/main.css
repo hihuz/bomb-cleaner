@@ -124,9 +124,9 @@ h2 {
   color: #502327;
 }
 .bomb-tracker, .game-timer, .reset-button {
-  padding: 16px;
+  padding: 8px 16px;
   position: relative;
-  border: 4px #502327 solid;
+  border: 2px #502327 solid;
 }
 .bomb-tracker, .game-timer {
   width: 90px;

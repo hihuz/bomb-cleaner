@@ -10,20 +10,40 @@ const Overlay = ({
   highScores,
   time,
   mode
-}) => (
-  <div className={`overlay${dialogOpened ? ' opened' : ''}`}>
-    <div className={`${dialogOpened ? dialogOpened + '-dialog ' : ''}dialog`}>
-      {dialogOpened === 'mode' ? <ModeDialog closeDialog={closeDialog}/> : ''}
-      {dialogOpened === 'hs' ? <HSDialog closeDialog={closeDialog} highScores={highScores}/> : ''}
-      {dialogOpened === 'about' ? <AboutDialog closeDialog={closeDialog}/> : ''}
-      {dialogOpened === 'congrats' ? <CongratsDialog
-        closeDialog={closeDialog}
-        time={time}
-        mode={mode}
-        highScores={highScores}
-      /> : ''}
+}) => {
+  function handleKeyPress(e) {
+    console.log(e);
+    if (e.keyCode === 27) {
+      closeDialog();
+    }
+  }
+  function handleOverlayClick(e) {
+    if (e.target !== e.currentTarget) { return; }
+    closeDialog();
+  }
+  return (
+    <div
+      tabIndex="0"
+      className={`overlay${dialogOpened ? ' opened' : ''}`}
+      onClick={handleOverlayClick}
+      onKeyDown={handleKeyPress}
+    >
+      <div className={`${dialogOpened ? dialogOpened + '-dialog ' : ''}dialog`}>
+        {dialogOpened === 'mode' ? <ModeDialog closeDialog={closeDialog}/> : ''}
+        {dialogOpened === 'hs' ? <HSDialog
+          closeDialog={closeDialog}
+          highScores={highScores}
+        /> : ''}
+        {dialogOpened === 'about' ? <AboutDialog closeDialog={closeDialog}/> : ''}
+        {dialogOpened === 'congrats' ? <CongratsDialog
+          closeDialog={closeDialog}
+          time={time}
+          mode={mode}
+          highScores={highScores}
+        /> : ''}
+      </div>
     </div>
-  </div>
-);
+  )
+};
 
 export default Overlay;
