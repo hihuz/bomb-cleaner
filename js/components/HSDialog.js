@@ -10,9 +10,9 @@ function displayHS(hs, i) {
   );
 }
 
-const HSDialog = ({ closeHSDialog, opened, highScores }) => (
-  <div className={`hs-dialog dialog${opened ? ' opened' : ''}`}>
-    <button className="dialog-close" onClick={closeHSDialog}>
+const HSDialog = ({ closeDialog, highScores }) => (
+  <div>
+    <button className="dialog-close" onClick={closeDialog}>
       <i className="icon-close" />
     </button>
     <div className="hs-row">

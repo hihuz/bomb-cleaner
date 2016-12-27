@@ -12,19 +12,17 @@ class App extends React.Component {
     super(props);
     this.state = {
       time: 0,
+      dialogOpened: false,
       hsDialogOpened: false,
       aboutDialogOpened: false,
       modeDialogOpened: false,
       congratsDialogOpened: false
     };
+    this.closeDialog = this.closeDialog.bind(this);
     this.openModeDialog = this.openModeDialog.bind(this);
-    this.closeModeDialog = this.closeModeDialog.bind(this);
     this.openAboutDialog = this.openAboutDialog.bind(this);
-    this.closeAboutDialog = this.closeAboutDialog.bind(this);
     this.openHSDialog = this.openHSDialog.bind(this);
-    this.closeHSDialog = this.closeHSDialog.bind(this);
     this.handleResetClick = this.handleResetClick.bind(this);
-    this.closeCongratsDialog = this.closeCongratsDialog.bind(this);
   }
 
   componentDidMount() {
@@ -36,32 +34,23 @@ class App extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.gameStatus === 'won' &&
         nextProps.gameStatus !== this.props.gameStatus) {
-      this.setState({ congratsDialogOpened: true });
+      this.setState({ dialogOpened: 'congrats' });
     }
   }
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
-  openModeDialog() {
-    this.setState({ modeDialogOpened: true });
+  closeDialog() {
+    this.setState({ dialogOpened: false });
   }
-  closeModeDialog() {
-    this.setState({ modeDialogOpened: false });
+  openModeDialog() {
+    this.setState({ dialogOpened: 'mode' });
   }
   openHSDialog() {
-    this.setState({ hsDialogOpened: true });
-  }
-  closeHSDialog() {
-    this.setState({ hsDialogOpened: false });
+    this.setState({ dialogOpened: 'hs' });
   }
   openAboutDialog() {
-    this.setState({ aboutDialogOpened: true });
-  }
-  closeAboutDialog() {
-    this.setState({ aboutDialogOpened: false });
-  }
-  closeCongratsDialog() {
-    this.setState({ congratsDialogOpened: false });
+    this.setState({ dialogOpened: 'about' });
   }
   handleResetClick() {
     this.setState({ time: 0 });
@@ -91,14 +80,8 @@ class App extends React.Component {
           status={this.props.gameStatus}
         />
         <Overlay
-          modeDialogOpened={this.state.modeDialogOpened}
-          closeModeDialog={this.closeModeDialog}
-          hsDialogOpened={this.state.hsDialogOpened}
-          closeHSDialog={this.closeHSDialog}
-          aboutDialogOpened={this.state.aboutDialogOpened}
-          closeAboutDialog={this.closeAboutDialog}
-          congratsDialogOpened={this.state.congratsDialogOpened}
-          closeCongratsDialog={this.closeCongratsDialog}
+          dialogOpened={this.state.dialogOpened}
+          closeDialog={this.closeDialog}
           highScores={this.props.highScores}
           time={this.state.time}
           mode={this.props.mode}

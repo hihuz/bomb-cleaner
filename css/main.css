@@ -38,10 +38,14 @@
 *, *::after, *::before {
   box-sizing: border-box;
 }
+html, body {
+  height: 100%;
+}
 body {
   font-size: 20px;
   font-family: 'arial';
   color: #333;
+  margin: 0;
 }
 button {
   font-size: 20px;
@@ -60,9 +64,14 @@ h2 {
   margin: 8px 0;
   border-bottom: 2px solid #333;
 }
+#app {
+  height: 100%;
+}
 .app {
   user-select: none;
   margin: 0 auto;
+  padding: 16px;
+  height: 100%;
 }
 .menu, .game-infos {
   width: 300px;
@@ -103,10 +112,23 @@ h2 {
 .cell.opened.bomb {
   background-color: #ec6334;
 }
+.overlay {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.overlay.opened {
+  visibility: visible;
+  opacity: 1;
+}
 .dialog {
   position: absolute;
-  visibility: hidden;
-  opacity: 0;
   width: 320px;
   font-size: 16px;
   top: 20px;
@@ -116,16 +138,14 @@ h2 {
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.dialog.opened {
-  visibility: visible;
-  opacity: 1;
 }
 .dialog-close {
   position: absolute;
   right: 10px;
   top: 10px;
+}
+.mode-dialog {
+  text-align: center;
 }
 .mode-dialog-button {
   display: block;
@@ -135,6 +155,7 @@ h2 {
   margin: 5px 0;
 }
 .mode-input {
+  text-align: center;
   width: 30px;
 }
 .mode-validate {
@@ -170,6 +191,6 @@ h2 {
 .hs-time, .hs-date {
   font-style: italic;
 }
-.centered-text {
+.about-footer {
   text-align: center;
 }

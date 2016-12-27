@@ -74,7 +74,7 @@ class ModeDialog extends React.Component {
   }
   handleCloseClick() {
     this.setState({ mode: this.props.mode });
-    this.props.closeModeDialog();
+    this.props.closeDialog();
   }
   pushNewMode() {
     this.props.dispatch(setMode(
@@ -87,7 +87,7 @@ class ModeDialog extends React.Component {
   }
   render() {
     return (
-      <div className={`dialog centered-text${this.props.opened ? ' opened' : ''}`}>
+      <div>
         <button className="dialog-close" onClick={this.handleCloseClick}>
           <i className="icon-close" />
         </button>
@@ -98,7 +98,7 @@ class ModeDialog extends React.Component {
         <div>
           <label htmlFor="width-input">Width (9-24): </label>
           <input
-            className="mode-input centered-text"
+            className="mode-input"
             maxLength="2"
             disabled={this.state.mode !== 'custom'}
             value={this.state.width}
@@ -111,7 +111,7 @@ class ModeDialog extends React.Component {
         <div>
           <label htmlFor="height-input">Height (9-30): </label>
           <input
-            className="mode-input centered-text"
+            className="mode-input"
             maxLength="2"
             disabled={this.state.mode !== 'custom'}
             value={this.state.height}
@@ -124,7 +124,7 @@ class ModeDialog extends React.Component {
         <div>
           <label htmlFor="bombs-input">Mines (10-668): </label>
           <input
-            className="mode-input centered-text"
+            className="mode-input"
             maxLength="3"
             disabled={this.state.mode !== 'custom'}
             value={this.state.bombs}

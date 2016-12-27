@@ -23,7 +23,7 @@ class AddHSForm extends React.Component {
       date,
       this.props.highScores
     ));
-    this.props.closeCongratsDialog();
+    this.props.closeDialog();
   }
   render() {
     return (

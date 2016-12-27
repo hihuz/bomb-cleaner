@@ -1,8 +1,8 @@
 import React from 'react';
 
-const AboutDialog = ({ closeAboutDialog, opened }) => (
-  <div className={`dialog${opened ? ' opened' : ''}`}>
-    <button className="dialog-close" onClick={closeAboutDialog}>
+const AboutDialog = ({ closeDialog }) => (
+  <div>
+    <button className="dialog-close" onClick={closeDialog}>
       <i className="icon-close" />
     </button>
     <p>
@@ -17,7 +17,7 @@ const AboutDialog = ({ closeAboutDialog, opened }) => (
       <li>You&apos;ll lose if you open a mine</li>
       <li>You&apos;ll win if you open all mine-free tiles</li>
     </ul>
-    <p className="centered-text">
+    <p className="about-footer">
       Good luck !
       <br />
       <br />
