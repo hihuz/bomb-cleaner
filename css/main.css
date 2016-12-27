@@ -47,11 +47,12 @@ html, body {
 }
 body {
   font-size: 20px;
-  font-family: 'arial';
+  font-family: arial, sans-serif;
   color: #333;
   margin: 0;
 }
 button {
+  font-family: arial, sans-serif;
   font-size: 20px;
   color: #333;
   border: none;
@@ -68,6 +69,7 @@ a:hover {
   color: #d94f5c;
 }
 input[type="text"] {
+  font-family: arial, sans-serif;
   font-size: 16px;
 }
 h2 {

@@ -1,15 +1,16 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   context: __dirname,
   entry: './js/index.js',
-  devtool: 'eval',
+  devtool: 'cheap-module-source-map',
   output: {
-    path: path.join(__dirname, '/src'),
-    filename: 'bundle.js',
+    path: path.join(__dirname, '/dist'),
+    filename: 'bundle.min.js',
   },
   devServer: {
-    publicPath: '/src/',
+    publicPath: '/dist/',
     historyApiFallback: true
   },
   resolve: {

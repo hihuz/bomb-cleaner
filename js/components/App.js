@@ -36,6 +36,9 @@ class App extends React.Component {
         nextProps.gameStatus !== this.props.gameStatus) {
       this.setState({ dialogOpened: 'congrats' });
     }
+    if (nextProps.gameStatus === 'init') {
+      this.setState({ time: 0 });
+    }
   }
   componentWillUnmount() {
     clearInterval(this.timerID);
@@ -53,7 +56,7 @@ class App extends React.Component {
     this.setState({ dialogOpened: 'about' });
   }
   handleResetClick() {
-    this.setState({ time: 0 });
+    //this.setState({ time: 0 });
     this.props.dispatch(resetGame(this.props.grid));
   }
   updateTime() {
