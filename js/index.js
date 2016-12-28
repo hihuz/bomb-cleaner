@@ -38,8 +38,7 @@ render(
 // TODO  //
 // /////////
 // -> write tests for the the components
-// -> take care of UI, design and any remaining
-//    bugs / annoying stuff ( <<<< first click takes a lot of time :( )
+// -> try to fix performance for first click on huge boards
 // -> maybe reduce component knowledge of state to a minimum ?
 // -> learn about and implement "selectors" w/ reselect
 
@@ -48,12 +47,12 @@ render(
 //      * Grid.js : the react component for the displayed grid ? I don't think so
 //      * actionCreators.js : this could be done in 2 ways :
 //        1) getState() from the store inside actionCreators
-//           >> this is not encouraged I believe (see so post from dan),
+//           >> this is not encouraged I believe (see so post from Dan Abramov),
 //              but I may understand it wrong, getState is fine,
-//              but passing state to the reducer from getstate is not fine
+//              but passing state to the reducer from getState is not fine
 //         2) pass the grid as an action param from the Grid component
 //            this could be the best practice but there is 0 async in this app,
-//            and the data passed around in the actions are relatively huge soo...
+//            and the data passed around in the actions would be relatively huge
 //      * the reducers : I have read that reducers are best kept dumb simple :
 //        take data from the action and Object.assign it
 //        But I think in this  case it may make more sense to have the logic here ? not sure

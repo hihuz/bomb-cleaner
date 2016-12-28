@@ -56,7 +56,6 @@ class App extends React.Component {
     this.setState({ dialogOpened: 'about' });
   }
   handleResetClick() {
-    //this.setState({ time: 0 });
     this.props.dispatch(resetGame(this.props.grid));
   }
   updateTime() {

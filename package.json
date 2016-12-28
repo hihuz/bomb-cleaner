@@ -7,7 +7,7 @@
     "lint": "eslint js/**/*.js webpack.config.js",
     "fix-lint": "eslint --fix js/**/*.js webpack.config.js",
     "build": "webpack",
-    "build-prod": "SET NODE_ENV=production && webpack -p --config ./webpack.prod.config.js",
+    "build-prod": "webpack -p --config ./webpack.prod.config.js",
     "watch": "npm run build -- --watch",
     "dev": "webpack-dev-server",
     "test": "jest",
@@ -49,6 +49,7 @@
     "react-test-renderer": "15.3.2",
     "style-loader": "0.13.1",
     "webpack": "2.1.0-beta.25",
+    "webpack-dashboard": "^0.2.0",
     "webpack-dev-server": "1.16.2"
   },
   "author": "Sylvain",
