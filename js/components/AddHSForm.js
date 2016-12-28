@@ -28,9 +28,9 @@ class AddHSForm extends React.Component {
   render() {
     return (
       <div className="hs-form">
-        You made a high score for <em>{this.props.mode}</em> mode !
+        Your score is in the top 5 for <em>{this.props.mode}</em> mode !
         <br /><br />
-        Enter your name below :
+        Enter your name below to save it:
         <input type="text" onChange={this.updateName} />
         <button className="hs-validate" onClick={this.handleAddHSClick}>OK</button>
       </div>

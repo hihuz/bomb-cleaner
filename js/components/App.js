@@ -40,9 +40,6 @@ class App extends React.Component {
       this.setState({ time: 0 });
     }
   }
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
   closeDialog() {
     this.setState({ dialogOpened: false });
   }

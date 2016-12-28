@@ -38,7 +38,7 @@ render(
 // TODO  //
 // /////////
 // -> write tests for the the components
-// -> try to fix performance for first click on huge boards
+// -> try to fix performance for first click on huge boards / long frames on chrome timeline
 // -> maybe reduce component knowledge of state to a minimum ?
 // -> learn about and implement "selectors" w/ reselect
 
