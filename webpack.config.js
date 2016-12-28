@@ -23,7 +23,7 @@ module.exports = {
   },
   plugins: [
     new DashboardPlugin()
-  ]
+  ],
   module: {
     rules: [
       /* {
