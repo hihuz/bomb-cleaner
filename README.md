@@ -7,7 +7,7 @@ Sample app built with React and Redux
 * react-redux
 * lodash (throttle module)
 
-#### devDependencies
+#### devDependencies:
 * webpack
 * babel
 * eslint
