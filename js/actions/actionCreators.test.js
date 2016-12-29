@@ -72,6 +72,13 @@ test('openCell: opening a cell should propagate to neighbors if empty', () => {
       CreateCell(15, ' ')
     ]
   });
+  // opening all cells with 1 / 2 or empty makes sense in this test case
+  // because the grid looks like this:
+  // X31_
+  // XX1_
+  // 221_
+  // ____
+  // and the tested index is the top right cell
   const cellsAfter = gridBefore.cells.map((cell) => {
     let updatedCell;
     if (cell.value === ' ' || cell.value === 2 || cell.value === 1) {

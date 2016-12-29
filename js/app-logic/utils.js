@@ -20,7 +20,7 @@ function getNeighbors(index, cells, width) {
   return indexes.map(i => cells[i]);
 }
 
-// takes an array of strings, length 8, should return the number of bombs inside aka "X"
+// takes an array of cells + undefined, length 8, should return the number of bombs found
 function countBombs(neighbors) {
   if (Array.isArray(neighbors)) {
     return neighbors.reduce((acc, cur) => (cur && cur.value === 'X' ? acc + 1 : acc), 0);

@@ -13,7 +13,7 @@ function fillCellsValues(cells, width) {
   return filledCells;
 }
 
-// generates an array of indexes to place bombs, excluding the index of the initial click
+// generates an array of indexes to place bombs, excluding the index (3rd param)
 function generateBombsPos(bombs, gridSize, index) {
   const bombsPos = [];
   while (bombsPos.length < bombs) {
