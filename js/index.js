@@ -61,8 +61,11 @@ render(
 //        but also the game "mode" to define the size of the grid
 //        So.. is it best to have this big ass "grid" reducer, could also call it "game"
 //        reducer at this point.. is there any prefered approach ?
+//      >> I have so far settled on having a bunch of data passed around in the actions,
+//         from the react components, and my reducers are now simple object.assign()
+//         feedback would be appreciated about my approach
 
 // also ask about local state for the timer ? and how to implement it in redux
 
 // also ask about how to properly handle different handlers
-// on similar components based off index or whatever !!
+// on multiple child components (e.g. in this case handling Cell click events)
