@@ -83,7 +83,7 @@ h2 {
 .app {
   user-select: none;
   margin: 0 auto;
-  padding: 16px;
+  padding: 8px;
   height: 100%;
 }
 .menu, .game-infos {
@@ -96,8 +96,8 @@ h2 {
 .menu-button {
   font-size: 20px;
   font-weight: bold;
-  margin: 0.4em 0.6em;
-  padding: 0.5em 0;
+  margin: 8px;
+  padding: 8px;
   position: relative;
   transition: color 0.3s;
   color: #502327;
@@ -122,7 +122,7 @@ h2 {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .game-infos-item {
-  margin: 0 8px;
+  margin: 8px;
   color: #502327;
 }
 .bomb-tracker, .game-timer, .reset-button {
@@ -159,7 +159,7 @@ h2 {
 .grid {
   display: flex;
   flex-wrap: wrap;
-  margin: 10px auto;
+  margin: 16px auto;
   cursor: default;
 }
 .cell {
