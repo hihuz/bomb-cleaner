@@ -12,7 +12,8 @@ Sample app built with React and Redux
 * babel
 * eslint
 * enzyme
+
 ... and much more, see package.json for details
 
-#### Project should be available through gh-pages with a minified bundle :
+#### Project should be available through gh-pages with a minified bundle:
 https://hihuz.github.io/mine-sweeper/
