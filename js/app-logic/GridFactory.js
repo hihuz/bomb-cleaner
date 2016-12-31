@@ -2,6 +2,7 @@ import CreateCell from './CellFactory';
 import { countBombs, getNeighbors } from './utils';
 
 // fills values of an "empty" array of cells
+// this is needed because the first click of the user cannot be a bomb
 function fillCellsValues(cells, width) {
   const filledCells = cells.map((cell, i) => {
     const count = countBombs(getNeighbors(i, cells, width));

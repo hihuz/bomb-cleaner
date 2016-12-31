@@ -34,38 +34,9 @@ render(
 );
 
 
-// /////////
-// TODO  //
-// /////////
+/* ///////////
+   // TODO  //
+   /////////// */
 // -> write tests for the the components
 // -> try to fix performance for first click on huge boards / long frames on chrome timeline
-// -> maybe reduce component knowledge of state to a minimum ?
-// -> learn about and implement "selectors" w/ reselect
-
-// question to ask :
-// - in this particular mine sweeper example, where should most of the logic live ?
-//      * Grid.js : the react component for the displayed grid ? I don't think so
-//      * actionCreators.js : this could be done in 2 ways :
-//        1) getState() from the store inside actionCreators
-//           >> this is not encouraged I believe (see so post from Dan Abramov),
-//              but I may understand it wrong, getState is fine,
-//              but passing state to the reducer from getState is not fine
-//         2) pass the grid as an action param from the Grid component
-//            this could be the best practice but there is 0 async in this app,
-//            and the data passed around in the actions would be relatively huge
-//      * the reducers : I have read that reducers are best kept dumb simple :
-//        take data from the action and Object.assign it
-//        But I think in this  case it may make more sense to have the logic here ? not sure
-//      * I have run into this situation where I realize my "grid" reducer
-//        is gonna need to have access to the game status (worked around that)
-//        but also the game "mode" to define the size of the grid
-//        So.. is it best to have this big ass "grid" reducer, could also call it "game"
-//        reducer at this point.. is there any prefered approach ?
-//      >> I have so far settled on having a bunch of data passed around in the actions,
-//         from the react components, and my reducers are now simple object.assign()
-//         feedback would be appreciated about my approach
-
-// also ask about local state for the timer ? and how to implement it in redux
-
-// also ask about how to properly handle different handlers
-// on multiple child components (e.g. in this case handling Cell click events)
+// -> try to figure out if my functionnal components that declare functions should be converted
