@@ -1,0 +1,19 @@
+exports[`test AddHSForm snapshot 1`] = `
+<div
+  className="hs-form">
+  Your score is in the top 5 for 
+  <em />
+   mode !
+  <br />
+  <br />
+  Enter your name below to save it:
+  <input
+    onChange={[Function]}
+    type="text" />
+  <button
+    className="hs-validate"
+    onClick={[Function]}>
+    OK
+  </button>
+</div>
+`;

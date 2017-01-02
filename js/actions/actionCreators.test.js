@@ -1,6 +1,6 @@
 import CreateGrid, { fillGrid } from '../app-logic/GridFactory';
 import CreateCell from '../app-logic/CellFactory';
-import { openCell, openBomb, toggleFlag, resetGame, setMode, addHighScore } from './actionCreators';
+import { openCell, openBomb, toggleFlag, resetGame, initGame, setMode, addHighScore } from './actionCreators';
 import { OPEN_CELL, OPEN_BOMB, TOGGLE_FLAG, ADD_HS } from './actionTypes';
 
 function MakeTestGrid(flags = 0, cellState = 'hidden', isBomb = false, empty = 2) {
@@ -40,9 +40,10 @@ test('openCell: should return an OPEN_CELL action with passed index opened and d
     }]
     }
   );
-  const action = Object.freeze({ type: OPEN_CELL, grid: gridAfter });
+  const actual = openCell(0, gridBefore)
+  const expectedAction = Object.freeze({ type: OPEN_CELL, grid: gridAfter });
 
-  expect(openCell(0, gridBefore)).toEqual(action);
+  expect(actual).toEqual(expectedAction);
 });
 
 
@@ -92,10 +93,10 @@ test('openCell: opening a cell should propagate to neighbors if empty', () => {
     { emptyCellsRemaining: 1 },
     { cells: cellsAfter }
   );
+  const actual = openCell(3, gridBefore);
+  const expectedAction = Object.freeze({ type: OPEN_CELL, grid: gridAfter });
 
-  const action = Object.freeze({ type: OPEN_CELL, grid: gridAfter });
-
-  expect(openCell(3, gridBefore)).toEqual(action);
+  expect(actual).toEqual(expectedAction);
 });
 
 test('openBomb: should return an OPEN_BOMB action with all bomb shown', () => {
@@ -137,9 +138,9 @@ test('openBomb: should return an OPEN_BOMB action with all bomb shown', () => {
     { emptyCellsRemaining: 13 },
     { cells: cellsAfter }
   );
-  const action = Object.freeze({ type: OPEN_BOMB, grid: gridAfter });
+  const expectedAction = Object.freeze({ type: OPEN_BOMB, grid: gridAfter });
 
-  expect(openBomb(5, gridBefore)).toEqual(action);
+  expect(openBomb(5, gridBefore)).toEqual(expectedAction);
 });
 
 test('toggleFlag: should return an TOGGLE_FLAG action with the passed index flag toggled', () => {
@@ -154,9 +155,9 @@ test('toggleFlag: should return an TOGGLE_FLAG action with the passed index flag
     }]
     }
   );
-  const action = Object.freeze({ type: TOGGLE_FLAG, grid: gridAfter });
+  const expectedAction = Object.freeze({ type: TOGGLE_FLAG, grid: gridAfter });
 
-  expect(toggleFlag(0, gridBefore)).toEqual(action);
+  expect(toggleFlag(0, gridBefore)).toEqual(expectedAction);
 });
 
 test('toggleFlag: should return an TOGGLE_FLAG action with the passed index flag toggled 2', () => {
@@ -171,9 +172,9 @@ test('toggleFlag: should return an TOGGLE_FLAG action with the passed index flag
     }]
     }
   );
-  const action = Object.freeze({ type: TOGGLE_FLAG, grid: gridAfter });
+  const expectedAction = Object.freeze({ type: TOGGLE_FLAG, grid: gridAfter });
 
-  expect(toggleFlag(0, gridBefore)).toEqual(action);
+  expect(toggleFlag(0, gridBefore)).toEqual(expectedAction);
 });
 
 test('setMode (easy): should return an SET_MODE action with a fresh grid of specified mode/props', () => {
@@ -222,6 +223,42 @@ test('setMode (custom): should return an SET_MODE action with a fresh grid of sp
   expect(action.grid.emptyCellsRemaining).toEqual((14 * 17) - 38);
   expect(action.type).toEqual('SET_MODE');
   expect(action.mode).toEqual('custom');
+});
+
+test('initGame: takes an index and an empty grid, should return a filled grid with index opened', () => {
+  const gridBefore = Object.freeze({
+    width: 4,
+    height: 4,
+    bombs: 5,
+    flags: 0,
+    emptyCellsRemaining: 11,
+    cells: [
+      {index: 0 },
+      {index: 1 },
+      {index: 2 },
+      {index: 3 },
+      {index: 4 },
+      {index: 5 },
+      {index: 6 },
+      {index: 7 },
+      {index: 8 },
+      {index: 9 },
+      {index: 10 },
+      {index: 11 },
+      {index: 12 },
+      {index: 13 },
+      {index: 14 },
+      {index: 15 }
+    ]
+  });
+  const action = initGame(5, gridBefore);
+
+  expect(action.type).toEqual('OPEN_CELL')
+  expect(action.grid.bombs).toEqual(5);
+  expect(action.grid.cells.filter(cell => cell.value === 'X').length).toEqual(5);
+  expect(action.grid.flags).toEqual(0);
+  expect(action.grid.emptyCellsRemaining).toBeLessThan(11);
+  expect(action.grid.cells[5].value).not.toEqual('X');
 });
 
 test('resetGame: should return an RESET_GAME action with a fresh grid of same props', () => {
@@ -283,7 +320,7 @@ test('addHighScore (add last, already full): should return an ADD_HS action with
       MakeHS('John', 52, '2016-08-12'),
       MakeHS('Sara', 76, '2016-07-13'),
       MakeHS('Bert', 92, '2016-04-15'),
-      MakeHS('sb', 98, '2016-12-08'),
+      MakeHS('sb', 98, '2016-12-08')
     ]
   });
   const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });

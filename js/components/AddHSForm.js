@@ -38,4 +38,5 @@ class AddHSForm extends React.Component {
   }
 }
 
+export const Plain = AddHSForm;
 export default connect()(AddHSForm);
