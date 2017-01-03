@@ -1,17 +1,21 @@
 import React from 'react';
-import CongratsDialog, { isHighScore } from './CongratsDialog';
-import AddHSForm from './AddHSForm';
-import { shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
+import AddHSForm from './AddHSForm';
+import CongratsDialog, { isHighScore } from './CongratsDialog';
 
 const emptyHS = { easy: [], medium: [], hard: [] };
-const fullEasyHS = { easy: [
-  { time: 10 },
-  { time: 11 },
-  { time: 12 },
-  { time: 97 },
-  { time: 98 }
-], medium: [], hard: [] };
+const fullEasyHS = {
+  easy: [
+    { time: 10 },
+    { time: 11 },
+    { time: 12 },
+    { time: 97 },
+    { time: 98 }
+  ],
+  medium: [],
+  hard: []
+};
 
 test('Snapshot', () => {
   const component = shallow(<CongratsDialog />);
@@ -41,7 +45,7 @@ test('Should NOT render a AddHSForm component when props give an invalid high sc
 
 test('Should call the closeDialog prop when the dialog-close button is clicked', () => {
   const clickFn = jest.fn();
-  const component = shallow(<CongratsDialog closeDialog={clickFn}/>);
+  const component = shallow(<CongratsDialog closeDialog={clickFn} />);
   component.find('button').simulate('click');
   expect(clickFn).toHaveBeenCalledTimes(1);
 });
@@ -61,7 +65,7 @@ test('isHighScore (not full / worse score): should return true', () => {
     { time: 10 },
     { time: 11 },
     { time: 97 },
-  ]});
+  ] });
   const actual = isHighScore('easy', 99, hs);
   expect(actual).toEqual(true);
 });
@@ -77,7 +81,7 @@ test('isHighScore (not full / better score): should return true', () => {
     { time: 11 },
     { time: 50 },
     { time: 98 },
-  ]});
+  ] });
   const actual = isHighScore('easy', 97, hs);
   expect(actual).toEqual(true);
 });

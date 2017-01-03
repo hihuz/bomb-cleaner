@@ -1,7 +1,7 @@
 import React from 'react';
-import { Plain } from './AddHSForm';
-import { shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
+import { Plain } from './AddHSForm';
 
 test('Snapshot', () => {
   const component = shallow(<Plain />);

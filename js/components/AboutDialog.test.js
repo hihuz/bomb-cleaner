@@ -1,7 +1,7 @@
 import React from 'react';
-import AboutDialog from './AboutDialog';
-import { shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
+import AboutDialog from './AboutDialog';
 
 test('Snapshot', () => {
   const component = shallow(<AboutDialog />);
@@ -11,7 +11,7 @@ test('Snapshot', () => {
 
 test('Should call the closeDialog prop when the dialog-close button is clicked', () => {
   const clickFn = jest.fn();
-  const component = shallow(<AboutDialog closeDialog={clickFn}/>);
+  const component = shallow(<AboutDialog closeDialog={clickFn} />);
   component.find('button').simulate('click');
   expect(clickFn).toHaveBeenCalledTimes(1);
 });

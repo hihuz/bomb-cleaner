@@ -40,7 +40,7 @@ test('openCell: should return an OPEN_CELL action with passed index opened and d
     }]
     }
   );
-  const actual = openCell(0, gridBefore)
+  const actual = openCell(0, gridBefore);
   const expectedAction = Object.freeze({ type: OPEN_CELL, grid: gridAfter });
 
   expect(actual).toEqual(expectedAction);
@@ -233,27 +233,27 @@ test('initGame: takes an index and an empty grid, should return a filled grid wi
     flags: 0,
     emptyCellsRemaining: 11,
     cells: [
-      {index: 0 },
-      {index: 1 },
-      {index: 2 },
-      {index: 3 },
-      {index: 4 },
-      {index: 5 },
-      {index: 6 },
-      {index: 7 },
-      {index: 8 },
-      {index: 9 },
-      {index: 10 },
-      {index: 11 },
-      {index: 12 },
-      {index: 13 },
-      {index: 14 },
-      {index: 15 }
+      { index: 0 },
+      { index: 1 },
+      { index: 2 },
+      { index: 3 },
+      { index: 4 },
+      { index: 5 },
+      { index: 6 },
+      { index: 7 },
+      { index: 8 },
+      { index: 9 },
+      { index: 10 },
+      { index: 11 },
+      { index: 12 },
+      { index: 13 },
+      { index: 14 },
+      { index: 15 }
     ]
   });
   const action = initGame(5, gridBefore);
 
-  expect(action.type).toEqual('OPEN_CELL')
+  expect(action.type).toEqual('OPEN_CELL');
   expect(action.grid.bombs).toEqual(5);
   expect(action.grid.cells.filter(cell => cell.value === 'X').length).toEqual(5);
   expect(action.grid.flags).toEqual(0);
