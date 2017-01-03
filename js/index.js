@@ -38,5 +38,9 @@ render(
    // TODO  //
    /////////// */
 // -> write tests for the the components
+/*
+also check if we can see what props are passed to children components with shallow
+*/
+
 // -> try to fix performance for first click on huge boards / long frames on chrome timeline
 // -> try to figure out if my functionnal components that declare functions should be converted
