@@ -1,0 +1,10 @@
+exports[`test Snapshot 1`] = `
+<div
+  className="game-infos-item">
+  <div
+    className="bomb-tracker">
+    <i
+      className="icon-bomb" />
+  </div>
+</div>
+`;

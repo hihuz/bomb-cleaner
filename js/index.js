@@ -38,6 +38,7 @@ render(
    // TODO  //
    /////////// */
 // -> write tests for the the components
+// -> fix escape button for modal escape
 /*
 also check if we can see what props are passed to children components with shallow
 */

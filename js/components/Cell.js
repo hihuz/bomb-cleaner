@@ -21,7 +21,7 @@ const Cell = ({ handleLeftClick, handleRightClick, index, opened, flagged, value
       style={styles}
     >
       {opened && value !== 'X' ? value : ' '}
-      {opened && value === 'X' ? <i className="icon-bomb cell-icon" /> : ' '}
+      {opened && value === 'X' ? <i className="icon-bomb cell-icon" /> : ''}
       {flagged && !opened ? <i className="icon-flag cell-icon" /> : ''}
     </div>
   );
