@@ -11,5 +11,4 @@ const GameInfos = ({ bombsRemaining, time, handleReset }) => (
   </div>
 );
 
-
 export default GameInfos;

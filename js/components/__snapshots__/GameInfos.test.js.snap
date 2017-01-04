@@ -1,0 +1,8 @@
+exports[`test Snapshot 1`] = `
+<div
+  className="game-infos">
+  <BombTracker />
+  <GameReset />
+  <GameTimer />
+</div>
+`;
