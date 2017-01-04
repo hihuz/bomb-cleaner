@@ -1,0 +1,10 @@
+exports[`test Snapshot 1`] = `
+<div
+  className="game-infos-item">
+  <button
+    className="reset-button">
+    <i
+      className="icon-refresh" />
+  </button>
+</div>
+`;

@@ -1,0 +1,17 @@
+exports[`test Snapshot 1`] = `
+<div
+  className="menu">
+  <button
+    className="menu-button">
+    Mode
+  </button>
+  <button
+    className="menu-button">
+    Best
+  </button>
+  <button
+    className="menu-button">
+    About
+  </button>
+</div>
+`;
