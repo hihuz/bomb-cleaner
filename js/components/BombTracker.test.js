@@ -10,8 +10,8 @@ test('Snapshot', () => {
 });
 
 test('Should display the bombRemainings passed as props', () => {
-  const expected = 10;
+  const expected = '10';
   const component = shallow(<BombTracker bombsRemaining={expected} />);
-  const actual = parseInt(component.find('.bomb-tracker').text());
+  const actual = component.find('.bomb-tracker').text();
   expect(actual).toEqual(expected);
 });

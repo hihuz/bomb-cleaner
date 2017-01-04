@@ -5,7 +5,9 @@ import { toggleFlag, openBomb, openCell, initGame } from '../actions/actionCreat
 
 const Grid = ({ grid, status, dispatch }) => {
   function handleLeftClick(index, value) {
-    if (status === 'init') { dispatch(initGame(index, grid)); } else if (value === 'X') {
+    if (status === 'init') {
+      dispatch(initGame(index, grid));
+    } else if (value === 'X') {
       dispatch(openBomb(index, grid));
     } else {
       dispatch(openCell(index, grid));

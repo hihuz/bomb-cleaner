@@ -15,7 +15,7 @@ test('Snapshot', () => {
 });
 
 test('Should display as an open cell & value displayed if opened props', () => {
-  const component = shallow(<Cell opened={true} value={' '} />);
+  const component = shallow(<Cell opened value={' '} />);
   expect(component.hasClass('opened')).toEqual(true);
   expect(component.text()).toEqual(' ');
   expect(component.find('i').length).toEqual(0);
@@ -23,7 +23,7 @@ test('Should display as an open cell & value displayed if opened props', () => {
 
 
 test('Should display as an open bomb if opened props & "X" value props', () => {
-  const component = shallow(<Cell opened={true} value={'X'} />);
+  const component = shallow(<Cell opened value={'X'} />);
   expect(component.hasClass('opened')).toEqual(true);
   expect(component.hasClass('bomb')).toEqual(true);
   expect(component.find('i').length).toEqual(1);
@@ -32,7 +32,7 @@ test('Should display as an open bomb if opened props & "X" value props', () => {
 });
 
 test('Should display as a flagged cell if flagged props', () => {
-  const component = shallow(<Cell opened={false} value={'X'} flagged={true} />);
+  const component = shallow(<Cell value={'X'} flagged />);
   expect(component.text()).toEqual(' ');
   expect(component.hasClass('opened')).toEqual(false);
   expect(component.find('i').length).toEqual(1);
@@ -41,7 +41,7 @@ test('Should display as a flagged cell if flagged props', () => {
 });
 
 test('Should NOT display as a flagged cell if flagged props and opened props', () => {
-  const component = shallow(<Cell opened={true} value={3} flagged={true} />);
+  const component = shallow(<Cell opened value={3} flagged />);
   expect(component.text()).toEqual('3');
   expect(component.hasClass('opened')).toEqual(true);
   expect(component.find('i').length).toEqual(0);
