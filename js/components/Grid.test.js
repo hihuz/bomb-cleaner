@@ -5,15 +5,14 @@ import { Plain } from './Grid';
 import Cell from './Cell';
 
 function makeTestGrid(gridSize) {
-  if (!gridSize) { gridSize = 20; }
+  const size = gridSize || 20;
   const testGridProp = {
     width: 1,
     height: 1,
-    cells: new Array(gridSize).fill(undefined).map((cell, i) => ({ index: i }))
+    cells: new Array(size).fill(undefined).map((cell, i) => ({ index: i }))
   };
   return shallow(<Plain grid={testGridProp} />);
 }
-
 
 test('Snapshot', () => {
   const component = makeTestGrid();
