@@ -39,4 +39,5 @@ const Grid = ({ grid, status, dispatch }) => {
   );
 };
 
+export const Plain = Grid;
 export default connect()(Grid);

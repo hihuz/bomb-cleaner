@@ -11,6 +11,7 @@ const Overlay = ({
   time,
   mode
 }) => {
+  // this isn't working for now
   function handleKeyPress(e) {
     if (e.keyCode === 27) {
       closeDialog();

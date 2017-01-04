@@ -1,0 +1,91 @@
+exports[`test Snapshot 1`] = `
+<div
+  className="grid"
+  style={
+    Object {
+      "height": "24px",
+      "width": "24px",
+    }
+  }>
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={0} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={1} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={2} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={3} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={4} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={5} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={6} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={7} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={8} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={9} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={10} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={11} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={12} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={13} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={14} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={15} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={16} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={17} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={18} />
+  <Cell
+    handleLeftClick={[Function]}
+    handleRightClick={[Function]}
+    index={19} />
+</div>
+`;
