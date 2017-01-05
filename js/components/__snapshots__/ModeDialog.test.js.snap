@@ -1,0 +1,84 @@
+exports[`test Snapshot 1`] = `
+<div>
+  <button
+    className="dialog-close"
+    onClick={[Function]}>
+    <i
+      className="icon-close" />
+  </button>
+  <button
+    className="mode-dialog-button"
+    disabled={false}
+    onClick={[Function]}>
+    Easy
+  </button>
+  <button
+    className="mode-dialog-button"
+    disabled={false}
+    onClick={[Function]}>
+    Medium
+  </button>
+  <button
+    className="mode-dialog-button"
+    disabled={false}
+    onClick={[Function]}>
+    Hard
+  </button>
+  <button
+    className="mode-dialog-button"
+    disabled={false}
+    onClick={[Function]}>
+    Custom:
+  </button>
+  <div>
+    <label
+      htmlFor="width-input">
+      Width (9-24): 
+    </label>
+    <input
+      className="mode-input"
+      disabled={true}
+      id="width-input"
+      maxLength="2"
+      onBlur={[Function]}
+      onChange={[Function]}
+      type="text"
+      value="9" />
+  </div>
+  <div>
+    <label
+      htmlFor="height-input">
+      Height (9-30): 
+    </label>
+    <input
+      className="mode-input"
+      disabled={true}
+      id="height-input"
+      maxLength="2"
+      onBlur={[Function]}
+      onChange={[Function]}
+      type="text"
+      value="9" />
+  </div>
+  <div>
+    <label
+      htmlFor="bombs-input">
+      Mines (10-668): 
+    </label>
+    <input
+      className="mode-input"
+      disabled={true}
+      id="bombs-input"
+      maxLength="3"
+      onBlur={[Function]}
+      onChange={[Function]}
+      type="text"
+      value="10" />
+  </div>
+  <button
+    className="mode-validate"
+    onClick={[Function]}>
+    OK
+  </button>
+</div>
+`;

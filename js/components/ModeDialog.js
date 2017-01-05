@@ -142,4 +142,5 @@ class ModeDialog extends React.Component {
 
 const mapStateToProps = state => ({ mode: state.mode });
 
+export const Plain = ModeDialog;
 export default connect(mapStateToProps)(ModeDialog);

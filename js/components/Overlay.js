@@ -11,9 +11,9 @@ const Overlay = ({
   time,
   mode
 }) => {
-  // this isn't working for now
-  function handleKeyPress(e) {
+  function handleKeyDown(e) {
     if (e.keyCode === 27) {
+      e.preventDefault();
       closeDialog();
     }
   }
@@ -23,12 +23,14 @@ const Overlay = ({
   }
   return (
     <div
-      tabIndex="0"
       className={`overlay${dialogOpened ? ' opened' : ''}`}
       onClick={handleOverlayClick}
-      onKeyDown={handleKeyPress}
+      onKeyDown={handleKeyDown}
     >
-      <div className={`${dialogOpened ? `${dialogOpened}-dialog ` : ''}dialog`}>
+      <div
+        className={`${dialogOpened ? `${dialogOpened}-dialog ` : ''}dialog`}
+        tabIndex={-1}
+      >
         {dialogOpened === 'mode' ? <ModeDialog closeDialog={closeDialog} /> : ''}
         {dialogOpened === 'hs' ? <HSDialog
           closeDialog={closeDialog}

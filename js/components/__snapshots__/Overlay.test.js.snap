@@ -1,0 +1,10 @@
+exports[`test Snapshot 1`] = `
+<div
+  className="overlay"
+  onClick={[Function]}
+  onKeyDown={[Function]}>
+  <div
+    className="dialog"
+    tabIndex={-1} />
+</div>
+`;

@@ -7,13 +7,15 @@ import Cell from './Cell';
 function makeTestGrid(gridSize, gameStatus, cellsFlagged, cellsOpened) {
   const size = gridSize || 20;
   const status = gameStatus || 'running';
+  const flagged = cellsFlagged || false;
+  const opened = cellsOpened || false;
   const testGridProp = {
     width: 1,
     height: 1,
     cells: new Array(size).fill(undefined).map((cell, i) => ({
       index: i,
-      flagged: cellsFlagged ? true : false,
-      opened: cellsOpened ? true : false,
+      flagged,
+      opened,
       value: 2
     }))
   };

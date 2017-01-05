@@ -38,11 +38,10 @@ test('Should display the mode recieved as props', () => {
 test('Should have an empty string as default state', () => {
   const component = shallow(<Plain />);
   const actual = component.state('name');
-  const expected = '';
-  expect(actual).toEqual(expected);
+  expect(actual).toEqual('');
 });
 
-test('Change event on the input should update the state and update the input value', () => {
+test('Change event on the input should update the component state', () => {
   const component = shallow(<Plain />);
   const expected = 'testName';
   component.find('input').simulate('change', { target: { value: expected } });
