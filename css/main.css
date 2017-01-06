@@ -18,23 +18,23 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-close:before {
+.icon-close::before {
   content: "\f00d";
 }
-.icon-refresh:before {
+.icon-refresh::before {
   content: "\f021";
 }
-.icon-clock-o:before {
+.icon-clock-o::before {
   content: "\f017";
 }
-.icon-flag:before {
+.icon-flag::before {
   content: "\f024";
   color: #d94f5c;
 }
-.icon-bomb:before {
+.icon-bomb::before {
   content: "\f1e2";
 }
-.cell-icon:before {
+.cell-icon::before {
   font-size: 16px;
   position: relative;
   top: -2px;
@@ -224,8 +224,8 @@ h2 {
 .mode-dialog-button {
   font-size: 20px;
   font-weight: bold;
-  margin: 0.25em 0.5em;
-  padding: 0.5em 0;
+  margin: 4px 8px;
+  padding: 8px;
   position: relative;
   transition: color 0.3s;
   color: #aaa;
