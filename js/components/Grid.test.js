@@ -4,11 +4,7 @@ import { shallowToJson } from 'enzyme-to-json';
 import { Plain } from './Grid';
 import Cell from './Cell';
 
-function makeTestGrid(gridSize, gameStatus, cellsFlagged, cellsOpened) {
-  const size = gridSize || 20;
-  const status = gameStatus || 'running';
-  const flagged = cellsFlagged || false;
-  const opened = cellsOpened || false;
+function makeTestGrid(size = 20, status = 'running', flagged = false, opened = false) {
   const testGridProp = {
     width: 1,
     height: 1,
