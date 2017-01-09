@@ -2,7 +2,7 @@ import CreateGrid, { fillGrid } from '../app-logic/GridFactory';
 import { getIndexesToOpen } from '../app-logic/utils';
 import { OPEN_CELL, OPEN_BOMB, TOGGLE_FLAG, RESET_GAME, SET_MODE, ADD_HS } from './actionTypes';
 
-export function openCell(index, grid) {
+function openCell(index, grid) {
   const newGrid = Object.assign({}, grid);
   const indexes = getIndexesToOpen(index, newGrid.cells, newGrid.width);
   const updatedCells = newGrid.cells.map((cell) => {
@@ -17,7 +17,7 @@ export function openCell(index, grid) {
   return { type: OPEN_CELL, grid: newGrid };
 }
 
-export function openBomb(index, grid) {
+function openBomb(index, grid) {
   const newGrid = Object.assign({}, grid);
   const updatedCells = newGrid.cells.map((cell) => {
     const updatedCell = Object.assign({}, cell, {
@@ -30,7 +30,7 @@ export function openBomb(index, grid) {
   return { type: OPEN_BOMB, grid: newGrid };
 }
 
-export function toggleFlag(index, grid) {
+function toggleFlag(index, grid) {
   const newGrid = Object.assign({}, grid);
   const cell = newGrid.cells[index];
   const flags = newGrid.flags;
@@ -45,17 +45,17 @@ export function toggleFlag(index, grid) {
   return { type: TOGGLE_FLAG, grid: newGrid };
 }
 
-export function initGame(index, grid) {
+function initGame(index, grid) {
   const filledGrid = fillGrid(index, grid);
   return openCell(index, filledGrid);
 }
 
-export function resetGame(grid) {
+function resetGame(grid) {
   const newGrid = CreateGrid(grid.width, grid.height, grid.bombs);
   return { type: RESET_GAME, grid: newGrid };
 }
 
-export function setMode(mode, width, height, bombs) {
+function setMode(mode, width, height, bombs) {
   let grid;
   if (mode === 'easy') { grid = CreateGrid(9, 9, 10); }
   if (mode === 'medium') { grid = CreateGrid(16, 16, 40); }
@@ -66,7 +66,7 @@ export function setMode(mode, width, height, bombs) {
 }
 
 // this is a bit ugly, try to refactor later
-export function addHighScore(mode, name, time, date, highScores) {
+function addHighScore(mode, name, time, date, highScores) {
   let index;
   const curHS = highScores[mode];
   const sliceEnd = Math.min(curHS.length, 4);
@@ -88,3 +88,5 @@ export function addHighScore(mode, name, time, date, highScores) {
 
   return { type: ADD_HS, highScores: updatedHS };
 }
+
+export { openCell, openBomb, toggleFlag, initGame, resetGame, setMode, addHighScore };

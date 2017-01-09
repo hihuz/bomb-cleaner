@@ -1,7 +1,7 @@
 import React from 'react';
 import AddHSForm from './AddHSForm';
 
-export function isHighScore(mode, time, highScores) {
+function isHighScore(mode, time, highScores) {
   const worseTimes = highScores[mode].filter(hs => time <= hs.time).length;
   return highScores[mode].length < 5 || worseTimes > 0;
 }
@@ -23,4 +23,5 @@ const CongratsDialog = ({ closeDialog, time, mode, highScores }) => (
   </div>
 );
 
+export { isHighScore };
 export default CongratsDialog;
