@@ -34,13 +34,10 @@ function toggleFlag(index, grid) {
   const newGrid = Object.assign({}, grid);
   const cell = newGrid.cells[index];
   const flags = newGrid.flags;
-  if (cell.flagged) {
-    cell.flagged = false;
-    newGrid.flags = flags - 1;
-  } else {
-    cell.flagged = true;
+  if (cell.flagged) { newGrid.flags = flags - 1; } else {
     newGrid.flags = flags + 1;
   }
+  cell.flagged = !cell.flagged;
   newGrid.cells[index] = cell;
   return { type: TOGGLE_FLAG, grid: newGrid };
 }
@@ -55,18 +52,20 @@ function resetGame(grid) {
   return { type: RESET_GAME, grid: newGrid };
 }
 
-function setMode(mode, width, height, bombs) {
-  let grid;
-  if (mode === 'easy') { grid = CreateGrid(9, 9, 10); }
-  if (mode === 'medium') { grid = CreateGrid(16, 16, 40); }
-  if (mode === 'hard') { grid = CreateGrid(30, 16, 99); }
-  if (mode === 'custom') { grid = CreateGrid(width, height, bombs); }
-
+function setMode(config) {
+  const mode = config.mode;
+  const grid = CreateGrid(
+    config.width,
+    config.height,
+    config.bombs
+  );
   return { type: SET_MODE, mode, grid };
 }
 
 // this is a bit ugly, try to refactor later
-function addHighScore(mode, name, time, date, highScores) {
+function addHighScore(newHS, highScores) {
+  //mode, name, time, date
+  const { mode, name, time, date } = newHS;
   let index;
   const curHS = highScores[mode];
   const sliceEnd = Math.min(curHS.length, 4);

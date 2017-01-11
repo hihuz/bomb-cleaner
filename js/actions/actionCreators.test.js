@@ -178,7 +178,13 @@ test('toggleFlag: should return an TOGGLE_FLAG action with the passed index flag
 });
 
 test('setMode (easy): should return an SET_MODE action with a fresh grid of specified mode/props', () => {
-  const action = setMode('easy');
+  const config = {
+    mode: 'easy',
+    width: 9,
+    height: 9,
+    bombs: 10
+  };
+  const action = setMode(config);
 
   expect(action.grid.bombs).toEqual(10);
   expect(action.grid.width).toEqual(9);
@@ -190,7 +196,13 @@ test('setMode (easy): should return an SET_MODE action with a fresh grid of spec
 });
 
 test('setMode (medium): should return an SET_MODE action with a fresh grid of specified mode/props', () => {
-  const action = setMode('medium');
+  const config = {
+    mode: 'medium',
+    width: 16,
+    height: 16,
+    bombs: 40
+  };
+  const action = setMode(config);
 
   expect(action.grid.bombs).toEqual(40);
   expect(action.grid.width).toEqual(16);
@@ -202,7 +214,13 @@ test('setMode (medium): should return an SET_MODE action with a fresh grid of sp
 });
 
 test('setMode (hard): should return an SET_MODE action with a fresh grid of specified mode/props', () => {
-  const action = setMode('hard');
+  const config = {
+    mode: 'hard',
+    width: 30,
+    height: 16,
+    bombs: 99
+  };
+  const action = setMode(config);
 
   expect(action.grid.bombs).toEqual(99);
   expect(action.grid.width).toEqual(30);
@@ -214,7 +232,13 @@ test('setMode (hard): should return an SET_MODE action with a fresh grid of spec
 });
 
 test('setMode (custom): should return an SET_MODE action with a fresh grid of specified mode/props', () => {
-  const action = setMode('custom', 14, 17, 38);
+  const config = {
+    mode: 'custom',
+    width: 14,
+    height: 17,
+    bombs: 38
+  };
+  const action = setMode(config);
 
   expect(action.grid.bombs).toEqual(38);
   expect(action.grid.width).toEqual(14);
@@ -277,8 +301,13 @@ test('addHighScore (empty): should return an ADD_HS action with an updated highs
   const HSBefore = { easy: [], medium: [], hard: [] };
   const HSAfter = { easy: [MakeHS('Mel', 12, '2016-12-20')], medium: [], hard: [] };
   const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
-
-  expect(addHighScore('easy', 'Mel', 12, '2016-12-20', HSBefore)).toEqual(action);
+  const newHS = {
+    mode: 'easy',
+    name: 'Mel',
+    time: 12,
+    date: '2016-12-20'
+  };
+  expect(addHighScore(newHS, HSBefore)).toEqual(action);
 });
 
 test('addHighScore (add last, not full): should return an ADD_HS action with an updated highscores object', () => {
@@ -299,8 +328,14 @@ test('addHighScore (add last, not full): should return an ADD_HS action with an 
     ]
   });
   const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
+  const newHS = {
+    mode: 'hard',
+    name: 'Typhon',
+    time: 77,
+    date: '2016-02-16'
+  };
 
-  expect(addHighScore('hard', 'Typhon', 77, '2016-02-16', HSBefore)).toEqual(action);
+  expect(addHighScore(newHS, HSBefore)).toEqual(action);
 });
 
 test('addHighScore (add last, already full): should return an ADD_HS action with an updated highscores object', () => {
@@ -324,8 +359,14 @@ test('addHighScore (add last, already full): should return an ADD_HS action with
     ]
   });
   const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
+  const newHS = {
+    mode: 'hard',
+    name: 'sb',
+    time: 98,
+    date: '2016-12-08'
+  };
 
-  expect(addHighScore('hard', 'sb', 98, '2016-12-08', HSBefore)).toEqual(action);
+  expect(addHighScore(newHS, HSBefore)).toEqual(action);
 });
 
 test('addHighScore (add inside, not full): should return an ADD_HS action with an updated highscores object', () => {
@@ -346,8 +387,14 @@ test('addHighScore (add inside, not full): should return an ADD_HS action with a
     ]
   });
   const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
+  const newHS = {
+    mode: 'hard',
+    name: 'Typhon',
+    time: 75,
+    date: '2016-02-16'
+  };
 
-  expect(addHighScore('hard', 'Typhon', 75, '2016-02-16', HSBefore)).toEqual(action);
+  expect(addHighScore(newHS, HSBefore)).toEqual(action);
 });
 
 test('addHighScore (add inside, already full): should return an ADD_HS action with an updated highscores object', () => {
@@ -371,8 +418,14 @@ test('addHighScore (add inside, already full): should return an ADD_HS action wi
     ]
   });
   const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
+  const newHS = {
+    mode: 'hard',
+    name: 'sb',
+    time: 86,
+    date: '2016-12-08'
+  };
 
-  expect(addHighScore('hard', 'sb', 86, '2016-12-08', HSBefore)).toEqual(action);
+  expect(addHighScore(newHS, HSBefore)).toEqual(action);
 });
 
 test('addHighScore (add first, not full): should return an ADD_HS action with an updated highscores object', () => {
@@ -395,8 +448,14 @@ test('addHighScore (add first, not full): should return an ADD_HS action with an
     ]
   });
   const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
+  const newHS = {
+    mode: 'hard',
+    name: 'sb',
+    time: 32,
+    date: '2016-12-08'
+  };
 
-  expect(addHighScore('hard', 'sb', 32, '2016-12-08', HSBefore)).toEqual(action);
+  expect(addHighScore(newHS, HSBefore)).toEqual(action);
 });
 
 
@@ -421,6 +480,12 @@ test('addHighScore (add first, already full): should return an ADD_HS action wit
     ]
   });
   const action = Object.freeze({ type: ADD_HS, highScores: HSAfter });
+  const newHS = {
+    mode: 'hard',
+    name: 'sb',
+    time: 32,
+    date: '2016-12-08'
+  };
 
-  expect(addHighScore('hard', 'sb', 32, '2016-12-08', HSBefore)).toEqual(action);
+  expect(addHighScore(newHS, HSBefore)).toEqual(action);
 });

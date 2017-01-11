@@ -16,13 +16,13 @@ class AddHSForm extends React.Component {
   }
   handleAddHSClick() {
     const date = new Date().toJSON().slice(0, 10);
-    this.props.dispatch(addHighScore(
-      this.props.mode,
-      this.state.name,
-      this.props.time,
-      date,
-      this.props.highScores
-    ));
+    const newHS = {
+      mode: this.props.mode,
+      name: this.state.name,
+      time: this.props.time,
+      date
+    };
+    this.props.dispatch(addHighScore(newHS, this.props.highScores));
     this.props.closeDialog();
   }
   render() {

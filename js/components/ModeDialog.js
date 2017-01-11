@@ -25,13 +25,28 @@ class ModeDialog extends React.Component {
     this.pushNewMode = this.pushNewMode.bind(this);
   }
   setLocalEasyMode() {
-    this.setState({ mode: 'easy' });
+    this.setState({
+      mode: 'easy',
+      width: 9,
+      height: 9,
+      bombs: 10
+    });
   }
   setLocalMediumMode() {
-    this.setState({ mode: 'medium' });
+    this.setState({
+      mode: 'medium',
+      width: 16,
+      height: 16,
+      bombs: 40
+    });
   }
   setLocalHardMode() {
-    this.setState({ mode: 'hard' });
+    this.setState({
+      mode: 'hard',
+      width: 30,
+      height: 16,
+      bombs: 99
+    });
   }
   setLocalCustomMode() {
     this.setState({ mode: 'custom' });
@@ -77,12 +92,7 @@ class ModeDialog extends React.Component {
     this.props.closeDialog();
   }
   pushNewMode() {
-    this.props.dispatch(setMode(
-      this.state.mode,
-      this.state.width,
-      this.state.height,
-      this.state.bombs
-    ));
+    this.props.dispatch(setMode(this.state));
     this.props.closeDialog();
   }
   render() {

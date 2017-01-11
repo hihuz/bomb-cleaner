@@ -28,7 +28,13 @@ test('RESET_GAME : should return the grid passed in the action', () => {
 
 test('SET_MODE : should return the grid passed in the action', () => {
   const stateBefore = Object.freeze(fillGrid(0, CreateGrid(10, 10, 25)));
-  const action = setMode('hard');
+  const config = {
+    mode: 'hard',
+    width: 30,
+    height: 16,
+    bombs: 99
+  };
+  const action = setMode(config);
   expect(gridReducer(stateBefore, action)).toEqual(action.grid);
 });
 
