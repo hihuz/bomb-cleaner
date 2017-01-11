@@ -32,10 +32,3 @@ render(
   </Provider>,
   document.getElementById('app')
 );
-
-
-/* ///////////
-   // TODO  //
-   /////////// */
-// -> try to fix performance for first click on huge boards / long frames on chrome timeline
-// -> try to figure out if my functionnal components that declare functions should be converted

@@ -19,38 +19,35 @@ class Cell extends React.Component {
   }
 
   leftClick(e) {
+    const { handleLeftClick, index, value } = this.props;
     e.preventDefault();
-    if (this.props.handleLeftClick) {
-      this.props.handleLeftClick(
-        this.props.index,
-        this.props.value
-      );
-    }
+    if (handleLeftClick) { handleLeftClick(index, value); }
   }
   rightClick(e) {
+    const { handleRightClick, index } = this.props;
     e.preventDefault();
-    if (this.props.handleRightClick) { this.props.handleRightClick(this.props.index); }
+    if (handleRightClick) { handleRightClick(index); }
   }
   render() {
+    const { value, opened, flagged } = this.props;
     const styles = {
-      color: this.props.value !== 'X' &&
-             this.props.value !== ' ' &&
-             this.props.opened ? this.colors[this.props.value] : this.colors[0]
+      color: value !== 'X' &&
+             value !== ' ' &&
+             opened ? this.colors[value] : this.colors[0]
     };
     return (
       <div
-        className={`cell${this.props.opened ? ' opened' : ''}${this.props.value === 'X' && this.props.opened ? ' bomb' : ''}`}
+        className={`cell${opened ? ' opened' : ''}${value === 'X' && opened ? ' bomb' : ''}`}
         onClick={this.leftClick}
         onContextMenu={this.rightClick}
         style={styles}
       >
-        {this.props.opened && this.props.value !== 'X' ? this.props.value : ' '}
-        {this.props.opened && this.props.value === 'X' ? <i className="icon-bomb cell-icon" /> : ''}
-        {this.props.flagged && !this.props.opened ? <i className="icon-flag cell-icon" /> : ''}
+        {opened && value !== 'X' ? value : ' '}
+        {opened && value === 'X' ? <i className="icon-bomb cell-icon" /> : ''}
+        {flagged && !opened ? <i className="icon-flag cell-icon" /> : ''}
       </div>
     );
   }
 }
-
 
 export default Cell;
