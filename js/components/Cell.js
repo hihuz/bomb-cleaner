@@ -1,30 +1,56 @@
 import React from 'react';
 
-const Cell = ({ handleLeftClick, handleRightClick, index, opened, flagged, value }) => {
-  const colors = ['#000', '#0100fe', '#017f01', '#fe0000', '#010080', '#810102', '#008081', '#000', '#808080'];
-  const styles = {
-    color: value !== 'X' && value !== ' ' && opened ? colors[value] : colors[0]
-  };
-  function leftClick(e) {
-    e.preventDefault();
-    if (handleLeftClick) { handleLeftClick(index, value); }
+class Cell extends React.Component {
+  constructor(props) {
+    super(props);
+    this.colors = [
+      '#000',
+      '#0100fe',
+      '#017f01',
+      '#fe0000',
+      '#010080',
+      '#810102',
+      '#008081',
+      '#000',
+      '#808080'
+    ];
+    this.leftClick = this.leftClick.bind(this);
+    this.rightClick = this.rightClick.bind(this);
   }
-  function rightClick(e) {
+
+  leftClick(e) {
     e.preventDefault();
-    if (handleRightClick) { handleRightClick(index); }
+    if (this.props.handleLeftClick) {
+      this.props.handleLeftClick(
+        this.props.index,
+        this.props.value
+      );
+    }
   }
-  return (
-    <div
-      className={`cell${opened ? ' opened' : ''}${value === 'X' && opened ? ' bomb' : ''}`}
-      onClick={leftClick}
-      onContextMenu={rightClick}
-      style={styles}
-    >
-      {opened && value !== 'X' ? value : ' '}
-      {opened && value === 'X' ? <i className="icon-bomb cell-icon" /> : ''}
-      {flagged && !opened ? <i className="icon-flag cell-icon" /> : ''}
-    </div>
-  );
-};
+  rightClick(e) {
+    e.preventDefault();
+    if (this.props.handleRightClick) { this.props.handleRightClick(this.props.index); }
+  }
+  render() {
+    const styles = {
+      color: this.props.value !== 'X' &&
+             this.props.value !== ' ' &&
+             this.props.opened ? this.colors[this.props.value] : this.colors[0]
+    };
+    return (
+      <div
+        className={`cell${this.props.opened ? ' opened' : ''}${this.props.value === 'X' && this.props.opened ? ' bomb' : ''}`}
+        onClick={this.leftClick}
+        onContextMenu={this.rightClick}
+        style={styles}
+      >
+        {this.props.opened && this.props.value !== 'X' ? this.props.value : ' '}
+        {this.props.opened && this.props.value === 'X' ? <i className="icon-bomb cell-icon" /> : ''}
+        {this.props.flagged && !this.props.opened ? <i className="icon-flag cell-icon" /> : ''}
+      </div>
+    );
+  }
+}
+
 
 export default Cell;
