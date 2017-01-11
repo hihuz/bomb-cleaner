@@ -64,7 +64,6 @@ function setMode(config) {
 
 // this is a bit ugly, try to refactor later
 function addHighScore(newHS, highScores) {
-  //mode, name, time, date
   const { mode, name, time, date } = newHS;
   let index;
   const curHS = highScores[mode];
