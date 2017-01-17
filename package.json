@@ -11,7 +11,8 @@
     "dev": "webpack-dev-server --env.dev",
     "test": "jest",
     "update-test": "jest -u",
-    "cover": "npm run test -- --coverage"
+    "cover": "npm run test -- --coverage",
+    "coveralls": "npm run cover -- cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "lodash": "^4.17.4",
@@ -30,6 +31,7 @@
     "babel-preset-es2017": "6.16.0",
     "babel-preset-react": "6.16.0",
     "babel-register": "^6.18.0",
+    "coveralls": "^2.11.15",
     "css-loader": "^0.26.1",
     "enzyme": "^2.7.0",
     "enzyme-to-json": "^1.3.0",

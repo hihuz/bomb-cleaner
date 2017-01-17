@@ -1,7 +1,10 @@
-# Mine-Sweeper feat. React & Redux
-Sample app built with React and Redux
+[![Build Status](https://travis-ci.org/hihuz/mine-sweeper.svg?branch=master)](https://travis-ci.org/hihuz/mine-sweeper)
+[![Coverage Status](https://coveralls.io/repos/github/hihuz/mine-sweeper/badge.svg?branch=master)](https://coveralls.io/github/hihuz/mine-sweeper?branch=master)
 
-#### Project should be available through gh-pages with a minified bundle:
+# Mine-Sweeper feat. React & Redux
+Mine-Sweeper clone built with React and Redux
+
+#### Project is available through gh-pages with a minified bundle:
 https://hihuz.github.io/mine-sweeper/
 
 #### To run it locally, you can:
