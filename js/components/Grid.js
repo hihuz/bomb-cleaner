@@ -10,18 +10,18 @@ class Grid extends React.Component {
     this.handleRightClick = this.handleRightClick.bind(this);
   }
   handleLeftClick(index, value) {
-    const { grid, dispatch, status } = this.props;
+    const { grid, status, dispatchInitGame, dispatchOpenBomb, dispatchOpenCell } = this.props;
     if (status === 'init') {
-      dispatch(initGame(index, grid));
+      dispatchInitGame(index, grid);
     } else if (value === 'X') {
-      dispatch(openBomb(index, grid));
+      dispatchOpenBomb(index, grid);
     } else {
-      dispatch(openCell(index, grid));
+      dispatchOpenCell(index, grid);
     }
   }
   handleRightClick(index) {
-    const { grid, dispatch } = this.props;
-    dispatch(toggleFlag(index, grid));
+    const { grid, dispatchToggleFlag } = this.props;
+    dispatchToggleFlag(index, grid);
   }
   render() {
     const { grid, status } = this.props;
@@ -49,5 +49,12 @@ class Grid extends React.Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  dispatchInitGame: (index, grid) => dispatch(initGame(index, grid)),
+  dispatchOpenBomb: (index, grid) => dispatch(openBomb(index, grid)),
+  dispatchOpenCell: (index, grid) => dispatch(openCell(index, grid)),
+  dispatchToggleFlag: (index, grid) => dispatch(toggleFlag(index, grid))
+});
+
 export const Plain = Grid;
-export default connect()(Grid);
+export default connect(null, mapDispatchToProps)(Grid);

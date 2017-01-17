@@ -7,9 +7,9 @@ class ModeDialog extends React.Component {
     super(props);
     this.state = {
       mode: this.props.mode,
-      width: '9',
-      height: '9',
-      bombs: '10'
+      width: this.props.width,
+      height: this.props.height,
+      bombs: this.props.bombs
     };
     this.handleCloseClick = this.handleCloseClick.bind(this);
     this.setLocalEasyMode = this.setLocalEasyMode.bind(this);
@@ -150,7 +150,12 @@ class ModeDialog extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ mode: state.mode });
+const mapStateToProps = state => ({
+  mode: state.mode,
+  width: state.grid.width,
+  height: state.grid.height,
+  bombs: state.grid.bombs
+});
 
 export const Plain = ModeDialog;
 export default connect(mapStateToProps)(ModeDialog);

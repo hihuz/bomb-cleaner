@@ -4,7 +4,7 @@ import { shallowToJson } from 'enzyme-to-json';
 import { Plain } from './Grid';
 import Cell from './Cell';
 
-function makeTestGrid(size = 20, status = 'running', flagged = false, opened = false) {
+function makeTestGrid(size = 20, status = 'running', flagged = false, opened = false, dispatch = {}) {
   const testGridProp = {
     width: 1,
     height: 1,
@@ -15,7 +15,11 @@ function makeTestGrid(size = 20, status = 'running', flagged = false, opened = f
       value: 2
     }))
   };
-  return shallow(<Plain grid={testGridProp} status={status} />);
+  return shallow(<Plain
+    grid={testGridProp}
+    status={status}
+    {...dispatch}
+  />);
 }
 
 test('Snapshot', () => {
@@ -74,4 +78,76 @@ test('Should NOT pass handleLeftClick/handleRightClick if the game is lost', () 
   const childProps = child.props();
   expect(childProps.handleLeftClick).toBeUndefined();
   expect(childProps.handleRightClick).toBeUndefined();
+});
+
+test('handleLeftClickMethod should dispatch initGame when status is init', () => {
+  const initFunc = jest.fn();
+  const cellFunc = jest.fn();
+  const bombFunc = jest.fn();
+  const toggleFunc = jest.fn();
+  const component = makeTestGrid(20, 'init', false, false, {
+    dispatchInitGame: initFunc,
+    dispatchOpenCell: cellFunc,
+    dispatchOpenBomb: bombFunc,
+    dispatchToggleFlag: toggleFunc
+  });
+  component.instance().handleLeftClick(0, '1');
+  expect(initFunc).toHaveBeenCalledTimes(1);
+  expect(cellFunc).toHaveBeenCalledTimes(0);
+  expect(bombFunc).toHaveBeenCalledTimes(0);
+  expect(toggleFunc).toHaveBeenCalledTimes(0);
+});
+
+test('handleLeftClickMethod should dispatch openCell when value is not X', () => {
+  const initFunc = jest.fn();
+  const cellFunc = jest.fn();
+  const bombFunc = jest.fn();
+  const toggleFunc = jest.fn();
+  const component = makeTestGrid(20, 'running', false, false, {
+    dispatchInitGame: initFunc,
+    dispatchOpenCell: cellFunc,
+    dispatchOpenBomb: bombFunc,
+    dispatchToggleFlag: toggleFunc
+  });
+  component.instance().handleLeftClick(0, ' ');
+  expect(initFunc).toHaveBeenCalledTimes(0);
+  expect(cellFunc).toHaveBeenCalledTimes(1);
+  expect(bombFunc).toHaveBeenCalledTimes(0);
+  expect(toggleFunc).toHaveBeenCalledTimes(0);
+});
+
+test('handleLeftClickMethod should dispatch openBomb when value is X', () => {
+  const initFunc = jest.fn();
+  const cellFunc = jest.fn();
+  const bombFunc = jest.fn();
+  const toggleFunc = jest.fn();
+  const component = makeTestGrid(20, 'running', false, false, {
+    dispatchInitGame: initFunc,
+    dispatchOpenCell: cellFunc,
+    dispatchOpenBomb: bombFunc,
+    dispatchToggleFlag: toggleFunc
+  });
+  component.instance().handleLeftClick(0, 'X');
+  expect(initFunc).toHaveBeenCalledTimes(0);
+  expect(cellFunc).toHaveBeenCalledTimes(0);
+  expect(bombFunc).toHaveBeenCalledTimes(1);
+  expect(toggleFunc).toHaveBeenCalledTimes(0);
+});
+
+test('handleRightClickMethod should dispatch toggleFlag', () => {
+  const initFunc = jest.fn();
+  const cellFunc = jest.fn();
+  const bombFunc = jest.fn();
+  const toggleFunc = jest.fn();
+  const component = makeTestGrid(20, 'running', false, false, {
+    dispatchInitGame: initFunc,
+    dispatchOpenCell: cellFunc,
+    dispatchOpenBomb: bombFunc,
+    dispatchToggleFlag: toggleFunc
+  });
+  component.instance().handleRightClick(0, '4');
+  expect(initFunc).toHaveBeenCalledTimes(0);
+  expect(cellFunc).toHaveBeenCalledTimes(0);
+  expect(bombFunc).toHaveBeenCalledTimes(0);
+  expect(toggleFunc).toHaveBeenCalledTimes(1);
 });
