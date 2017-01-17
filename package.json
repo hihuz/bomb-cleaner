@@ -12,7 +12,7 @@
     "test": "jest",
     "update-test": "jest -u",
     "cover": "npm run test -- --coverage",
-    "coveralls": "npm run cover -- cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "lodash": "^4.17.4",
