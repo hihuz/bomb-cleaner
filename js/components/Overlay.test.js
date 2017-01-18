@@ -20,6 +20,27 @@ test('Should call the closeDialog prop when the overlay is clicked', () => {
   expect(clickFn).toHaveBeenCalledTimes(1);
 });
 
+test('Should NOT call the closeDialog prop when the modal is clicked', () => {
+  const clickFn = jest.fn();
+  const component = shallow(<Overlay closeDialog={clickFn} />);
+  component.simulate('click', { target: 'foo', currentTarget: 'bar' });
+  expect(clickFn).toHaveBeenCalledTimes(0);
+});
+
+test('Should call the closeDialog prop when escape is pressed', () => {
+  const keyDownFn = jest.fn();
+  const component = shallow(<Overlay closeDialog={keyDownFn} />);
+  component.simulate('keyDown', { keyCode: 27, preventDefault() {} });
+  expect(keyDownFn).toHaveBeenCalledTimes(1);
+});
+
+test('Should NOT call the closeDialog prop when another key is pressed', () => {
+  const keyDownFn = jest.fn();
+  const component = shallow(<Overlay closeDialog={keyDownFn} />);
+  component.simulate('keyDown', { keyCode: 40, preventDefault() {} });
+  expect(keyDownFn).toHaveBeenCalledTimes(0);
+});
+
 test('Should not render any dialog component if dialogOpened props is false', () => {
   const component = shallow(<Overlay dialogOpened={false} />);
   expect(component.find('.dialog').children('div').length).toEqual(0);

@@ -63,26 +63,26 @@ class ModeDialog extends React.Component {
   verifyWidthValue(e) {
     const value = Number(e.target.value);
     if (isNaN(value) || value < 9) {
-      this.setState({ width: '9' });
+      this.setState({ width: 9 });
     } else if (value > 24) {
-      this.setState({ width: '24' });
+      this.setState({ width: 24 });
     }
   }
   verifyHeightValue(e) {
     const value = Number(e.target.value);
     if (isNaN(value) || value < 9) {
-      this.setState({ height: '9' });
+      this.setState({ height: 9 });
     } else if (value > 30) {
-      this.setState({ height: '30' });
+      this.setState({ height: 30 });
     }
   }
   verifyBombsValue(e) {
     const value = Number(e.target.value);
     const size = this.state.width * this.state.height;
     if (isNaN(value) || value < 10) {
-      this.setState({ bombs: '10' });
-    } else if (value > 668) {
-      this.setState({ bombs: '668' });
+      this.setState({ bombs: 10 });
+    } else if (value > 668 && size > 668) {
+      this.setState({ bombs: 668 });
     } else if (value >= size) {
       this.setState({ bombs: size - 1 });
     }
@@ -101,10 +101,26 @@ class ModeDialog extends React.Component {
         <button className="dialog-close" onClick={this.handleCloseClick}>
           <i className="icon-close" />
         </button>
-        <button className="mode-dialog-button" disabled={this.state.mode === 'easy'} onClick={this.setLocalEasyMode}>Easy</button>
-        <button className="mode-dialog-button" disabled={this.state.mode === 'medium'} onClick={this.setLocalMediumMode}>Medium</button>
-        <button className="mode-dialog-button" disabled={this.state.mode === 'hard'} onClick={this.setLocalHardMode}>Hard</button>
-        <button className="mode-dialog-button" disabled={this.state.mode === 'custom'} onClick={this.setLocalCustomMode}>Custom:</button>
+        <button
+          className="mode-dialog-button"
+          disabled={this.state.mode === 'easy'}
+          onClick={this.setLocalEasyMode}
+        >Easy</button>
+        <button
+          className="mode-dialog-button"
+          disabled={this.state.mode === 'medium'}
+          onClick={this.setLocalMediumMode}
+        >Medium</button>
+        <button
+          className="mode-dialog-button"
+          disabled={this.state.mode === 'hard'}
+          onClick={this.setLocalHardMode}
+        >Hard</button>
+        <button
+          className="mode-dialog-button"
+          disabled={this.state.mode === 'custom'}
+          onClick={this.setLocalCustomMode}
+        >Custom:</button>
         <div>
           <label htmlFor="width-input">Width (9-24): </label>
           <input
