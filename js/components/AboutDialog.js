@@ -6,10 +6,10 @@ const AboutDialog = ({ closeDialog }) => (
       <i className="icon-close" />
     </button>
     <p>
-      This is a MineSweeper game implemented with React and Redux.
+      This is a Mine Sweeper game built with React and Redux.
       <br />
       <br />
-      You can play it in the same way as the original MineSweeper.
+      You can play it in the same way as the original Mine Sweeper.
     </p>
     <ul>
       <li>Left Click to open a tile</li>
