@@ -1,7 +1,7 @@
 {
-  "name": "mine-sweeper",
+  "name": "bomb-cleaner",
   "version": "1.0.0",
-  "description": "mine sweeper app built with react and redux",
+  "description": "mine sweeper clone built with react and redux",
   "main": "index.js",
   "scripts": {
     "lint": "eslint js/**/*.js webpack.config.js",
