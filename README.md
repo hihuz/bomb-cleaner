@@ -1,11 +1,11 @@
-[![Build Status](https://travis-ci.org/hihuz/mine-sweeper.svg?branch=master)](https://travis-ci.org/hihuz/mine-sweeper)
-[![Coverage Status](https://coveralls.io/repos/github/hihuz/mine-sweeper/badge.svg?branch=master)](https://coveralls.io/github/hihuz/mine-sweeper?branch=master)
+[![Build Status](https://travis-ci.org/hihuz/bomb-cleaner.svg?branch=master)](https://travis-ci.org/hihuz/bomb-cleaner)
+[![Coverage Status](https://coveralls.io/repos/github/hihuz/bomb-cleaner/badge.svg?branch=master)](https://coveralls.io/github/hihuz/bomb-cleaner?branch=master)
 
-# Mine-Sweeper feat. React & Redux
+# Bomb-Cleaner feat. React & Redux
 Mine-Sweeper clone built with React and Redux
 
-#### Project is available through gh-pages with a minified bundle:
-https://hihuz.github.io/mine-sweeper/
+#### You can play the game here:
+https://hihuz.github.io/bomb-cleaner/
 
 #### To run it locally, you can:
 * Clone the repo
