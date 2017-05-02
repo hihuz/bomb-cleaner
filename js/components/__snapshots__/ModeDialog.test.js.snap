@@ -33,7 +33,7 @@ exports[`test Snapshot 1`] = `
   <div>
     <label
       htmlFor="width-input">
-      Width (9-24): 
+      Width (9-30): 
     </label>
     <input
       className="mode-input"

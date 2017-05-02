@@ -130,7 +130,7 @@ test('Bluring width-input value should call verifyWidthValue and validate the in
   input.simulate('blur', { target: { value: 3 } });
   expect(component.state('width')).toEqual(9);
   input.simulate('blur', { target: { value: 35 } });
-  expect(component.state('width')).toEqual(24);
+  expect(component.state('width')).toEqual(30);
 });
 
 test('Bluring height-input value should call verifyHeightValue and validate the input', () => {
