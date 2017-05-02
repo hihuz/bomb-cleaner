@@ -65,7 +65,7 @@ class ModeDialog extends React.Component {
     if (isNaN(value) || value < 9) {
       this.setState({ width: 9 });
     } else if (value > 24) {
-      this.setState({ width: 24 });
+      this.setState({ width: 30 });
     }
   }
   verifyHeightValue(e) {
@@ -122,7 +122,7 @@ class ModeDialog extends React.Component {
           onClick={this.setLocalCustomMode}
         >Custom:</button>
         <div>
-          <label htmlFor="width-input">Width (9-24): </label>
+          <label htmlFor="width-input">Width (9-30): </label>
           <input
             className="mode-input"
             maxLength="2"
